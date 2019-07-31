@@ -1,5 +1,5 @@
 //
-//  WeatherListTableViewCell.swift
+//  WeatherListSettingTableViewCell.swift
 //  WeatherAPP
 //
 //  Created by hyeri kim on 31/07/2019.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WeatherListTableViewCell: UITableViewCell {
+class WeatherListSettingTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,5 +23,4 @@ class WeatherListTableViewCell: UITableViewCell {
     
 }
 
-extension WeatherListTableViewCell: CellReusable {}
-extension WeatherListTableViewCell: NibLoadable {}
+extension 
