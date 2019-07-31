@@ -23,4 +23,5 @@ class WeatherListSettingTableViewCell: UITableViewCell {
     
 }
 
-extension 
+extension WeatherListSettingTableViewCell: CellReusable {}
+extension WeatherListSettingTableViewCell: NibLoadable {}

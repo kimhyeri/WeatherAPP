@@ -15,6 +15,7 @@ class WeatherListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
+        registerNib()
         
     }
     
@@ -22,10 +23,22 @@ class WeatherListViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-        let weatherListCellNib = UINib(nibName: WeatherListTableViewCell.nibName, bundle: nil)
-        tableView.register(weatherListCellNib, forCellReuseIdentifier: WeatherListTableViewCell.reuseIdentifier)
     }
-
+    
+    private func registerNib() {
+        let weatherListCellNib = UINib(nibName: WeatherListTableViewCell.nibName, 
+                                       bundle: nil
+        )
+        tableView.register(weatherListCellNib,
+                           forCellReuseIdentifier: WeatherListTableViewCell.reuseIdentifier
+        )
+        let weatherListSettingCellNib = UINib(nibName: WeatherListSettingTableViewCell.nibName, 
+                                              bundle: nil
+        )
+        tableView.register(weatherListSettingCellNib,
+                           forCellReuseIdentifier: WeatherListSettingTableViewCell.reuseIdentifier
+        )
+    }
 }
 
 // MARK: TableView Deleagate and DataSource
@@ -37,8 +50,26 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListTableViewCell.reuseIdentifier) as? WeatherListTableViewCell else { return UITableViewCell() }
-        return cell
+        var cellType: WeatherList
+        
+        if indexPath.row == 4 {
+            cellType = .setting
+        } else {
+            cellType = .city
+        }
+        
+        switch cellType {
+        case .city:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListTableViewCell.reuseIdentifier) as? WeatherListTableViewCell else { 
+                return UITableViewCell() 
+            }
+            return cell
+        case .setting:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListSettingTableViewCell.reuseIdentifier) as? WeatherListSettingTableViewCell else { 
+                return UITableViewCell() 
+            }
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
