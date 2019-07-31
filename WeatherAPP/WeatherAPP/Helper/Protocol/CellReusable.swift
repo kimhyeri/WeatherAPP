@@ -15,3 +15,9 @@ extension CellReusable where Self: UITableViewCell {
         return "Cell"
     }
 }
+
+extension CellReusable where Self: WeatherListSettingTableViewCell {
+    static var reuseIdentifier: String {
+        return "SettingCell"
+    }
+}
