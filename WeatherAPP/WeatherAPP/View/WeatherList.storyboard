@@ -99,6 +99,7 @@
                     </view>
                     <connections>
                         <outlet property="searchBar" destination="rZR-dM-MtJ" id="AlL-Zn-C5l"/>
+                        <outlet property="tableView" destination="OVG-7F-rKn" id="CfU-Qe-6i9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aM8-sl-wjG" userLabel="First Responder" sceneMemberID="firstResponder"/>
