@@ -15,7 +15,7 @@ class WeatherListViewController: UIViewController {
     
     var locManager = CLLocationManager()
     var currentLocation: CLLocation!
-    private var weather = [WeatherInfo]() {
+    private var weather:[WeatherInfo] = [WeatherInfo]() {
         didSet {
             DispatchQueue.main.sync {
                 tableView.reloadData()
@@ -27,7 +27,6 @@ class WeatherListViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         registerNib()
-//        requestWeather()
         getCoordinate()
     }
     
@@ -133,6 +132,6 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Current Weather
+        
     }
 }
