@@ -105,13 +105,13 @@ class WeatherListViewController: UIViewController {
 extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weather.count
+        return weather.count + 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cellType: WeatherList
         
-        if indexPath.row == 4 {
+        if indexPath.row == weather.count  {
             cellType = .setting
         } else {
             cellType = .city

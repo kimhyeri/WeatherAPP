@@ -21,6 +21,13 @@ class WeatherListSettingTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func findCityButtonClicked(_ sender: UIButton) {
+        let st = UIStoryboard.init(name: "WeatherList", bundle: nil)
+        guard let vc = st.instantiateViewController(withIdentifier: "SearchCitiesViewController") as? SearchCitiesViewController else {
+            return 
+        }
+        self.window?.rootViewController?.present(vc, animated: true, completion: nil)
+    }
 }
 
 extension WeatherListSettingTableViewCell: CellReusable {}

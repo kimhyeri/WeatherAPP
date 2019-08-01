@@ -25,12 +25,15 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="beC-No-yuB">
                                 <rect key="frame" x="0.0" y="0.0" width="288" height="30.5"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBR-bO-HGe">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBR-bO-HGe">
                                         <rect key="frame" x="0.0" y="0.0" width="140" height="30.5"/>
                                         <state key="normal" title="℃ / ℉"/>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGY-E6-dcX">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGY-E6-dcX">
                                         <rect key="frame" x="148" y="0.0" width="140" height="30.5"/>
+                                        <connections>
+                                            <action selector="findCityButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Kcx-tT-mGh"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                             </stackView>
