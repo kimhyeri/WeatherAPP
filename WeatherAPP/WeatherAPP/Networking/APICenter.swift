@@ -23,6 +23,7 @@ struct HTTPHeader {
     let value: String
 }
 
+// MARK: APICenter
 struct APICenter {
     typealias APIClientCompletion = (APIResult<Data?>) -> Void
     
