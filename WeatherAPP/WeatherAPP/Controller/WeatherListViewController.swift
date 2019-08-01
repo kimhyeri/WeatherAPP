@@ -16,7 +16,27 @@ class WeatherListViewController: UIViewController {
         super.viewDidLoad()
         setupTableView()
         registerNib()
+        requestWeather()
         
+    }
+    
+    private func requestWeather() {
+
+        let request = APIRequest(method: .get)
+//        let request = APIRequest(method: .get, path: "posts")
+
+        APICenter().perform(urlString: "https://api.openweathermap.org/data/2.5/weather?q=London&appid=20aaa3701000f86f51903b62779c4986",
+                            request: request) { (result) in
+                                switch result {
+                                case .success(let response):        
+                                    if let response = try? response.decode(to: WeatherInfo.self) {
+                                        let data = response.body
+                                        print(data)
+                                    }
+                                case .failure:
+                                    print("Error perform network request")
+                                }
+        }
     }
     
     private func setupTableView() {
