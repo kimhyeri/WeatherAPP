@@ -13,11 +13,46 @@
         <!--Current View Controller-->
         <scene sceneID="IE6-fX-7s3">
             <objects>
-                <viewController id="TSM-mj-tCy" customClass="CurrentViewController" customModule="WeatherAPP" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CurrentViewController" id="TSM-mj-tCy" customClass="CurrentViewController" customModule="WeatherAPP" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tpr-GO-ldt">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0rz-z2-PM6">
+                                <rect key="frame" x="0.0" y="779" width="414" height="83"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <tabBarItem systemItem="favorites" id="hMq-oc-Td6"/>
+                                    <tabBarItem title="Item" id="mDj-rV-n4t"/>
+                                    <tabBarItem systemItem="more" id="ege-qt-iXH"/>
+                                </items>
+                            </tabBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aMB-g8-tur">
+                                <rect key="frame" x="0.0" y="44" width="414" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="bbi-1c-ZtO"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="brr-ny-Pzd">
+                                <rect key="frame" x="0.0" y="244" width="414" height="535"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="brr-ny-Pzd" firstAttribute="top" secondItem="aMB-g8-tur" secondAttribute="bottom" id="2MW-Sr-Ek5"/>
+                            <constraint firstItem="aMB-g8-tur" firstAttribute="top" secondItem="6kO-wf-CLJ" secondAttribute="top" id="33W-H9-hhb"/>
+                            <constraint firstItem="6kO-wf-CLJ" firstAttribute="bottom" secondItem="0rz-z2-PM6" secondAttribute="bottom" id="44o-Aq-BWC"/>
+                            <constraint firstItem="6kO-wf-CLJ" firstAttribute="trailing" secondItem="aMB-g8-tur" secondAttribute="trailing" id="Rhn-jn-1Gq"/>
+                            <constraint firstItem="0rz-z2-PM6" firstAttribute="top" secondItem="brr-ny-Pzd" secondAttribute="bottom" id="Skm-nL-TI3"/>
+                            <constraint firstItem="brr-ny-Pzd" firstAttribute="leading" secondItem="6kO-wf-CLJ" secondAttribute="leading" id="TkE-id-Tt9"/>
+                            <constraint firstItem="0rz-z2-PM6" firstAttribute="leading" secondItem="tpr-GO-ldt" secondAttribute="leading" id="V2d-6s-79X"/>
+                            <constraint firstItem="aMB-g8-tur" firstAttribute="leading" secondItem="6kO-wf-CLJ" secondAttribute="leading" id="ooJ-Wg-ygG"/>
+                            <constraint firstItem="0rz-z2-PM6" firstAttribute="top" secondItem="brr-ny-Pzd" secondAttribute="bottom" id="rX3-Da-UG9"/>
+                            <constraint firstItem="6kO-wf-CLJ" firstAttribute="trailing" secondItem="0rz-z2-PM6" secondAttribute="trailing" id="v6L-ys-zq3"/>
+                            <constraint firstItem="6kO-wf-CLJ" firstAttribute="trailing" secondItem="brr-ny-Pzd" secondAttribute="trailing" id="ymE-Xf-TPO"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6kO-wf-CLJ"/>
                     </view>
                 </viewController>

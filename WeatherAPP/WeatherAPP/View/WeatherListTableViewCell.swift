@@ -27,10 +27,16 @@ class WeatherListTableViewCell: UITableViewCell {
     
     func config(weatherData: WeatherInfo) {
         cityNameLabel.text = weatherData.name
-        timeLabel.text = "\(weatherData.timezone)"
-        temperatureLabel.text = "\(weatherData.main.temp)"
+        timeLabel.text = timeConverter(country: weatherData.sys.country)
+        temperatureLabel.text = "\(weatherData.main.temp)º"
     }
     
+    func timeConverter(country: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: country)
+        dateFormatter.dateFormat = "HH:mm"
+        return dateFormatter.string(from: Date())
+    }
 }
 
 extension WeatherListTableViewCell: CellReusable {}
