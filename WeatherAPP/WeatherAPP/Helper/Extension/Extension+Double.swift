@@ -9,11 +9,17 @@
 import Foundation
 
 extension Double {
-    func CelsiusToFahrenheit() -> Double {
+    func celsiusToFahrenheit() -> Double {
         return (self * 1.8) + 32
     }
     
-    func FahrenheitToCelsius() -> Double {
+    func fahrenheitToCelsius() -> Double {
         return (self - 32) / 1.8 
+    }
+    
+    // kelvin temperature to celsius
+    func makeCelsius() -> String {
+        let celsius = self - 273.5
+        return String(format: "%.2f", arguments: [celsius]) 
     }
 }

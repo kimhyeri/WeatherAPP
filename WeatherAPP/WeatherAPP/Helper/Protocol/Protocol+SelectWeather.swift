@@ -9,5 +9,5 @@
 import Foundation
 
 protocol SelectWeatherDelegate {
-    func selectCity(cityName: String)
+    func selectCity(cityData: NSObject)
 }
