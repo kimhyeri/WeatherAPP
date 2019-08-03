@@ -15,14 +15,14 @@ class SearchCitiesViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private let cellId: String = "Cell"
-    var selectWeatherDelegate: SelectWeatherDelegate?
-    var matchingItems: [MKMapItem] = [] {
-        didSet  {
+    var searchCompleter = MKLocalSearchCompleter()
+    var searchResults = [MKLocalSearchCompletion]() {
+        didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
-    } 
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
@@ -40,17 +40,23 @@ class SearchCitiesViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
+        searchCompleter.delegate = self
     }
     
-    private func updateSearchResults(searchBarText: String) {
-        let request = MKLocalSearch.Request()
-        request.naturalLanguageQuery = searchBarText
-        let search = MKLocalSearch(request: request)
-        search.start { response, _ in
-            guard let response = response else {
-                return
+    private func updateSearchResults(selected: MKLocalSearchCompletion) {        
+        let searchRequest = MKLocalSearch.Request(completion: selected)
+        let search = MKLocalSearch(request: searchRequest)
+        search.start { (response, error) in
+            if error != nil {
+                print(APIError.requestFailed)
+            } 
+            let coordinate = response?.mapItems.first?.placemark.coordinate
+
+            DispatchQueue.global().async {
+                let selectedCity = Notification.Name(rawValue: selectCityNotification)
+                NotificationCenter.default.post(name: selectedCity, object: coordinate)
             }
-            self.matchingItems = response.mapItems
+            self.dismiss(animated: true, completion: nil)
         }
     }
 }
@@ -58,37 +64,29 @@ class SearchCitiesViewController: UIViewController {
 // MARK: TableView Delegate and DataSource 
 extension SearchCitiesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return matchingItems.count
+        return searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) 
-        let selectedItem = matchingItems[indexPath.row].placemark
-        cell.textLabel?.text = selectedItem.name
+        cell.textLabel?.text = searchResults[indexPath.row].title
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        DispatchQueue.main.async {
-            let name = Notification.Name(rawValue: selectCityNotification)
-            NotificationCenter.default.post(name: name, object: self.matchingItems[indexPath.row])
-        }
-        self.dismiss(animated: true, completion: nil)
+        updateSearchResults(selected: searchResults[indexPath.row])
     }
 }
 
 // MARK: SearchBar Delegate
 extension SearchCitiesViewController: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//        guard let searchText = searchBar.text else {
-//            return 
-//        }
-//        guard !searchText.isEmpty else { 
-//            matchingItems.removeAll()
-//            return
-//        }
-//        updateSearchResults(searchBarText: searchText)
-//    }
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let searchText = searchBar.text, 
+            searchText.count > 0 else {
+                return 
+        } 
+        searchCompleter.queryFragment = searchText
+    }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.dismiss(animated: true, completion: nil)
@@ -99,7 +97,6 @@ extension SearchCitiesViewController: UISearchBarDelegate {
             searchText.count > 0 else {
                 return 
         } 
-        updateSearchResults(searchBarText: searchText)
         searchBar.resignFirstResponder()
     }
 }
@@ -108,5 +105,15 @@ extension SearchCitiesViewController: UISearchBarDelegate {
 extension SearchCitiesViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         self.view.endEditing(true)
+    }
+}
+
+extension SearchCitiesViewController: MKLocalSearchCompleterDelegate {
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        searchResults = completer.results
+    }
+    
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+        print(APIError.requestFailed)
     }
 }
