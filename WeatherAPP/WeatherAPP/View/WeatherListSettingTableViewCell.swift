@@ -28,6 +28,17 @@ class WeatherListSettingTableViewCell: UITableViewCell {
         }
         self.window?.rootViewController?.present(vc, animated: true, completion: nil)
     }
+    
+    @IBAction func webButtonClicked(_ sender: UIButton) {
+        guard let webURL = URL(string: BaseURL.webURL) else { 
+            return
+        }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(webURL)
+        }
+    }
 }
 
 extension WeatherListSettingTableViewCell: CellReusable {}

@@ -27,10 +27,13 @@
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cBR-bO-HGe">
                                         <rect key="frame" x="0.0" y="0.0" width="140" height="30.5"/>
-                                        <state key="normal" title="℃ / ℉"/>
+                                        <state key="normal" title="℃ / ℉">
+                                            <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGY-E6-dcX">
                                         <rect key="frame" x="148" y="0.0" width="140" height="30.5"/>
+                                        <color key="tintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <action selector="findCityButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Kcx-tT-mGh"/>
                                         </connections>
@@ -39,7 +42,12 @@
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cye-I1-5M9">
                                 <rect key="frame" x="0.0" y="38.5" width="288" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="web">
+                                    <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="webButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="8N1-zN-eeR"/>
+                                </connections>
                             </button>
                         </subviews>
                     </stackView>
