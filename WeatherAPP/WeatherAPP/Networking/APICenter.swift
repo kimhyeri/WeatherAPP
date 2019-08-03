@@ -56,6 +56,7 @@ struct APICenter {
         }
         
         print(requestURL)
+        
         let task = session.dataTask(with: requestURL) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else {
                 completion(.failure(.requestFailed))

@@ -35,7 +35,6 @@ class WeatherListViewController: UIViewController {
     private func setupTableView() {
         tableView.delegate = self
         tableView.dataSource = self
-        
     }
     
     private func registerNib() {
@@ -63,12 +62,11 @@ class WeatherListViewController: UIViewController {
     }
     
     @objc private func selectedCity(notification: NSNotification) {
-        guard let weatherData = notification.object as? MKMapItem else {
+        guard let cityCoordinate = notification.object as? CLLocationCoordinate2D else {
             return
         }
-        let cityCoordinate = weatherData.placemark.coordinate
         getWeatherByCoordinate(latitude: cityCoordinate.latitude,
-                               longitude: cityCoordinate.latitude
+                               longitude: cityCoordinate.longitude
         )
     }
     
@@ -174,6 +172,6 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard indexPath.row == weather.count - 1 else { return }
-
+        
     }
 }

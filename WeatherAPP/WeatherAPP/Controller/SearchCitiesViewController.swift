@@ -50,6 +50,7 @@ class SearchCitiesViewController: UIViewController {
             if error != nil {
                 print(APIError.requestFailed)
             } 
+            print(response?.mapItems.first)
             let coordinate = response?.mapItems.first?.placemark.coordinate
 
             DispatchQueue.global().async {
