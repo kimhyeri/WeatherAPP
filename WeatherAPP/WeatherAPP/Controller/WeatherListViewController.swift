@@ -10,15 +10,16 @@ import UIKit
 import MapKit
 
 class WeatherListViewController: UIViewController {
-
+    
     @IBOutlet weak var tableView: UITableView!
     
+    private let selectCity = Notification.Name(selectCityNotification)
     var locManager = CLLocationManager()
-    var currentLocation: CLLocation!
+    var currentLocation: CLLocation!    
     private var weather:[WeatherInfo] = [WeatherInfo]() {
         didSet {
-            DispatchQueue.main.sync {
-                tableView.reloadData()
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }    
         }
     }
@@ -28,53 +29,7 @@ class WeatherListViewController: UIViewController {
         setupTableView()
         registerNib()
         getCoordinate()
-    }
-    
-    private func getCoordinate() {
-        locManager.requestWhenInUseAuthorization()
-        let authorizationStatus = CLLocationManager.authorizationStatus()
-        
-        if authorizationStatus == CLAuthorizationStatus.authorizedWhenInUse ||
-            authorizationStatus == CLAuthorizationStatus.authorizedAlways {
-            guard let currentLocation = locManager.location else {
-                return
-            }
-            
-            let request = APIRequest(method: .get)
-            
-            APICenter().perform(urlString: "https://api.openweathermap.org/data/2.5/weather?lat=\(currentLocation.coordinate.latitude)&lon=\(currentLocation.coordinate.longitude)&appid=20aaa3701000f86f51903b62779c4986",
-                                request: request) { [weak self] (result) in
-                                    guard let self = self else { return }
-                                    switch result {
-                                    case .success(let response):        
-                                        if let response = try? response.decode(to: WeatherInfo.self) {
-                                            self.weather.append(response.body)
-                                            let data = response.body
-                                            print(data)
-                                        }
-                                    case .failure:
-                                        print("Error perform network request")
-                                    }
-            }
-        }    
-    }
-    
-    private func requestWeather() {
-
-        let request = APIRequest(method: .get)
-
-        APICenter().perform(urlString: "https://api.openweathermap.org/data/2.5/weather?q=London&appid=20aaa3701000f86f51903b62779c4986",
-                            request: request) { (result) in
-                                switch result {
-                                case .success(let response):        
-                                    if let response = try? response.decode(to: WeatherInfo.self) {
-                                        let data = response.body
-                                        print(data)
-                                    }
-                                case .failure:
-                                    print("Error perform network request")
-                                }
-        }
+        createObserver()
     }
     
     private func setupTableView() {
@@ -90,6 +45,7 @@ class WeatherListViewController: UIViewController {
         tableView.register(weatherListCellNib,
                            forCellReuseIdentifier: WeatherListTableViewCell.reuseIdentifier
         )
+        
         let weatherListSettingCellNib = UINib(nibName: WeatherListSettingTableViewCell.nibName, 
                                               bundle: nil
         )
@@ -97,10 +53,95 @@ class WeatherListViewController: UIViewController {
                            forCellReuseIdentifier: WeatherListSettingTableViewCell.reuseIdentifier
         )
     }
+    
+    private func createObserver() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(selectedCity),
+                                               name: selectCity, 
+                                               object: nil
+        )
+    }
+    
+    @objc private func selectedCity(notification: NSNotification) {
+        guard let weatherData = notification.object as? MKMapItem else {
+            return
+        }
+        let cityCoordinate = weatherData.placemark.coordinate
+        getWeatherByCoordinate(latitude: cityCoordinate.latitude,
+                               longitude: cityCoordinate.latitude
+        )
+    }
+    
+    private func getCoordinate() {
+        locManager.requestWhenInUseAuthorization()
+        let authorizationStatus = CLLocationManager.authorizationStatus()
+        
+        if authorizationStatus == CLAuthorizationStatus.authorizedWhenInUse ||
+            authorizationStatus == CLAuthorizationStatus.authorizedAlways {
+            guard let currentLocation = locManager.location else {
+                return
+            }
+            
+            getWeatherByCoordinate(latitude: currentLocation.coordinate.latitude,
+                                   longitude: currentLocation.coordinate.longitude
+            )
+        }    
+    }
+    
+    private func getWeatherByCoordinate(latitude lat: Double, longitude lon: Double) {
+        let parameters: [String: Any] = [
+            "lat" : "\(lat)",
+            "lon" : "\(lon)",
+            "appid" : "20aaa3701000f86f51903b62779c4986"
+        ]
+        
+        let request = APIRequest(method: .get, queryItems: parameters)
+        
+        APICenter().perform(urlString: BaseURL.weatherURL,
+                            request: request
+        ) { [weak self] (result) in
+            guard let self = self else { 
+                return
+            }
+            switch result {
+            case .success(let response):        
+                if let response = try? response.decode(to: WeatherInfo.self) {
+                    self.weather.append(response.body)
+                    print(response.body)
+                }
+            case .failure:
+                print(APIError.networkFailed)
+            }
+        }
+    }
+    
+    private func getWeatherByCityName(name: String) {    
+        let parameters: [String: Any] = [
+            "q" : name,
+            "appid" : "20aaa3701000f86f51903b62779c4986"
+        ]
+        
+        let request = APIRequest(method: .get, queryItems: parameters)
+        
+        APICenter().perform(urlString: BaseURL.weatherURL, 
+                            request: request
+        ) { [weak self] (result) in
+            guard let self = self else {
+                return
+            }
+            switch result {
+            case .success(let response):        
+                if let response = try? response.decode(to: WeatherInfo.self) {
+                    self.weather.append(response.body)
+                }
+            case .failure:
+                print(APIError.networkFailed)
+            }
+        }
+    }
 }
 
 // MARK: TableView Deleagate and DataSource
-
 extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -132,6 +173,7 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        guard indexPath.row == weather.count - 1 else { return }
+
     }
 }
