@@ -11,12 +11,23 @@ import Foundation
 class APIRequest {
     let method: HTTPMethod
     var path: String?
-    var queryItems: [URLQueryItem]?
+    var queryItems: [String: Any]?
     var headers: [HTTPHeader]?
     var body: Data?
     
     init(method: HTTPMethod) {
         self.method = method
+    }
+    
+    init(method: HTTPMethod, queryItems: [String: Any])  {
+        self.method = method
+        self.queryItems = queryItems
+    }
+    
+    init(method: HTTPMethod, path: String, queryItems: [String: Any]) {
+        self.method = method
+        self.path = path
+        self.queryItems = queryItems
     }
     
     init<Body: Encodable>(method: HTTPMethod, path: String, body: Body) throws {
