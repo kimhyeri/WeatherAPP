@@ -14,7 +14,15 @@ class SearchCitiesViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    var matchingItems:[MKMapItem] = [] 
+    private let cellId: String = "Cell"
+    var selectWeatherDelegate: SelectWeatherDelegate?
+    var matchingItems: [MKMapItem] = [] {
+        didSet  {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    } 
     
     override func viewWillAppear(_ animated: Bool) {
         DispatchQueue.main.async {
@@ -34,7 +42,7 @@ class SearchCitiesViewController: UIViewController {
         searchBar.delegate = self
     }
     
-    func updateSearchResults(searchBarText: String) {
+    private func updateSearchResults(searchBarText: String) {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchBarText
         let search = MKLocalSearch(request: request)
@@ -43,7 +51,6 @@ class SearchCitiesViewController: UIViewController {
                 return
             }
             self.matchingItems = response.mapItems
-            self.tableView.reloadData()
         }
     }
 }
@@ -55,22 +62,45 @@ extension SearchCitiesViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) 
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) 
         let selectedItem = matchingItems[indexPath.row].placemark
         cell.textLabel?.text = selectedItem.name
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        DispatchQueue.main.async {
+            let name = Notification.Name(rawValue: selectCityNotification)
+            NotificationCenter.default.post(name: name, object: self.matchingItems[indexPath.row])
+        }
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
 // MARK: SearchBar Delegate
 extension SearchCitiesViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard let searchText = searchBar.text else { return }
-        updateSearchResults(searchBarText: searchText)
-    }
+//    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+//        guard let searchText = searchBar.text else {
+//            return 
+//        }
+//        guard !searchText.isEmpty else { 
+//            matchingItems.removeAll()
+//            return
+//        }
+//        updateSearchResults(searchBarText: searchText)
+//    }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchText = searchBar.text, 
+            searchText.count > 0 else {
+                return 
+        } 
+        updateSearchResults(searchBarText: searchText)
+        searchBar.resignFirstResponder()
     }
 }
 
