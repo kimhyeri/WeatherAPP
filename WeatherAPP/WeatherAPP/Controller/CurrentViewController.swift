@@ -25,7 +25,6 @@ class CurrentViewController: UIViewController {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
-                self.updateUI()
             }
         }
     }
@@ -117,12 +116,16 @@ class CurrentViewController: UIViewController {
             return
         }
         cityNameLabel.text = weather.name
+        weatherStatusLabel.text = weather.weather.first?.description
     }
 }
 
 extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        guard let list = fiveDayWeatherData?.list else {
+            return 0
+        } 
+        return list.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -132,9 +135,11 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
             }
             return cell
         } else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DaysTableViewCell.daysReuseIdentifier, for: indexPath) as? DaysTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DaysTableViewCell.daysReuseIdentifier, for: indexPath) as? DaysTableViewCell, 
+                let list = fiveDayWeatherData?.list else {
                 return UITableViewCell()
             }
+            cell.config(weather: list[indexPath.row])
             return cell
         }
     }

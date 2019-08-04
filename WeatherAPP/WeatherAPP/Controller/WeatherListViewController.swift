@@ -105,11 +105,14 @@ class WeatherListViewController: UIViewController {
             guard let self = self else { 
                 return
             }
+            print(result)
             switch result {
             case .success(let response):        
                 if let response = try? response.decode(to: WeatherInfo.self) {
                     self.weather.append(response.body)
                     print(response.body)
+                } else {
+                    print(APIError.decodingFailed)
                 }
             case .failure:
                 print(APIError.networkFailed)

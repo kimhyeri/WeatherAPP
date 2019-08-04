@@ -10,6 +10,11 @@ import UIKit
 
 class DaysTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var weatherIconImageView: UIImageView!
+    @IBOutlet weak var tempMaxLabel: UILabel!
+    @IBOutlet weak var tempMinLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,6 +26,12 @@ class DaysTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func config(weather data: List) {
+        tempMaxLabel.text = "\(data.main.tempMax.makeCelsius())"
+        tempMinLabel.text = "\(data.main.tempMin.makeCelsius())"
+        dateLabel.text = data.dtTxt
+
+    }
 }
 
 extension DaysTableViewCell: CellReusable {}

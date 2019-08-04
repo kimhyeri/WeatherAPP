@@ -23,7 +23,7 @@
                         <rect key="frame" x="16" y="8" width="288" height="50.5"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="h7Z-eJ-Oqy">
-                                <rect key="frame" x="0.0" y="0.0" width="87.5" height="50.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="116.5" height="50.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="월요일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kt7-3I-KeU">
                                         <rect key="frame" x="0.0" y="0.0" width="44.5" height="50.5"/>
@@ -31,8 +31,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8G6-la-cbl">
-                                        <rect key="frame" x="66.5" y="0.0" width="21" height="50.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8G6-la-cbl">
+                                        <rect key="frame" x="66.5" y="0.0" width="50" height="50.5"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -40,7 +40,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uwY-qU-C3f">
-                                <rect key="frame" x="135" y="0.0" width="40" height="50.5"/>
+                                <rect key="frame" x="155.5" y="0.0" width="40" height="50.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="NTW-uj-0ID"/>
@@ -48,7 +48,7 @@
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="29" translatesAutoresizingMaskIntoConstraints="NO" id="M6G-5F-cvQ">
-                                <rect key="frame" x="222" y="0.0" width="66" height="50.5"/>
+                                <rect key="frame" x="234.5" y="0.0" width="53.5" height="50.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iYQ-M8-JDv">
                                         <rect key="frame" x="0.0" y="0.0" width="20" height="50.5"/>
@@ -57,7 +57,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4u-8w-4IN">
-                                        <rect key="frame" x="49" y="0.0" width="17" height="50.5"/>
+                                        <rect key="frame" x="49" y="0.0" width="4.5" height="50.5"/>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -75,6 +75,12 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="dateLabel" destination="Kt7-3I-KeU" id="ctw-Xs-fBy"/>
+                <outlet property="tempMaxLabel" destination="iYQ-M8-JDv" id="hXz-nM-KbI"/>
+                <outlet property="tempMinLabel" destination="a4u-8w-4IN" id="Bt2-5J-1IS"/>
+                <outlet property="weatherIconImageView" destination="uwY-qU-C3f" id="CZ3-hy-dmY"/>
+            </connections>
             <point key="canvasLocation" x="137.68115942028987" y="107.8125"/>
         </tableViewCell>
     </objects>
