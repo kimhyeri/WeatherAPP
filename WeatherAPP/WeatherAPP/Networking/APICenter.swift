@@ -8,6 +8,8 @@
 
 import Foundation
 
+let weatherAPIKey = "20aaa3701000f86f51903b62779c4986"
+
 // MARK: HTTPMethod
 // GET, PUT, POST, DELETE
 enum HTTPMethod: String {
@@ -42,7 +44,13 @@ struct APICenter {
         var makeURLComponent = URLComponents()
         makeURLComponent.scheme = baseURL.scheme // https
         makeURLComponent.host = baseURL.host // api.openweathermap.org
-        makeURLComponent.path = baseURL.path // /data/2.5/weather
+        
+        guard let path = request.path else {
+            completion(.failure(.invalidURL))
+            return
+        }
+        
+        makeURLComponent.path = path // /data/2.5/weather
         
         let queryItems = request.queryItems?.map({
             URLQueryItem(name: $0.key, value: "\($0.value)")
