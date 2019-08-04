@@ -17,6 +17,7 @@ class CurrentViewController: UIViewController {
     var currentWeatherData: WeatherInfo? {
         didSet {
             DispatchQueue.main.async {
+                self.tableView.reloadData()
                 self.updateUI()
             }
         }
@@ -130,9 +131,11 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrentWeatherTimesTableViewCell.timesReuseIdentifier, for: indexPath) as? CurrentWeatherTimesTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrentWeatherTimesTableViewCell.timesReuseIdentifier, for: indexPath) as? CurrentWeatherTimesTableViewCell,
+                let weatherData = currentWeatherData?.weather else {
                 return UITableViewCell()
             }
+            cell.config(weather: weatherData)
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DaysTableViewCell.daysReuseIdentifier, for: indexPath) as? DaysTableViewCell, 
