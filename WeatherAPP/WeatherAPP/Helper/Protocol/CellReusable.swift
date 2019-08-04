@@ -28,8 +28,14 @@ extension CellReusable where Self: UICollectionViewCell {
     }
 }
 
-extension CellReusable where Self: TimesCollectionViewCell {
-    static var reuseIdentifier: String {
+extension CellReusable where Self: CurrentWeatherTimesTableViewCell {
+    static var timesReuseIdentifier: String {
         return "TimesCell"
+    }
+}
+
+extension CellReusable where Self: DaysTableViewCell {
+    static var daysReuseIdentifier: String {
+        return "DaysCell"
     }
 }

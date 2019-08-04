@@ -17,14 +17,16 @@ class CurrentViewController: UIViewController {
     var currentWeatherData: WeatherInfo? {
         didSet {
             DispatchQueue.main.async {
-                self.tableView.reloadData()
                 self.updateUI()
             }
         }
     }
     var fiveDayWeatherData: FiveDayWeather? {
         didSet {
-            print(fiveDayWeatherData)
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+                self.updateUI()
+            }
         }
     }
     
@@ -55,7 +57,15 @@ class CurrentViewController: UIViewController {
         let timesNib = UINib(nibName: CurrentWeatherTimesTableViewCell.nibName, 
                              bundle: nil
         )
-        tableView.register(timesNib, forCellReuseIdentifier: CurrentWeatherTimesTableViewCell.reuseIdentifier
+        tableView.register(timesNib, 
+                           forCellReuseIdentifier: CurrentWeatherTimesTableViewCell.timesReuseIdentifier
+        )
+        
+        let daysNib = UINib(nibName: DaysTableViewCell.nibName,
+                           bundle: nil
+        )
+        tableView.register(daysNib,
+                           forCellReuseIdentifier: DaysTableViewCell.daysReuseIdentifier
         )
     }
     
@@ -112,13 +122,20 @@ class CurrentViewController: UIViewController {
 
 extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return 10
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrentWeatherTimesTableViewCell.reuseIdentifier, for: indexPath) as? CurrentWeatherTimesTableViewCell else {
-            return UITableViewCell()
+        if indexPath.row == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrentWeatherTimesTableViewCell.timesReuseIdentifier, for: indexPath) as? CurrentWeatherTimesTableViewCell else {
+                return UITableViewCell()
+            }
+            return cell
+        } else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DaysTableViewCell.daysReuseIdentifier, for: indexPath) as? DaysTableViewCell else {
+                return UITableViewCell()
+            }
+            return cell
         }
-        return cell
     }
 }
