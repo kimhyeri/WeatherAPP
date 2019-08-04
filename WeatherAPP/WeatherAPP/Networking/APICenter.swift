@@ -45,7 +45,7 @@ struct APICenter {
         makeURLComponent.path = baseURL.path // /data/2.5/weather
         
         let queryItems = request.queryItems?.map({
-            URLQueryItem(name: $0.key, value: "\($0.value)" )
+            URLQueryItem(name: $0.key, value: "\($0.value)")
         })
 
         makeURLComponent.queryItems = queryItems

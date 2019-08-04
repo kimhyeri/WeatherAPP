@@ -11,11 +11,14 @@ import UIKit
 class CurrentViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var cityNameLabel: UILabel!
+    @IBOutlet weak var weatherStatusLabel: UILabel!
     
     var currentWeatherData: WeatherInfo? {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
+                self.updateUI()
             }
         }
     }
@@ -40,7 +43,11 @@ class CurrentViewController: UIViewController {
         )
     }
     
-    @IBAction func webButtonClicked(_ sender: Any) {
+    @IBAction func listButtonClicked(_ sender: UIButton) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func webButtonClicked(_ sender: UIButton) {
         guard let webURL = URL(string: BaseURL.webURL) else { 
             return
         }
@@ -49,6 +56,13 @@ class CurrentViewController: UIViewController {
         } else {
             UIApplication.shared.openURL(webURL)
         }
+    }
+    
+    private func updateUI() {
+        guard let weather = currentWeatherData else {
+            return
+        }
+        cityNameLabel.text = weather.name
     }
 }
 

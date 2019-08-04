@@ -29,16 +29,16 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="100"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="N5P-EN-V6r">
-                                        <rect key="frame" x="180" y="23" width="54.5" height="54"/>
+                                        <rect key="frame" x="182" y="-4" width="50" height="108"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="베이징" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tf4-NP-ajE">
-                                                <rect key="frame" x="0.0" y="0.0" width="54.5" height="25.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tf4-NP-ajE">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="21"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="흐림" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISj-Vo-Jvt">
-                                                <rect key="frame" x="0.0" y="33.5" width="54.5" height="20.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ISj-Vo-Jvt">
+                                                <rect key="frame" x="0.0" y="58" width="50" height="50"/>
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -78,6 +78,9 @@
                                                 <state key="normal" title="list">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="listButtonClicked:" destination="TSM-mj-tCy" eventType="touchUpInside" id="fHN-gU-g8E"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -113,7 +116,9 @@
                         <viewLayoutGuide key="safeArea" id="6kO-wf-CLJ"/>
                     </view>
                     <connections>
+                        <outlet property="cityNameLabel" destination="tf4-NP-ajE" id="1ci-uz-Nkq"/>
                         <outlet property="tableView" destination="goa-ub-30v" id="vzI-s1-Sh5"/>
+                        <outlet property="weatherStatusLabel" destination="ISj-Vo-Jvt" id="8Mw-ug-rQU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pzq-rm-Jft" userLabel="First Responder" sceneMemberID="firstResponder"/>
