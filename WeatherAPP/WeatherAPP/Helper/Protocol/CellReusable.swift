@@ -21,3 +21,15 @@ extension CellReusable where Self: WeatherListSettingTableViewCell {
         return "SettingCell"
     }
 }
+
+extension CellReusable where Self: UICollectionViewCell {
+    static var reuseIdentifier: String {
+        return "Cell"
+    }
+}
+
+extension CellReusable where Self: TimesCollectionViewCell {
+    static var reuseIdentifier: String {
+        return "TimesCell"
+    }
+}
