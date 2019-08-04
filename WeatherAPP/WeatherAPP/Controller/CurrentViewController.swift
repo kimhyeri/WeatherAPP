@@ -22,12 +22,28 @@ class CurrentViewController: UIViewController {
             }
         }
     }
+    var fiveDayWeatherData: FiveDayWeather? {
+        didSet {
+            print(fiveDayWeatherData)
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupTableView()
         registerNib()
+        fetchData()
+    }
+    
+    private func fetchData() {
+        guard let coordinate = currentWeatherData?.coord else {
+            return
+        }
+        
+        self.get5DayWeatherByCoordinate(latitude: coordinate.lat,
+                                        longitude: coordinate.lon
+        )
     }
     
     private func setupTableView() {
@@ -41,6 +57,34 @@ class CurrentViewController: UIViewController {
         )
         tableView.register(timesNib, forCellReuseIdentifier: CurrentWeatherTimesTableViewCell.reuseIdentifier
         )
+    }
+    
+    private func get5DayWeatherByCoordinate(latitude lat: Double, longitude lon: Double) {
+        let parameters: [String: Any] = [
+            "lat" : "\(lat)",
+            "lon" : "\(lon)",
+            "appid" : weatherAPIKey
+        ]
+        
+        let day5WeatherByCoordinatePath = "/data/2.5/forecast"
+        
+        let request = APIRequest(method: .get, path: day5WeatherByCoordinatePath, queryItems: parameters)
+        
+        APICenter().perform(urlString: BaseURL.weatherURL,
+                            request: request
+        ) { [weak self] (result) in
+            guard let self = self else { 
+                return
+            }
+            switch result {
+            case .success(let response):   
+                if let response = try? response.decode(to: FiveDayWeather.self) {
+                    self.fiveDayWeatherData = response.body
+                }
+            case .failure:
+                print(APIError.networkFailed)
+            }
+        }
     }
     
     @IBAction func listButtonClicked(_ sender: UIButton) {

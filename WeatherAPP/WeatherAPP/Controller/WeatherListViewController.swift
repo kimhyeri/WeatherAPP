@@ -90,10 +90,14 @@ class WeatherListViewController: UIViewController {
         let parameters: [String: Any] = [
             "lat" : "\(lat)",
             "lon" : "\(lon)",
-            "appid" : "20aaa3701000f86f51903b62779c4986"
+            "appid" : weatherAPIKey
         ]
+        let weatherByCoordinatePath = "/data/2.5/weather"
         
-        let request = APIRequest(method: .get, queryItems: parameters)
+        let request = APIRequest(method: .get,
+                                 path: weatherByCoordinatePath,
+                                 queryItems: parameters
+        )
         
         APICenter().perform(urlString: BaseURL.weatherURL,
                             request: request
@@ -116,7 +120,7 @@ class WeatherListViewController: UIViewController {
     private func getWeatherByCityName(name: String) {    
         let parameters: [String: Any] = [
             "q" : name,
-            "appid" : "20aaa3701000f86f51903b62779c4986"
+            "appid" : weatherAPIKey
         ]
         
         let request = APIRequest(method: .get, queryItems: parameters)
