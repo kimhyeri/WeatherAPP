@@ -22,7 +22,7 @@ class WeatherListSettingTableViewCell: UITableViewCell {
     }
     
     @IBAction func findCityButtonClicked(_ sender: UIButton) {
-        let st = UIStoryboard.init(name: "WeatherList", bundle: nil)
+        let st = UIStoryboard.init(name: "SearchCity", bundle: nil)
         guard let vc = st.instantiateViewController(withIdentifier: "SearchCitiesViewController") as? SearchCitiesViewController else {
             return 
         }

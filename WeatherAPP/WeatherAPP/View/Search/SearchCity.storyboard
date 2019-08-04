@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4hs-ap-2t2">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Search Cities View Controller-->
+        <scene sceneID="iWF-Pn-UqG">
+            <objects>
+                <viewController storyboardIdentifier="SearchCitiesViewController" id="4hs-ap-2t2" customClass="SearchCitiesViewController" customModule="WeatherAPP" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="07f-bd-PI8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cku-Ya-Eih">
+                                <rect key="frame" x="0.0" y="144" width="414" height="718"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" id="ne1-Vb-gcd">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ne1-Vb-gcd" id="2wM-bn-PAJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tzW-Us-eHh">
+                                <rect key="frame" x="0.0" y="44" width="414" height="100"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="7Ud-a3-TwK">
+                                        <rect key="frame" x="8" y="8" width="398" height="84"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="도시, 우편번호 또는 공항 위치 입력" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEA-2o-eJh">
+                                                <rect key="frame" x="0.0" y="0.0" width="398" height="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <searchBar contentMode="redraw" searchBarStyle="minimal" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TO7-jm-DUH">
+                                                <rect key="frame" x="0.0" y="28" width="398" height="56"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <scopeButtonTitles>
+                                                    <string>Title</string>
+                                                    <string>Title</string>
+                                                </scopeButtonTitles>
+                                            </searchBar>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="7Ud-a3-TwK" secondAttribute="trailing" constant="8" id="2if-rU-9K5"/>
+                                    <constraint firstItem="7Ud-a3-TwK" firstAttribute="top" secondItem="tzW-Us-eHh" secondAttribute="top" constant="8" id="DWF-7l-S2e"/>
+                                    <constraint firstItem="7Ud-a3-TwK" firstAttribute="leading" secondItem="tzW-Us-eHh" secondAttribute="leading" constant="8" id="Dia-73-XE6"/>
+                                    <constraint firstAttribute="height" constant="100" id="nFq-Tf-08R"/>
+                                    <constraint firstAttribute="bottom" secondItem="7Ud-a3-TwK" secondAttribute="bottom" constant="8" id="y0H-Y5-imD"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="cku-Ya-Eih" firstAttribute="top" secondItem="tzW-Us-eHh" secondAttribute="bottom" id="37f-dz-2Ri"/>
+                            <constraint firstItem="1We-9Q-Smk" firstAttribute="trailing" secondItem="cku-Ya-Eih" secondAttribute="trailing" id="Buk-WN-cHQ"/>
+                            <constraint firstItem="tzW-Us-eHh" firstAttribute="leading" secondItem="1We-9Q-Smk" secondAttribute="leading" id="CMT-Am-wkt"/>
+                            <constraint firstItem="tzW-Us-eHh" firstAttribute="trailing" secondItem="1We-9Q-Smk" secondAttribute="trailing" id="MU8-hr-jPX"/>
+                            <constraint firstItem="cku-Ya-Eih" firstAttribute="leading" secondItem="1We-9Q-Smk" secondAttribute="leading" id="WZf-pr-jMY"/>
+                            <constraint firstItem="1We-9Q-Smk" firstAttribute="bottom" secondItem="cku-Ya-Eih" secondAttribute="bottom" id="i79-dG-otn"/>
+                            <constraint firstItem="tzW-Us-eHh" firstAttribute="top" secondItem="1We-9Q-Smk" secondAttribute="top" id="lFq-z0-cVc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="1We-9Q-Smk"/>
+                    </view>
+                    <connections>
+                        <outlet property="searchBar" destination="TO7-jm-DUH" id="3P7-TI-XKb"/>
+                        <outlet property="tableView" destination="cku-Ya-Eih" id="lm2-A1-ifo"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="le2-yX-CJ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1914" y="80"/>
+        </scene>
+    </scenes>
+</document>

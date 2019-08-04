@@ -14,7 +14,6 @@ class SearchCitiesViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    private let cellId: String = "Cell"
     var searchCompleter = MKLocalSearchCompleter()
     var searchResults = [MKLocalSearchCompletion]() {
         didSet {
@@ -34,15 +33,25 @@ class SearchCitiesViewController: UIViewController {
         super.viewDidLoad()
 
         setupViewController()
+        registerNib()
     }
-
+    
     private func setupViewController() {
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
         searchCompleter.delegate = self
     }
-    
+
+    private func registerNib() {
+        let searchListNib = UINib(nibName: SearchListTableViewCell.nibName,
+                                  bundle: nil
+        )
+        tableView.register(searchListNib,
+                           forCellReuseIdentifier: SearchListTableViewCell.reuseIdentifier
+        )
+    }
+
     private func updateSearchResults(selected: MKLocalSearchCompletion) {        
         let searchRequest = MKLocalSearch.Request(completion: selected)
         let search = MKLocalSearch(request: searchRequest)
@@ -50,7 +59,6 @@ class SearchCitiesViewController: UIViewController {
             if error != nil {
                 print(APIError.requestFailed)
             } 
-            print(response?.mapItems.first)
             let coordinate = response?.mapItems.first?.placemark.coordinate
 
             DispatchQueue.global().async {
@@ -69,8 +77,11 @@ extension SearchCitiesViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) 
-        cell.textLabel?.text = searchResults[indexPath.row].title
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchListTableViewCell.reuseIdentifier, for: indexPath) as? SearchListTableViewCell else {
+            return UITableViewCell()
+        }
+        let cityName = searchResults[indexPath.row].title
+        cell.confing(title: cityName)
         return cell
     }
     
