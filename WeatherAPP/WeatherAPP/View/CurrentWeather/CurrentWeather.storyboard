@@ -64,6 +64,9 @@
                                                 <state key="normal" title="web">
                                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="webButtonClicked:" destination="TSM-mj-tCy" eventType="touchUpInside" id="MJl-hT-Flh"/>
+                                                </connections>
                                             </button>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="2dq-nf-KUn">
                                                 <rect key="frame" x="170.5" y="0.0" width="57" height="76"/>

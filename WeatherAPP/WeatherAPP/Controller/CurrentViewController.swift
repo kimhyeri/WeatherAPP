@@ -39,6 +39,17 @@ class CurrentViewController: UIViewController {
         tableView.register(timesNib, forCellReuseIdentifier: CurrentWeatherTimesTableViewCell.reuseIdentifier
         )
     }
+    
+    @IBAction func webButtonClicked(_ sender: Any) {
+        guard let webURL = URL(string: BaseURL.webURL) else { 
+            return
+        }
+        if #available(iOS 10.0, *) {
+            UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
+        } else {
+            UIApplication.shared.openURL(webURL)
+        }
+    }
 }
 
 extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
