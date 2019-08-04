@@ -30,10 +30,10 @@ struct City: Codable {
 struct List: Codable {
     let dt: Int
     let main: MainClass
-    let weather: [fiveWeather]
+    let weather: [FiveWeather]
     let clouds: Clouds
-    let wind: fiveWind
-    let sys: fiveSys
+    let wind: Wind
+    let sys: FiveSys
     let dtTxt: String
     let rain: Rain?
     
@@ -73,20 +73,14 @@ struct Rain: Codable {
 }
 
 // MARK: - Sys
-struct fiveSys: Codable {
+struct FiveSys: Codable {
     let pod: String
 }
 
 // MARK: - Weather
-struct fiveWeather: Codable {
+struct FiveWeather: Codable {
     let id: Int
     let main: String
     let description: String
     let icon: String
-}
-
-// MARK: - Wind
-struct fiveWind: Codable {
-    let speed: Double
-    let deg: Double
 }
