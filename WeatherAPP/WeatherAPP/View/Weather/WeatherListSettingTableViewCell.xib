@@ -30,6 +30,9 @@
                                         <state key="normal" title="℃ / ℉">
                                             <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
+                                        <connections>
+                                            <action selector="celsiusFahrenheitButtonClicked:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="I6A-4v-iQF"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="contactAdd" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGY-E6-dcX">
                                         <rect key="frame" x="148" y="0.0" width="140" height="30.5"/>

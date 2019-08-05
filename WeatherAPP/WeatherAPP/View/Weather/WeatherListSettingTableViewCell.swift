@@ -10,6 +10,12 @@ import UIKit
 
 class WeatherListSettingTableViewCell: UITableViewCell {
 
+    private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
+        didSet {
+            UserDefaults.standard.set(fahrenheitOrCelsius?.rawValue, forKey: "fahrenheitOrCelsius")
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,6 +25,20 @@ class WeatherListSettingTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @IBAction func celsiusFahrenheitButtonClicked(_ sender: UIButton) {
+        if fahrenheitOrCelsius == .Celsius {
+            fahrenheitOrCelsius = .Fahrenheit
+        } else {
+            fahrenheitOrCelsius = .Celsius
+        }
+        DispatchQueue.global().async {
+            let selectedFahrenheitOrCelsius = Notification.Name(rawValue: selectFahrenheitOrCelsiusNotification)
+            NotificationCenter.default.post(name: selectedFahrenheitOrCelsius,
+                                            object: self.fahrenheitOrCelsius
+            )
+        }
     }
     
     @IBAction func findCityButtonClicked(_ sender: UIButton) {

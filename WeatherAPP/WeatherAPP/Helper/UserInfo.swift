@@ -17,15 +17,11 @@ struct UserInfo {
         return nil
     }        
     
-    static func fahrenheitOrCelsius() -> FahrenheitOrCelsius {
-        if let fahrenheitOrCelsius = UserDefaults.standard.object(forKey: "fahrenheitOrCelsius") as? FahrenheitOrCelsius {
-            switch fahrenheitOrCelsius {
-            case .Fahrenheit:
-                return .Fahrenheit
-            case .Celsius:
-                return .Celsius
-            } 
-        }
-        return FahrenheitOrCelsius.Celsius
+    static func fahrenheitOrCelsius() -> String {
+        if let fahrenheitOrCelsius = UserDefaults.standard.string(forKey: "fahrenheitOrCelsius"), 
+            let fahrenheitOrCelsiusValue = FahrenheitOrCelsius(rawValue: fahrenheitOrCelsius) {
+            return fahrenheitOrCelsiusValue.rawValue
+        } 
+        return FahrenheitOrCelsius.Celsius.rawValue
     }
 }

@@ -14,9 +14,17 @@ class WeatherListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private let selectCity = Notification.Name(selectCityNotification)
+    private let selectFahrenheitOrCelsius = Notification.Name(selectFahrenheitOrCelsiusNotification)
     private let locManager = CLLocationManager()
     private var currentLocation: CLLocation? 
-
+    private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
+        didSet {
+            DispatchQueue.main.async {
+                print(self.fahrenheitOrCelsius)
+                self.tableView.reloadData()
+            } 
+        }
+    }
     private var myCities:[Coordinate] = [Coordinate]() {
         didSet {
             UserDefaults.standard.set(try? PropertyListEncoder().encode(myCities), forKey:"cities")
@@ -40,6 +48,14 @@ class WeatherListViewController: UIViewController {
         registerNib()
         createObserver()
         fetchCityList()
+        fetchFahrenheitOrCelsius() 
+    }
+    
+    private func fetchFahrenheitOrCelsius() {
+        fahrenheitOrCelsius = FahrenheitOrCelsius(rawValue: UserInfo.fahrenheitOrCelsius())
+        if let fahrenheit = fahrenheitOrCelsius {
+            print(fahrenheit)
+        }
     }
     
     private func fetchCityList() {
@@ -80,6 +96,11 @@ class WeatherListViewController: UIViewController {
                                                name: selectCity, 
                                                object: nil
         )
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(selectedFahrenheitOrCelsius),
+                                               name: selectFahrenheitOrCelsius,
+                                               object: nil
+        )
     }
     
     @objc private func selectedCity(notification: NSNotification) {
@@ -92,6 +113,10 @@ class WeatherListViewController: UIViewController {
         myCities.append(Coordinate(lat: cityCoordinate.latitude, 
                                    lon: cityCoordinate.longitude)
         )
+    }
+    
+    @objc private func selectedFahrenheitOrCelsius(notification: NSNotification) {
+        fahrenheitOrCelsius = notification.object as? FahrenheitOrCelsius
     }
     
     private func getCoordinate() {
@@ -192,10 +217,11 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
         
         switch cellType {
         case .City:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListTableViewCell.reuseIdentifier) as? WeatherListTableViewCell else { 
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListTableViewCell.reuseIdentifier) as? WeatherListTableViewCell,
+                let fahrenheitOrCelsius = fahrenheitOrCelsius else { 
                 return UITableViewCell() 
             }
-            cell.config(weatherData: (weather[indexPath.row]))
+            cell.config(weatherData: (weather[indexPath.row]), cf: fahrenheitOrCelsius)
             return cell
         case .Setting:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListSettingTableViewCell.reuseIdentifier) as? WeatherListSettingTableViewCell else { 

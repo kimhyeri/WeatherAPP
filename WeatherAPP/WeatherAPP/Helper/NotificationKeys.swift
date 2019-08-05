@@ -9,3 +9,4 @@
 import Foundation
 
 let selectCityNotification = "select.city"
+let selectFahrenheitOrCelsiusNotification = "select.fahrenheitOrCelsius"

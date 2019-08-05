@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum FahrenheitOrCelsius {
-    case Fahrenheit
-    case Celsius
+enum FahrenheitOrCelsius: String {
+    case Fahrenheit = "Fahrenheit"
+    case Celsius = "Celsius"
 }
