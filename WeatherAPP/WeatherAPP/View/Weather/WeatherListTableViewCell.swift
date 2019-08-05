@@ -28,7 +28,7 @@ class WeatherListTableViewCell: UITableViewCell {
     func config(weatherData: WeatherInfo) {
         cityNameLabel.text = weatherData.name
         timeLabel.text = timeConverter(country: weatherData.sys.country)
-        temperatureLabel.text = "\(weatherData.main.temp.makeCelsius()) º"
+        temperatureLabel.text = "\(weatherData.main.temp.makeDouble()) º"
     }
     
     func timeConverter(country: String) -> String {

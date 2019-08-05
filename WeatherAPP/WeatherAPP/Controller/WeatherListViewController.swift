@@ -131,8 +131,11 @@ class WeatherListViewController: UIViewController {
     }
     
     private func checkCurrentLocationOrNot(bodyData: WeatherInfo) {
-        if currentLocation?.coordinate.latitude == bodyData.coord.lat,
-            currentLocation?.coordinate.longitude == bodyData.coord.lon {
+        guard let coordinate = currentLocation?.coordinate else {
+            return
+        }
+        if coordinate.latitude.makeRound() == bodyData.coord.lat,
+            coordinate.longitude.makeRound() == bodyData.coord.lon {
             weather.insert(bodyData, at: 0)
         } else {
             weather.append(bodyData)
@@ -166,15 +169,22 @@ class WeatherListViewController: UIViewController {
 }
 
 // MARK: TableView Deleagate and DataSource
-extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource {    
+extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource {   
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weather.count + 1
+        if section == 0 {
+            return weather.count 
+        } else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cellType: WeatherList
-        
-        if indexPath.row == weather.count  {
+        if indexPath.section == 1  {
             cellType = .Setting
         } else {
             cellType = .City
@@ -196,7 +206,6 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard indexPath.row == weather.count - 1 else { return }
         let weatherData = weather[indexPath.row]
         DispatchQueue.main.async {
             let st = UIStoryboard.init(name: "CurrentWeather", bundle: nil)
@@ -213,11 +222,12 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
 extension WeatherListViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
-            guard let currentLocation = locManager.location else {
+            guard let myCurrentLocation = locManager.location else {
                 return
             }
-            getWeatherByCoordinate(latitude: currentLocation.coordinate.latitude,
-                                   longitude: currentLocation.coordinate.longitude
+            currentLocation = myCurrentLocation
+            getWeatherByCoordinate(latitude: myCurrentLocation.coordinate.latitude,
+                                   longitude: myCurrentLocation.coordinate.longitude
             )
         } else {
             print("user denied authorization")

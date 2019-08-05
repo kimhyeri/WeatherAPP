@@ -23,7 +23,7 @@ extension Double {
     }
     
     // form1
-    func makeCelsius() -> Double {
+    func makeDouble() -> Double {
         guard let celsiusDouble = Double(String(format: "%.2f", arguments: [convert])) else {
             return 0.0
         }
@@ -31,10 +31,14 @@ extension Double {
     }
     
     // form2
-    func makeMaxMin() -> Double {
+    func makeInt() -> Double {
         guard let maxMin = Double(String(format: "%.0f", arguments: [convert])) else {
             return 0.0
         }
         return maxMin
+    }
+    
+    func makeRound() -> Double {
+        return (self*100).rounded()/100
     }
 }
