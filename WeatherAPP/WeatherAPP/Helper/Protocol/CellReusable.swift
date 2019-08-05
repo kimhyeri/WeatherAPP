@@ -39,3 +39,9 @@ extension CellReusable where Self: DaysTableViewCell {
         return "DaysCell"
     }
 }
+
+extension CellReusable where Self: DetailTableViewCell {
+    static var detailReuseIdentifier: String {
+        return "DetailCell"
+    }
+}

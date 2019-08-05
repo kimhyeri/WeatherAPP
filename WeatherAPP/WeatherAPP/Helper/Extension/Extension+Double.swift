@@ -22,4 +22,9 @@ extension Double {
         let celsius = self - 273.5
         return String(format: "%.2f", arguments: [celsius]) 
     }
+    
+    func makeMaxMin() -> String {
+        let celsius = self - 273.5
+        return String(format: "%.0f", arguments: [celsius]) 
+    }
 }
