@@ -14,8 +14,8 @@ class WeatherListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     private let selectCity = Notification.Name(selectCityNotification)
-    var locManager = CLLocationManager()
-    var currentLocation: CLLocation!    
+    private let locManager = CLLocationManager()
+    private var currentLocation: CLLocation? 
 
     private var myCities:[Coordinate] = [Coordinate]() {
         didSet {
@@ -30,12 +30,15 @@ class WeatherListViewController: UIViewController {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        getCoordinate()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewController()
         registerNib()
         createObserver()
-        getCoordinate()
         fetchCityList()
     }
     
@@ -89,7 +92,6 @@ class WeatherListViewController: UIViewController {
         myCities.append(Coordinate(lat: cityCoordinate.latitude, 
                                    lon: cityCoordinate.longitude)
         )
-        
     }
     
     private func getCoordinate() {
@@ -118,13 +120,22 @@ class WeatherListViewController: UIViewController {
             switch result {
             case .success(let response):        
                 if let response = try? response.decode(to: WeatherInfo.self) {
-                    self.weather.append(response.body)
+                    self.checkCurrentLocationOrNot(bodyData: response.body)
                 } else {
                     print(APIError.decodingFailed)
                 }
             case .failure:
                 print(APIError.networkFailed)
             }
+        }
+    }
+    
+    private func checkCurrentLocationOrNot(bodyData: WeatherInfo) {
+        if currentLocation?.coordinate.latitude == bodyData.coord.lat,
+            currentLocation?.coordinate.longitude == bodyData.coord.lon {
+            weather.insert(bodyData, at: 0)
+        } else {
+            weather.append(bodyData)
         }
     }
     
@@ -155,8 +166,7 @@ class WeatherListViewController: UIViewController {
 }
 
 // MARK: TableView Deleagate and DataSource
-extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource {
-    
+extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource {    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return weather.count + 1
     }
