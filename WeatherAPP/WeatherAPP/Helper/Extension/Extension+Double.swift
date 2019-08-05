@@ -9,22 +9,32 @@
 import Foundation
 
 extension Double {
-    func celsiusToFahrenheit() -> Double {
+    var celsiusToFahrenheit: Double {
         return (self * 1.8) + 32
     }
     
-    func fahrenheitToCelsius() -> Double {
+    var fahrenheitToCelsius: Double {
         return (self - 32) / 1.8 
     }
     
-    // kelvin temperature to celsius
-    func makeCelsius() -> String {
-        let celsius = self - 273.5
-        return String(format: "%.2f", arguments: [celsius]) 
+    // kelvin to celsius
+    var convert: Double {
+        return self - 273.5
     }
     
-    func makeMaxMin() -> String {
-        let celsius = self - 273.5
-        return String(format: "%.0f", arguments: [celsius]) 
+    // form1
+    func makeCelsius() -> Double {
+        guard let celsiusDouble = Double(String(format: "%.2f", arguments: [convert])) else {
+            return 0.0
+        }
+        return celsiusDouble
+    }
+    
+    // form2
+    func makeMaxMin() -> Double {
+        guard let maxMin = Double(String(format: "%.0f", arguments: [convert])) else {
+            return 0.0
+        }
+        return maxMin
     }
 }
