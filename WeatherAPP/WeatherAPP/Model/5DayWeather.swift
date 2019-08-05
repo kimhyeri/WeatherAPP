@@ -23,7 +23,7 @@ struct City: Codable {
     let name: String
     let coord: Coord
     let country: String
-    let population, timezone: Int
+    let timezone: Int
 }
 
 // MARK: - List
@@ -46,8 +46,12 @@ struct List: Codable {
 
 // MARK: - MainClass
 struct MainClass: Codable {
-    let temp, tempMin, tempMax, pressure: Double
-    let seaLevel, grndLevel: Double
+    let temp: Double
+    let tempMin: Double
+    let tempMax: Double
+    let pressure: Double
+    let seaLevel: Double
+    let grndLevel: Double
     let humidity: Int
     let tempKf: Double
     

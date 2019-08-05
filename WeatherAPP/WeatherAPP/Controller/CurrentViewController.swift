@@ -90,6 +90,8 @@ class CurrentViewController: UIViewController {
             case .success(let response):   
                 if let response = try? response.decode(to: FiveDayWeather.self) {
                     self.fiveDayWeatherData = response.body
+                } else {
+                    print(APIError.decodingFailed)
                 }
             case .failure:
                 print(APIError.networkFailed)
