@@ -20,13 +20,13 @@ class WeatherListViewController: UIViewController {
     private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
         didSet {
             DispatchQueue.main.async {
-                print(self.fahrenheitOrCelsius)
                 self.tableView.reloadData()
             } 
         }
     }
     private var myCities:[Coordinate] = [Coordinate]() {
         didSet {
+            print(myCities)
             UserDefaults.standard.set(try? PropertyListEncoder().encode(myCities), forKey:"cities")
         }
     }
@@ -53,9 +53,9 @@ class WeatherListViewController: UIViewController {
     
     private func fetchFahrenheitOrCelsius() {
         fahrenheitOrCelsius = FahrenheitOrCelsius(rawValue: UserInfo.fahrenheitOrCelsius())
-        if let fahrenheit = fahrenheitOrCelsius {
-            print(fahrenheit)
-        }
+//        if let fahrenheit = fahrenheitOrCelsius {
+//            print(fahrenheit)
+//        }
     }
     
     private func fetchCityList() {
@@ -253,8 +253,10 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let coordinate = weather[indexPath.row].coord
             weather.remove(at: indexPath.row)
-            myCities.remove(at: indexPath.row-1)
+            myCities = myCities.filter { $0.lat.makeRound() != coordinate.lat && 
+                $0.lon.makeRound() != coordinate.lon }
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }

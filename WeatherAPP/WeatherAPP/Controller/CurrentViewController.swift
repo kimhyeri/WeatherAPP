@@ -22,16 +22,24 @@ class CurrentViewController: UIViewController {
             }
         }
     }
-    var fiveDayWeatherData: FiveDayWeather? {
+    private var fiveDayWeatherData: FiveDayWeather? {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
         }
     }
+    private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            } 
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         fetchData()
+        fetchFahrenheitOrCelsius()
     }
     
     override func viewDidLoad() {
@@ -39,6 +47,10 @@ class CurrentViewController: UIViewController {
 
         setupTableView()
         registerNib()
+    }
+    
+    private func fetchFahrenheitOrCelsius() {
+        fahrenheitOrCelsius = FahrenheitOrCelsius(rawValue: UserInfo.fahrenheitOrCelsius())
     }
     
     private func fetchData() {
@@ -158,10 +170,10 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DaysTableViewCell.daysReuseIdentifier, for: indexPath) as? DaysTableViewCell, 
-                let list = fiveDayWeatherData?.list else {
+                let list = fiveDayWeatherData?.list, let fahrenheitOrCelsiusData = fahrenheitOrCelsius else {
                 return UITableViewCell()
             }
-            cell.config(weather: list[indexPath.row])
+            cell.config(weather: list[indexPath.row], fc: fahrenheitOrCelsiusData)
             return cell
         }
     }
