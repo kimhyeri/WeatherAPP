@@ -216,6 +216,22 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
             self.present(vc, animated: true, completion: nil)
         }
     }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.row == 0 {
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            weather.remove(at: indexPath.row)
+            myCities.remove(at: indexPath.row-1)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+    }
 }
 
 // MARK: CLLocationManagerDelegate
