@@ -26,7 +26,6 @@ class WeatherListViewController: UIViewController {
     }
     private var myCities:[Coordinate] = [Coordinate]() {
         didSet {
-            print(myCities)
             UserDefaults.standard.set(try? PropertyListEncoder().encode(myCities), forKey:"cities")
         }
     }
@@ -53,9 +52,6 @@ class WeatherListViewController: UIViewController {
     
     private func fetchFahrenheitOrCelsius() {
         fahrenheitOrCelsius = FahrenheitOrCelsius(rawValue: UserInfo.fahrenheitOrCelsius())
-//        if let fahrenheit = fahrenheitOrCelsius {
-//            print(fahrenheit)
-//        }
     }
     
     private func fetchCityList() {
@@ -221,7 +217,7 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
                 let fahrenheitOrCelsius = fahrenheitOrCelsius else { 
                 return UITableViewCell() 
             }
-            cell.config(weatherData: (weather[indexPath.row]), cf: fahrenheitOrCelsius)
+            cell.config(weatherData: (weather[indexPath.row]), fc: fahrenheitOrCelsius)
             return cell
         case .Setting:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListSettingTableViewCell.reuseIdentifier) as? WeatherListSettingTableViewCell else { 

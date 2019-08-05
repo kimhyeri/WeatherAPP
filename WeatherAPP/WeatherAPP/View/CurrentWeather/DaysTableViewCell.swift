@@ -29,11 +29,11 @@ class DaysTableViewCell: UITableViewCell {
     func config(weather data: List, fc: FahrenheitOrCelsius) {
         switch fc {
         case .Celsius:
-            tempMaxLabel.text = "\(data.main.tempMax.makeInt())"
-            tempMinLabel.text = "\(data.main.tempMin.makeInt())"
+            tempMaxLabel.text = data.main.tempMax.makeCelsius()
+            tempMinLabel.text = data.main.tempMin.makeCelsius()
         case .Fahrenheit:
-            tempMaxLabel.text = "\(data.main.tempMax.makeFahrenheit())"
-            tempMinLabel.text = "\(data.main.tempMin.makeFahrenheit())"
+            tempMaxLabel.text = data.main.tempMax.makeFahrenheit()
+            tempMinLabel.text = data.main.tempMin.makeFahrenheit()
         }
         dateLabel.text = data.dtTxt
         guard let iconName = data.weather.first?.icon else {

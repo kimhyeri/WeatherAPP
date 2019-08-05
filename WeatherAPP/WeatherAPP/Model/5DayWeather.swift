@@ -24,12 +24,13 @@ struct City: Codable {
     let coord: Coord
     let country: String
     let timezone: Int
+    var population: Int?
 }
 
 // MARK: - List
 struct List: Codable {
     let dt: Int
-    let main: MainClass
+    let main: FiveMain
     let weather: [FiveWeather]
     let clouds: Clouds
     let wind: Wind
@@ -44,8 +45,8 @@ struct List: Codable {
     }
 }
 
-// MARK: - MainClass
-struct MainClass: Codable {
+// MARK: - FiveMain
+struct FiveMain: Codable {
     let temp: Double
     let tempMin: Double
     let tempMax: Double
@@ -69,7 +70,7 @@ struct MainClass: Codable {
 
 // MARK: - Rain
 struct Rain: Codable {
-    let threeH: Double
+    let threeH: Double?
     
     enum CodingKeys: String, CodingKey {
         case threeH = "3h"
@@ -81,7 +82,7 @@ struct FiveSys: Codable {
     let pod: String
 }
 
-// MARK: - Weather
+// MARK: - FiveWeather
 struct FiveWeather: Codable {
     let id: Int
     let main: String

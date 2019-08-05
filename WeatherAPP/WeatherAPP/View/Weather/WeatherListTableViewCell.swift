@@ -25,14 +25,14 @@ class WeatherListTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func config(weatherData: WeatherInfo, cf: FahrenheitOrCelsius) {
+    func config(weatherData: WeatherInfo, fc: FahrenheitOrCelsius) {
         cityNameLabel.text = weatherData.name
         timeLabel.text = timeConverter(country: weatherData.sys.country)
-        switch cf {
+        switch fc {
         case .Celsius:
-            temperatureLabel.text = "\(weatherData.main.temp.makeDouble()) º"
+            temperatureLabel.text = weatherData.main.temp.makeCelsius()
         case .Fahrenheit:
-            temperatureLabel.text = "\(weatherData.main.temp.makeFahrenheit()) º"
+            temperatureLabel.text = weatherData.main.temp.makeFahrenheit()
         }
     }
     
