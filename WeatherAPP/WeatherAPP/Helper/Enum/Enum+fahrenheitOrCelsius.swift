@@ -1,5 +1,5 @@
 //
-//  Enum+fahrenheitOrCelsius.swift
+//  Enum+FahrenheitOrCelsius.swift
 //  WeatherAPP
 //
 //  Created by hyeri kim on 05/08/2019.

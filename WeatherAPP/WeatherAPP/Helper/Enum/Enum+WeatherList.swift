@@ -9,6 +9,6 @@
 import Foundation
 
 enum WeatherList {
-    case city
-    case setting
+    case City
+    case Setting
 }

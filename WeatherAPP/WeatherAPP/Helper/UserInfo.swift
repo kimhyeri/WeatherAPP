@@ -10,8 +10,11 @@ import Foundation
 
 struct UserInfo {
     static func getCityList() -> [Coordinate]? {
-        let cityList = UserDefaults.standard.object(forKey: "cities") as? [Coordinate]
-        return cityList
+        if let cityLists = UserDefaults.standard.value(forKey:"cities") as? Data {
+            let cityList = try? PropertyListDecoder().decode(Array<Coordinate>.self, from: cityLists)
+            return cityList
+        }
+        return nil
     }        
     
     static func fahrenheitOrCelsius() -> FahrenheitOrCelsius {
@@ -24,9 +27,5 @@ struct UserInfo {
             } 
         }
         return FahrenheitOrCelsius.Celsius
-    }
-    
-    static func getPage() {
-        
     }
 }
