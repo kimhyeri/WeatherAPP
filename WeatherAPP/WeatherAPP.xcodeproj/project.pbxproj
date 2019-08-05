@@ -17,6 +17,12 @@
 		6A07599C22F758F2006F05AC /* 5DayWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A07599B22F758F2006F05AC /* 5DayWeather.swift */; };
 		6A07599F22F76D61006F05AC /* DaysTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A07599D22F76D61006F05AC /* DaysTableViewCell.swift */; };
 		6A0759A022F76D61006F05AC /* DaysTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A07599E22F76D61006F05AC /* DaysTableViewCell.xib */; };
+		6A0759A222F7C55C006F05AC /* Enum+WeatherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759A122F7C55C006F05AC /* Enum+WeatherType.swift */; };
+		6A0759A922F7D6D3006F05AC /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759A722F7D6D3006F05AC /* DetailTableViewCell.swift */; };
+		6A0759AA22F7D6D3006F05AC /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A0759A822F7D6D3006F05AC /* DetailTableViewCell.xib */; };
+		6A0759AC22F806BC006F05AC /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759AB22F806BC006F05AC /* Coordinate.swift */; };
+		6A0759AE22F808DD006F05AC /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759AD22F808DD006F05AC /* UserInfo.swift */; };
+		6A0759B022F809BE006F05AC /* Enum+FahrenheitOrCelsius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759AF22F809BE006F05AC /* Enum+FahrenheitOrCelsius.swift */; };
 		6A1C622F22F1886200D9425D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C622E22F1886200D9425D /* AppDelegate.swift */; };
 		6A1C623122F1886200D9425D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C623022F1886200D9425D /* ViewController.swift */; };
 		6A1C623422F1886200D9425D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A1C623222F1886200D9425D /* Main.storyboard */; };
@@ -56,6 +62,12 @@
 		6A07599B22F758F2006F05AC /* 5DayWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 5DayWeather.swift; sourceTree = "<group>"; };
 		6A07599D22F76D61006F05AC /* DaysTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysTableViewCell.swift; sourceTree = "<group>"; };
 		6A07599E22F76D61006F05AC /* DaysTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DaysTableViewCell.xib; sourceTree = "<group>"; };
+		6A0759A122F7C55C006F05AC /* Enum+WeatherType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+WeatherType.swift"; sourceTree = "<group>"; };
+		6A0759A722F7D6D3006F05AC /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
+		6A0759A822F7D6D3006F05AC /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
+		6A0759AB22F806BC006F05AC /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
+		6A0759AD22F808DD006F05AC /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		6A0759AF22F809BE006F05AC /* Enum+FahrenheitOrCelsius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+FahrenheitOrCelsius.swift"; sourceTree = "<group>"; };
 		6A1C622B22F1886200D9425D /* WeatherAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A1C622E22F1886200D9425D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A1C623022F1886200D9425D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +119,8 @@
 				6A07599822F6D018006F05AC /* TimesCollectionViewCell.xib */,
 				6A07599D22F76D61006F05AC /* DaysTableViewCell.swift */,
 				6A07599E22F76D61006F05AC /* DaysTableViewCell.xib */,
+				6A0759A722F7D6D3006F05AC /* DetailTableViewCell.swift */,
+				6A0759A822F7D6D3006F05AC /* DetailTableViewCell.xib */,
 			);
 			path = CurrentWeather;
 			sourceTree = "<group>";
@@ -160,6 +174,7 @@
 			children = (
 				6A1C625C22F1B29500D9425D /* Weather.swift */,
 				6A07599B22F758F2006F05AC /* 5DayWeather.swift */,
+				6A0759AB22F806BC006F05AC /* Coordinate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -191,6 +206,7 @@
 				6A1C625522F19C8300D9425D /* Enum */,
 				6A1C625422F19C7B00D9425D /* Protocol */,
 				6A1C627722F5EB8400D9425D /* NotificationKeys.swift */,
+				6A0759AD22F808DD006F05AC /* UserInfo.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -209,6 +225,8 @@
 			isa = PBXGroup;
 			children = (
 				6A1C625622F19CBA00D9425D /* Enum+WeatherList.swift */,
+				6A0759A122F7C55C006F05AC /* Enum+WeatherType.swift */,
+				6A0759AF22F809BE006F05AC /* Enum+FahrenheitOrCelsius.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -304,6 +322,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6A07599222F6B8E8006F05AC /* SearchListTableViewCell.xib in Resources */,
+				6A0759AA22F7D6D3006F05AC /* DetailTableViewCell.xib in Resources */,
 				6A1C623922F1886800D9425D /* LaunchScreen.storyboard in Resources */,
 				6A07599A22F6D018006F05AC /* TimesCollectionViewCell.xib in Resources */,
 				6A1C624522F18C6700D9425D /* WeatherList.storyboard in Resources */,
@@ -335,11 +354,16 @@
 				6A1C625D22F1B29500D9425D /* Weather.swift in Sources */,
 				6A1C626222F1F97800D9425D /* APIError.swift in Sources */,
 				6A07599C22F758F2006F05AC /* 5DayWeather.swift in Sources */,
+				6A0759A222F7C55C006F05AC /* Enum+WeatherType.swift in Sources */,
 				6A07599922F6D018006F05AC /* TimesCollectionViewCell.swift in Sources */,
+				6A0759B022F809BE006F05AC /* Enum+FahrenheitOrCelsius.swift in Sources */,
+				6A0759AE22F808DD006F05AC /* UserInfo.swift in Sources */,
 				6A07599522F6CFA8006F05AC /* CurrentWeatherTimesTableViewCell.swift in Sources */,
 				6A1C626622F2915400D9425D /* APIResponse.swift in Sources */,
+				6A0759AC22F806BC006F05AC /* Coordinate.swift in Sources */,
 				6A1C627322F4AF8300D9425D /* BaseURL.swift in Sources */,
 				6A1C625B22F1AE0F00D9425D /* CurrentViewController.swift in Sources */,
+				6A0759A922F7D6D3006F05AC /* DetailTableViewCell.swift in Sources */,
 				6A1C626022F1F85600D9425D /* APICenter.swift in Sources */,
 				6A07599122F6B8E8006F05AC /* SearchListTableViewCell.swift in Sources */,
 				6A1C624F22F190A600D9425D /* NibLoadable.swift in Sources */,

@@ -16,6 +16,12 @@ class WeatherListViewController: UIViewController {
     private let selectCity = Notification.Name(selectCityNotification)
     var locManager = CLLocationManager()
     var currentLocation: CLLocation!    
+
+    private var myCities:[Coordinate] = [Coordinate]() {
+        didSet {
+            UserDefaults.standard.set(try? PropertyListEncoder().encode(myCities), forKey:"cities")
+        }
+    }
     private var weather:[WeatherInfo] = [WeatherInfo]() {
         didSet {
             DispatchQueue.main.async {
@@ -23,18 +29,30 @@ class WeatherListViewController: UIViewController {
             }    
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
+        setupViewController()
         registerNib()
-        getCoordinate()
         createObserver()
+        getCoordinate()
+        fetchCityList()
     }
     
-    private func setupTableView() {
+    private func fetchCityList() {
+        guard let cities = UserInfo.getCityList() else {
+            return
+        }
+        myCities = cities
+        myCities.forEach({
+            getWeatherByCoordinate(latitude: $0.lat, longitude: $0.lon)
+        })
+    }
+    
+    private func setupViewController() {
         tableView.delegate = self
         tableView.dataSource = self
+        locManager.delegate = self
     }
     
     private func registerNib() {
@@ -68,22 +86,14 @@ class WeatherListViewController: UIViewController {
         getWeatherByCoordinate(latitude: cityCoordinate.latitude,
                                longitude: cityCoordinate.longitude
         )
+        myCities.append(Coordinate(lat: cityCoordinate.latitude, 
+                                   lon: cityCoordinate.longitude)
+        )
+        
     }
     
     private func getCoordinate() {
-        locManager.requestWhenInUseAuthorization()
-        let authorizationStatus = CLLocationManager.authorizationStatus()
-        
-        if authorizationStatus == CLAuthorizationStatus.authorizedWhenInUse ||
-            authorizationStatus == CLAuthorizationStatus.authorizedAlways {
-            guard let currentLocation = locManager.location else {
-                return
-            }
-            
-            getWeatherByCoordinate(latitude: currentLocation.coordinate.latitude,
-                                   longitude: currentLocation.coordinate.longitude
-            )
-        }    
+        locManager.requestWhenInUseAuthorization()  
     }
     
     private func getWeatherByCoordinate(latitude lat: Double, longitude lon: Double) {
@@ -105,12 +115,10 @@ class WeatherListViewController: UIViewController {
             guard let self = self else { 
                 return
             }
-            print(result)
             switch result {
             case .success(let response):        
                 if let response = try? response.decode(to: WeatherInfo.self) {
                     self.weather.append(response.body)
-                    print(response.body)
                 } else {
                     print(APIError.decodingFailed)
                 }
@@ -157,19 +165,19 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
         var cellType: WeatherList
         
         if indexPath.row == weather.count  {
-            cellType = .setting
+            cellType = .Setting
         } else {
-            cellType = .city
+            cellType = .City
         }
         
         switch cellType {
-        case .city:
+        case .City:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListTableViewCell.reuseIdentifier) as? WeatherListTableViewCell else { 
                 return UITableViewCell() 
             }
             cell.config(weatherData: (weather[indexPath.row]))
             return cell
-        case .setting:
+        case .Setting:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListSettingTableViewCell.reuseIdentifier) as? WeatherListSettingTableViewCell else { 
                 return UITableViewCell() 
             }
@@ -187,6 +195,22 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
             }
             vc.currentWeatherData = weatherData
             self.present(vc, animated: true, completion: nil)
+        }
+    }
+}
+
+// MARK: CLLocationManagerDelegate
+extension WeatherListViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if status == .authorizedAlways || status == .authorizedWhenInUse {
+            guard let currentLocation = locManager.location else {
+                return
+            }
+            getWeatherByCoordinate(latitude: currentLocation.coordinate.latitude,
+                                   longitude: currentLocation.coordinate.longitude
+            )
+        } else {
+            print("user denied authorization")
         }
     }
 }

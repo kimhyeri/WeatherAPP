@@ -30,12 +30,15 @@ class CurrentViewController: UIViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        fetchData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupTableView()
         registerNib()
-        fetchData()
     }
     
     private func fetchData() {
@@ -66,6 +69,13 @@ class CurrentViewController: UIViewController {
         )
         tableView.register(daysNib,
                            forCellReuseIdentifier: DaysTableViewCell.daysReuseIdentifier
+        )
+        
+        let detailNib = UINib(nibName: DetailTableViewCell.nibName,
+                            bundle: nil
+        )
+        tableView.register(detailNib,
+                           forCellReuseIdentifier: DetailTableViewCell.detailReuseIdentifier
         )
     }
     
@@ -126,7 +136,7 @@ class CurrentViewController: UIViewController {
 extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         guard let list = fiveDayWeatherData?.list else {
-            return 0
+            return 1
         } 
         return list.count
     }
@@ -136,6 +146,13 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrentWeatherTimesTableViewCell.timesReuseIdentifier, for: indexPath) as? CurrentWeatherTimesTableViewCell,
                 let weatherData = currentWeatherData?.weather else {
                 return UITableViewCell()
+            }
+            cell.config(weather: weatherData)
+            return cell
+        } else if indexPath.row == 1 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTableViewCell.detailReuseIdentifier, for: indexPath) as? DetailTableViewCell,
+                let weatherData = currentWeatherData else {
+                    return UITableViewCell()
             }
             cell.config(weather: weatherData)
             return cell

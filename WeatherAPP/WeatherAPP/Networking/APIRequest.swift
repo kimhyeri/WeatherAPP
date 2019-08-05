@@ -19,6 +19,11 @@ class APIRequest {
         self.method = method
     }
     
+    init(method: HTTPMethod, path: String) {
+        self.method = method
+        self.path = path
+    }
+    
     init(method: HTTPMethod, queryItems: [String: Any])  {
         self.method = method
         self.queryItems = queryItems
