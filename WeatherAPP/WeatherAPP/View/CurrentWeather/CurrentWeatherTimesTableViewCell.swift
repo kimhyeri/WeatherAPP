@@ -61,6 +61,7 @@ extension CurrentWeatherTimesTableViewCell: UICollectionViewDelegate, UICollecti
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TimesCollectionViewCell.reuseIdentifier, for: indexPath) as? TimesCollectionViewCell else {
             return UICollectionViewCell()
         }
+        
         cell.config(weather: weatherList[indexPath.row])
         return cell
     }

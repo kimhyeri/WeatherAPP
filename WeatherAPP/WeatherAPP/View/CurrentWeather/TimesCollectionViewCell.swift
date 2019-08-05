@@ -23,6 +23,7 @@ class TimesCollectionViewCell: UICollectionViewCell {
     func config(weather data: Weather) {
         idLabel.text = "\(data.id)"
         descriptionLabel.text = data.description
+        iconImageView.image = UIImage(named: data.icon)
     }
 }
 

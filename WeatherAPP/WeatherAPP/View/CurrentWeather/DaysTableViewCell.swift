@@ -27,10 +27,13 @@ class DaysTableViewCell: UITableViewCell {
     }
     
     func config(weather data: List) {
-        tempMaxLabel.text = "\(data.main.tempMax.makeCelsius())"
-        tempMinLabel.text = "\(data.main.tempMin.makeCelsius())"
+        tempMaxLabel.text = "\(data.main.tempMax.makeMaxMin())"
+        tempMinLabel.text = "\(data.main.tempMin.makeMaxMin())"
         dateLabel.text = data.dtTxt
-
+        guard let iconName = data.weather.first?.icon else {
+            return
+        }
+        weatherIconImageView.image = UIImage(named: iconName)
     }
 }
 
