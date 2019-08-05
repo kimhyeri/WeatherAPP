@@ -22,18 +22,18 @@
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="goa-ub-30v">
-                                <rect key="frame" x="0.0" y="144" width="414" height="652"/>
+                                <rect key="frame" x="0.0" y="244" width="414" height="552"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W0P-TZ-Gie">
-                                <rect key="frame" x="0.0" y="44" width="414" height="100"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="200"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="N5P-EN-V6r">
-                                        <rect key="frame" x="182" y="-4" width="50" height="108"/>
+                                        <rect key="frame" x="182" y="16" width="50" height="108"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tf4-NP-ajE">
                                                 <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="21"/>
+                                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="25"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -45,12 +45,32 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LEb-go-LsL">
+                                        <rect key="frame" x="0.0" y="120" width="414" height="80"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oju-Sa-Ajp">
+                                                <rect key="frame" x="144" y="10" width="126" height="60"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="50"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="Oju-Sa-Ajp" firstAttribute="centerY" secondItem="LEb-go-LsL" secondAttribute="centerY" id="96i-8T-2xH"/>
+                                            <constraint firstItem="Oju-Sa-Ajp" firstAttribute="centerX" secondItem="LEb-go-LsL" secondAttribute="centerX" id="Fo4-DE-7n6"/>
+                                            <constraint firstAttribute="height" constant="80" id="l6a-E9-Hr3"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="4CV-OU-1fH"/>
+                                    <constraint firstAttribute="height" constant="200" id="4CV-OU-1fH"/>
+                                    <constraint firstItem="LEb-go-LsL" firstAttribute="leading" secondItem="W0P-TZ-Gie" secondAttribute="leading" id="TjK-HG-Xf8"/>
                                     <constraint firstItem="N5P-EN-V6r" firstAttribute="centerX" secondItem="W0P-TZ-Gie" secondAttribute="centerX" id="dWE-hC-Erc"/>
-                                    <constraint firstItem="N5P-EN-V6r" firstAttribute="centerY" secondItem="W0P-TZ-Gie" secondAttribute="centerY" id="iPp-lf-0Ck"/>
+                                    <constraint firstAttribute="trailing" secondItem="LEb-go-LsL" secondAttribute="trailing" id="emT-Yr-tTg"/>
+                                    <constraint firstItem="N5P-EN-V6r" firstAttribute="centerY" secondItem="W0P-TZ-Gie" secondAttribute="centerY" constant="-30" id="iPp-lf-0Ck"/>
+                                    <constraint firstAttribute="bottom" secondItem="LEb-go-LsL" secondAttribute="bottom" id="kq1-ET-JR8"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugQ-Rh-awK">
@@ -118,6 +138,8 @@
                     <connections>
                         <outlet property="cityNameLabel" destination="tf4-NP-ajE" id="1ci-uz-Nkq"/>
                         <outlet property="tableView" destination="goa-ub-30v" id="vzI-s1-Sh5"/>
+                        <outlet property="tempLabel" destination="Oju-Sa-Ajp" id="fJk-gN-LjI"/>
+                        <outlet property="tempView" destination="LEb-go-LsL" id="pPj-qc-orz"/>
                         <outlet property="weatherStatusLabel" destination="ISj-Vo-Jvt" id="8Mw-ug-rQU"/>
                     </connections>
                 </viewController>

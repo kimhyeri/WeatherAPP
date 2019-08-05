@@ -68,6 +68,25 @@ class SearchCitiesViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
         }
     }
+    
+    private func highlightedText(_ text: String, inRanges ranges: [NSValue], size: CGFloat) -> NSAttributedString? {
+        let attributedText = NSMutableAttributedString(string: text)
+        if let regular = UIFont(name: "AppleSDGothicNeo-Regular", size: size), 
+            let bold = UIFont(name: "AppleSDGothicNeo-Bold", size: size) {
+            attributedText.addAttribute(NSAttributedString.Key.font,
+                                        value: regular, 
+                                        range: NSMakeRange(0, text.count)
+            )
+            for value in ranges {
+                attributedText.addAttribute(NSAttributedString.Key.font, 
+                                            value: bold,
+                                            range: value.rangeValue
+                )
+            }
+            return attributedText
+        }
+        return nil
+    }
 }
 
 // MARK: TableView Delegate and DataSource 
@@ -80,8 +99,8 @@ extension SearchCitiesViewController: UITableViewDelegate, UITableViewDataSource
         guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchListTableViewCell.reuseIdentifier, for: indexPath) as? SearchListTableViewCell else {
             return UITableViewCell()
         }
-        let cityName = searchResults[indexPath.row].title
-        cell.confing(title: cityName)
+        let city = searchResults[indexPath.row]
+        cell.cityNameLabel.attributedText = highlightedText(city.title, inRanges: city.titleHighlightRanges, size: 17.0)
         return cell
     }
     
@@ -95,6 +114,7 @@ extension SearchCitiesViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let searchText = searchBar.text, 
             searchText.count > 0 else {
+                searchResults.removeAll()
                 return 
         } 
         searchCompleter.queryFragment = searchText

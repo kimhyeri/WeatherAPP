@@ -13,9 +13,12 @@ class CurrentViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var weatherStatusLabel: UILabel!
+    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var tempView: UIView!
     
     var currentWeatherData: WeatherInfo? {
         didSet {
+            print(currentWeatherData)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
                 self.updateUI()
@@ -47,6 +50,14 @@ class CurrentViewController: UIViewController {
 
         setupTableView()
         registerNib()
+        checkOtherCountryTime(code: currentWeatherData?.sys.country ?? "")
+    }
+    
+    private func checkOtherCountryTime(code: String) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+        dateFormatter.dateFormat = "HH:mm"
+        print(dateFormatter.string(from: Date()))
     }
     
     private func fetchFahrenheitOrCelsius() {
@@ -137,9 +148,17 @@ class CurrentViewController: UIViewController {
     }
     
     private func updateUI() {
-        guard let weather = currentWeatherData else {
+        guard let weather = currentWeatherData, 
+            let emoji = fahrenheitOrCelsius?.emoji else {
             return
         }
+        
+        if fahrenheitOrCelsius == FahrenheitOrCelsius.Celsius {
+            tempLabel.text = weather.main.temp.makeCelsius() + emoji
+        } else {
+            tempLabel.text = weather.main.temp.makeFahrenheit() + emoji
+        }
+        
         cityNameLabel.text = weather.name
         weatherStatusLabel.text = weather.weather.first?.description
     }

@@ -30,9 +30,9 @@ class WeatherListTableViewCell: UITableViewCell {
         timeLabel.text = timeConverter(country: weatherData.sys.country)
         switch fc {
         case .Celsius:
-            temperatureLabel.text = weatherData.main.temp.makeCelsius()
+            temperatureLabel.text = weatherData.main.temp.makeCelsius() + fc.emoji
         case .Fahrenheit:
-            temperatureLabel.text = weatherData.main.temp.makeFahrenheit()
+            temperatureLabel.text = weatherData.main.temp.makeFahrenheit() + fc.emoji
         }
     }
     

@@ -10,6 +10,8 @@ import UIKit
 
 class WeatherListSettingTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var toggleButton: UIButton!
+    
     private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
         didSet {
             UserDefaults.standard.set(fahrenheitOrCelsius?.rawValue, forKey: "fahrenheitOrCelsius")
