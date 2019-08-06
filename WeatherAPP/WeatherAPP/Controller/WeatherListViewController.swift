@@ -65,7 +65,7 @@ class WeatherListViewController: UIViewController {
     }
     
     private func fetchFahrenheitOrCelsius() {
-        fahrenheitOrCelsius = FahrenheitOrCelsius(rawValue: UserInfo.fahrenheitOrCelsius())
+        fahrenheitOrCelsius = FahrenheitOrCelsius(rawValue: UserInfo.getFahrenheitOrCelsius())
     }
     
     private func fetchCityList() {

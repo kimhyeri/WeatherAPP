@@ -9,8 +9,11 @@
 import Foundation
 
 struct UserInfo {
+    static let cities = "cities"
+    static let fahrenheitOrCelsius = "fahrenheitOrCelsius"
+    
     static func getCityList() -> [Coordinate]? {
-        if let cityLists = UserDefaults.standard.value(forKey:"cities") as? Data {
+        if let cityLists = UserDefaults.standard.value(forKey: cities) as? Data {
             let cityList = try? PropertyListDecoder().decode(Array<Coordinate>.self, 
                                                              from: cityLists
             )
@@ -19,8 +22,8 @@ struct UserInfo {
         return nil
     }        
     
-    static func fahrenheitOrCelsius() -> String {
-        if let fahrenheitOrCelsius = UserDefaults.standard.string(forKey: "fahrenheitOrCelsius"), 
+    static func getFahrenheitOrCelsius() -> String {
+        if let fahrenheitOrCelsius = UserDefaults.standard.string(forKey: fahrenheitOrCelsius), 
             let fahrenheitOrCelsiusValue = FahrenheitOrCelsius(rawValue: fahrenheitOrCelsius) {
             return fahrenheitOrCelsiusValue.rawValue
         } 

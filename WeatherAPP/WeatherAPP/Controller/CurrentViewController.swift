@@ -57,7 +57,7 @@ class CurrentViewController: UIViewController {
     }
     
     private func fetchFahrenheitOrCelsius() {
-        fahrenheitOrCelsius = FahrenheitOrCelsius(rawValue: UserInfo.fahrenheitOrCelsius())
+        fahrenheitOrCelsius = FahrenheitOrCelsius(rawValue: UserInfo.getFahrenheitOrCelsius())
     }
     
     private func fetchData() {
