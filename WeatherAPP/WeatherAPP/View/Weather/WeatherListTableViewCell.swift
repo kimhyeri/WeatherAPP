@@ -22,7 +22,8 @@ class WeatherListTableViewCell: UITableViewCell {
         Timer.scheduledTimer(timeInterval: 60,
                              target: self, 
                              selector: #selector(updateTime),
-                             userInfo: nil, repeats: true
+                             userInfo: nil,
+                             repeats: true
         )
     }
 

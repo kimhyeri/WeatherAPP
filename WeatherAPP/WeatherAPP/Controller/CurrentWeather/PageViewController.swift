@@ -9,10 +9,10 @@
 import UIKit
 
 class PageViewController: UIPageViewController {
-
-    var startIndex = 0
-    var weatherList: [WeatherInfo] = [WeatherInfo]() 
+    
     private var currentViewControllers: [CurrentViewController] = [CurrentViewController]()
+    var startIndex: Int = 0
+    var weatherList: [WeatherInfo] = [WeatherInfo]() 
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +50,7 @@ class PageViewController: UIPageViewController {
     }
     
     private func currentViewController() -> UIViewController {
-        return UIStoryboard(name: "CurrentWeather", bundle: nil) .
-            instantiateViewController(withIdentifier: "CurrentViewController")
+        return UIStoryboard(name: "CurrentWeather", bundle: nil).instantiateViewController(withIdentifier: "CurrentViewController")
     }
 }
 
@@ -64,7 +63,7 @@ extension PageViewController: UIPageViewControllerDataSource {
         }
         
         let previousIndex = viewControllerIndex - 1
-        
+
         guard previousIndex >= 0,
             currentViewControllers.count > previousIndex else {
             return nil

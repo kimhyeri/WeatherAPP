@@ -22,12 +22,9 @@ class CurrentViewController: UIViewController {
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var fadeViewContraint: NSLayoutConstraint!
     
-    private var previousOffset: CGFloat = 0
-    private var myConstraint = 0
     var currentWeatherData: WeatherInfo?
     var currentIndex: Int = 0
-    var totalPage:Int = 0
-    
+    var totalPage: Int = 0
     private var fiveDayWeatherData: FiveDayWeather? {
         didSet {
             DispatchQueue.main.async {
@@ -64,7 +61,6 @@ class CurrentViewController: UIViewController {
         guard let coordinate = currentWeatherData?.coord else {
             return
         }
-        
         self.get5DayWeatherByCoordinate(latitude: coordinate.lat,
                                         longitude: coordinate.lon
         )
@@ -138,7 +134,10 @@ class CurrentViewController: UIViewController {
             return
         }
         if #available(iOS 10.0, *) {
-            UIApplication.shared.open(webURL, options: [:], completionHandler: nil)
+            UIApplication.shared.open(webURL, 
+                                      options: [:],
+                                      completionHandler: nil
+            )
         } else {
             UIApplication.shared.openURL(webURL)
         }
@@ -162,13 +161,13 @@ class CurrentViewController: UIViewController {
         }
         
         cityNameLabel.text = weather.name
-        dayLabel.text = getDay()
+        dayLabel.text = calculateDay()
         weatherStatusLabel.text = weather.weather.first?.description
         pageControl.numberOfPages = totalPage
         pageControl.currentPage = currentIndex
     }
     
-    private func getDay() -> String {
+    private func calculateDay() -> String {
         guard let timezone = currentWeatherData?.timezone,
             let date = Date().dayNumberOfWeek(time: timezone),
             let day = Week(rawValue: date) else {
@@ -203,10 +202,13 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: DaysTableViewCell.daysReuseIdentifier, for: indexPath) as? DaysTableViewCell, 
-                let list = fiveDayWeatherData?.list, let fahrenheitOrCelsiusData = fahrenheitOrCelsius else {
+                let list = fiveDayWeatherData?.list, 
+                let fahrenheitOrCelsiusData = fahrenheitOrCelsius else {
                 return UITableViewCell()
             }
-            cell.config(weather: list[indexPath.row - 2], fc: fahrenheitOrCelsiusData)
+            cell.config(weather: list[indexPath.row - 2], 
+                        fahrenheitOrCelsius: fahrenheitOrCelsiusData
+            )
             return cell
         }
     }

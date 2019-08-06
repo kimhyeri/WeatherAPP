@@ -23,7 +23,6 @@ class DaysTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
     func getDayString(getData: String) -> String {
@@ -37,15 +36,15 @@ class DaysTableViewCell: UITableViewCell {
         return day.StringValue
     }
     
-    func config(weather data: List, fc: FahrenheitOrCelsius) {
+    func config(weather data: List, fahrenheitOrCelsius: FahrenheitOrCelsius) {
         dateLabel.text = nil
-        switch fc {
+        switch fahrenheitOrCelsius {
         case .Celsius:
-            tempMaxLabel.text = data.main.tempMax.makeCelsius() + fc.emoji
-            tempMinLabel.text = data.main.tempMin.makeCelsius() + fc.emoji
+            tempMaxLabel.text = data.main.tempMax.makeCelsius() + fahrenheitOrCelsius.emoji
+            tempMinLabel.text = data.main.tempMin.makeCelsius() + fahrenheitOrCelsius.emoji
         case .Fahrenheit:
-            tempMaxLabel.text = data.main.tempMax.makeFahrenheit() + fc.emoji
-            tempMinLabel.text = data.main.tempMin.makeFahrenheit() + fc.emoji
+            tempMaxLabel.text = data.main.tempMax.makeFahrenheit() + fahrenheitOrCelsius.emoji
+            tempMinLabel.text = data.main.tempMin.makeFahrenheit() + fahrenheitOrCelsius.emoji
         }
         
         dateLabel.text = getDayString(getData: data.dtTxt)

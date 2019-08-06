@@ -68,7 +68,7 @@ struct Weather: Codable {
     let icon: String
 }
 
-// MARK: - Wind
+// MARK: Wind
 struct Wind: Codable {
     let speed: Double
     let deg: Double?

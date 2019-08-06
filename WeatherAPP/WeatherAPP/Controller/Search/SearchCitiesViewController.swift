@@ -14,8 +14,8 @@ class SearchCitiesViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
-    var searchCompleter = MKLocalSearchCompleter()
-    var searchResults = [MKLocalSearchCompletion]() {
+    private var searchCompleter: MKLocalSearchCompleter = MKLocalSearchCompleter()
+    private var searchResults: [MKLocalSearchCompletion] = [MKLocalSearchCompletion]() {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -62,27 +62,29 @@ class SearchCitiesViewController: UIViewController {
             let coordinate = response?.mapItems.first?.placemark.coordinate
 
             DispatchQueue.global().async {
-                NotificationCenter.default.post(name: .selectCity, object: coordinate)
+                NotificationCenter.default.post(name: .selectCity, 
+                                                object: coordinate
+                )
             }
             self.dismiss(animated: true, completion: nil)
         }
     }
     
     private func highlightedText(_ text: String, inRanges ranges: [NSValue], size: CGFloat) -> NSAttributedString? {
-        let attributedText = NSMutableAttributedString(string: text)
+        let attributeText = NSMutableAttributedString(string: text)
         if let regular = UIFont(name: "AppleSDGothicNeo-Regular", size: size), 
             let bold = UIFont(name: "AppleSDGothicNeo-Bold", size: size) {
-            attributedText.addAttribute(NSAttributedString.Key.font,
+            attributeText.addAttribute(NSAttributedString.Key.font,
                                         value: regular, 
                                         range: NSMakeRange(0, text.count)
             )
             for value in ranges {
-                attributedText.addAttribute(NSAttributedString.Key.font, 
+                attributeText.addAttribute(NSAttributedString.Key.font, 
                                             value: bold,
                                             range: value.rangeValue
                 )
             }
-            return attributedText
+            return attributeText
         }
         return nil
     }

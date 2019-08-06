@@ -13,10 +13,17 @@ class WeatherListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private let locManager = CLLocationManager()
-    private let dispatchGroup = DispatchGroup()
+    private let locManager: CLLocationManager = CLLocationManager()
+    private let dispatchGroup: DispatchGroup = DispatchGroup()
     private var currentLocation: CLLocation?
-    private var checkStatus = false
+    private var checkStatus: Bool = false
+    private var weather:[WeatherInfo] = [WeatherInfo]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
+        }
+    }
     private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
         didSet {
             DispatchQueue.main.async {
@@ -24,16 +31,11 @@ class WeatherListViewController: UIViewController {
             } 
         }
     }
-    private var myCities:[Coordinate] = [Coordinate]() {
+    private var myCities: [Coordinate] = [Coordinate]() {
         didSet {
-            UserDefaults.standard.set(try? PropertyListEncoder().encode(myCities), forKey:"cities")
-        }
-    }
-    private var weather:[WeatherInfo] = [WeatherInfo]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            } 
+            UserDefaults.standard.set(try? PropertyListEncoder().encode(myCities),
+                                      forKey:UserInfo.cities
+            )
         }
     }
     private lazy var refreshControl: UIRefreshControl = {
@@ -43,7 +45,6 @@ class WeatherListViewController: UIViewController {
                                  for: .valueChanged
         )
         refreshControl.tintColor = UIColor.black
-        
         return refreshControl
     }()
     
@@ -83,9 +84,9 @@ class WeatherListViewController: UIViewController {
     }
     
     private func setupViewController() {
+        tableView.addSubview(refreshControl)
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.addSubview(refreshControl)
         locManager.delegate = self
     }
     
@@ -140,8 +141,8 @@ class WeatherListViewController: UIViewController {
         }
         
         weather.removeAll()
-        getWeatherByCoordinate(latitude: coordinate.latitude,
-                               longitude: coordinate.longitude
+        getWeatherByCoordinate(latitude: coordinate.latitude.makeRound(),
+                               longitude: coordinate.longitude.makeRound()
         )
         fetchCityList()
     }
@@ -212,15 +213,11 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return weather.count 
-        } else {
-            return 1
-        }
+        return section == 0 ? weather.count : 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cellType: WeatherList
+        var cellType: WeatherList 
         if indexPath.section == 1  {
             cellType = .Setting
         } else {
@@ -256,11 +253,7 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.row == 0 && checkStatus {
-            return false
-        } else {
-            return true
-        }
+        return indexPath.row == 0 && checkStatus ? false : true
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {

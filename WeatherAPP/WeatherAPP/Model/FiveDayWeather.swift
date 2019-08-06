@@ -1,5 +1,5 @@
 //
-//  5DayWeather.swift
+//  FiveDayWeather.swift
 //  WeatherAPP
 //
 //  Created by hyeri kim on 05/08/2019.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK: - The5DayWeather
+// MARK: FiveDayWeather
 struct FiveDayWeather: Codable {
     let cod: String
     let message: Double
@@ -17,7 +17,7 @@ struct FiveDayWeather: Codable {
     let city: City
 }
 
-// MARK: - City
+// MARK: City
 struct City: Codable {
     let id: Int
     let name: String
@@ -27,7 +27,7 @@ struct City: Codable {
     var population: Int?
 }
 
-// MARK: - List
+// MARK: List
 struct List: Codable {
     let dt: Int
     let main: FiveMain
@@ -45,7 +45,7 @@ struct List: Codable {
     }
 }
 
-// MARK: - FiveMain
+// MARK: FiveMain
 struct FiveMain: Codable {
     let temp: Double
     let tempMin: Double
@@ -68,7 +68,7 @@ struct FiveMain: Codable {
     }
 }
 
-// MARK: - Rain
+// MARK: Rain
 struct Rain: Codable {
     let threeH: Double?
     
@@ -77,12 +77,12 @@ struct Rain: Codable {
     }
 }
 
-// MARK: - Sys
+// MARK: Sys
 struct FiveSys: Codable {
     let pod: String
 }
 
-// MARK: - FiveWeather
+// MARK: FiveWeather
 struct FiveWeather: Codable {
     let id: Int
     let main: String
