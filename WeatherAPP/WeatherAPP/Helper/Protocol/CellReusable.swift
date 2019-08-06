@@ -16,15 +16,15 @@ extension CellReusable where Self: UITableViewCell {
     }
 }
 
-extension CellReusable where Self: WeatherListSettingTableViewCell {
-    static var reuseIdentifier: String {
-        return "SettingCell"
-    }
-}
-
 extension CellReusable where Self: UICollectionViewCell {
     static var reuseIdentifier: String {
         return "Cell"
+    }
+}
+
+extension CellReusable where Self: WeatherListSettingTableViewCell {
+    static var reuseIdentifier: String {
+        return "SettingCell"
     }
 }
 

@@ -13,9 +13,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let userPage = UserInfo.getUserPage()
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+
+        switch userPage {
+        case .Current:
+            let storyboard = UIStoryboard(name: "CurrentWeather", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "PageViewController")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        case .List:
+            let storyboard = UIStoryboard(name: "WeatherList", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "WeatherListViewController")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        }
+        
         return true
     }
 

@@ -8,6 +8,7 @@
 
 import Foundation
 
+// API KEY
 let weatherAPIKey = "20aaa3701000f86f51903b62779c4986"
 
 // MARK: HTTPMethod
@@ -28,7 +29,6 @@ struct HTTPHeader {
 
 // MARK: APICenter
 struct APICenter {
-    
     typealias APIClientCompletion = (APIResult<Data?>) -> Void
     
     private let session = URLSession.shared

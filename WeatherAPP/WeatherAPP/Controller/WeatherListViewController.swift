@@ -16,6 +16,7 @@ class WeatherListViewController: UIViewController {
     private let selectCity = Notification.Name(selectCityNotification)
     private let selectFahrenheitOrCelsius = Notification.Name(selectFahrenheitOrCelsiusNotification)
     private let locManager = CLLocationManager()
+    private let dispatchGroup = DispatchGroup()
     private var currentLocation: CLLocation? 
     private var checkStatus = false
     private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
@@ -30,13 +31,7 @@ class WeatherListViewController: UIViewController {
             UserDefaults.standard.set(try? PropertyListEncoder().encode(myCities), forKey:"cities")
         }
     }
-    private var weather:[WeatherInfo] = [WeatherInfo]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }    
-        }
-    }
+    private var weather:[WeatherInfo] = [WeatherInfo]() 
     
     override func viewWillAppear(_ animated: Bool) {
         getCoordinate()
@@ -49,6 +44,10 @@ class WeatherListViewController: UIViewController {
         createObserver()
         fetchCityList()
         fetchFahrenheitOrCelsius() 
+        
+        dispatchGroup.notify(queue: .main) { 
+            self.tableView.reloadData()
+        }
     }
     
     private func fetchFahrenheitOrCelsius() {
@@ -60,12 +59,12 @@ class WeatherListViewController: UIViewController {
             return
         }
         myCities = cities
-        DispatchQueue.global().async {
-            self.myCities.forEach({
-                self.getWeatherByCoordinate(latitude: $0.lat,
-                                            longitude: $0.lon
-                )
-            })
+        DispatchQueue.concurrentPerform(iterations: cities.count) { (index) in
+            let lat = myCities[index].lat
+            let lon = myCities[index].lon
+            getWeatherByCoordinate(latitude: lat,
+                                   longitude: lon
+            )
         }
     }
     
@@ -136,7 +135,7 @@ class WeatherListViewController: UIViewController {
                                  path: weatherByCoordinatePath,
                                  queryItems: parameters
         )
-        
+        dispatchGroup.enter()
         APICenter().perform(urlString: BaseURL.weatherURL,
                             request: request
         ) { [weak self] (result) in
@@ -153,6 +152,7 @@ class WeatherListViewController: UIViewController {
             case .failure:
                 print(APIError.networkFailed)
             }
+            self.dispatchGroup.leave()
         }
     }
     
