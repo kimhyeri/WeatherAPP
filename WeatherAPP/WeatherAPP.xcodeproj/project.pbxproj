@@ -17,7 +17,6 @@
 		6A07599C22F758F2006F05AC /* 5DayWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A07599B22F758F2006F05AC /* 5DayWeather.swift */; };
 		6A07599F22F76D61006F05AC /* DaysTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A07599D22F76D61006F05AC /* DaysTableViewCell.swift */; };
 		6A0759A022F76D61006F05AC /* DaysTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A07599E22F76D61006F05AC /* DaysTableViewCell.xib */; };
-		6A0759A222F7C55C006F05AC /* Enum+WeatherType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759A122F7C55C006F05AC /* Enum+WeatherType.swift */; };
 		6A0759A922F7D6D3006F05AC /* DetailTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759A722F7D6D3006F05AC /* DetailTableViewCell.swift */; };
 		6A0759AA22F7D6D3006F05AC /* DetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A0759A822F7D6D3006F05AC /* DetailTableViewCell.xib */; };
 		6A0759AC22F806BC006F05AC /* Coordinate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759AB22F806BC006F05AC /* Coordinate.swift */; };
@@ -35,8 +34,8 @@
 		6A1C624722F18CD100D9425D /* WeatherListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C624622F18CD100D9425D /* WeatherListViewController.swift */; };
 		6A1C624A22F18E4E00D9425D /* WeatherListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C624822F18E4E00D9425D /* WeatherListTableViewCell.swift */; };
 		6A1C624B22F18E4E00D9425D /* WeatherListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A1C624922F18E4E00D9425D /* WeatherListTableViewCell.xib */; };
-		6A1C624D22F18EE400D9425D /* CellReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C624C22F18EE400D9425D /* CellReusable.swift */; };
-		6A1C624F22F190A600D9425D /* NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C624E22F190A600D9425D /* NibLoadable.swift */; };
+		6A1C624D22F18EE400D9425D /* Protocol+CellReusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C624C22F18EE400D9425D /* Protocol+CellReusable.swift */; };
+		6A1C624F22F190A600D9425D /* Protocol+NibLoadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C624E22F190A600D9425D /* Protocol+NibLoadable.swift */; };
 		6A1C625222F1981300D9425D /* WeatherListSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C625022F1981300D9425D /* WeatherListSettingTableViewCell.swift */; };
 		6A1C625322F1981300D9425D /* WeatherListSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A1C625122F1981300D9425D /* WeatherListSettingTableViewCell.xib */; };
 		6A1C625722F19CBA00D9425D /* Enum+WeatherList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C625622F19CBA00D9425D /* Enum+WeatherList.swift */; };
@@ -65,7 +64,6 @@
 		6A07599B22F758F2006F05AC /* 5DayWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = 5DayWeather.swift; sourceTree = "<group>"; };
 		6A07599D22F76D61006F05AC /* DaysTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DaysTableViewCell.swift; sourceTree = "<group>"; };
 		6A07599E22F76D61006F05AC /* DaysTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DaysTableViewCell.xib; sourceTree = "<group>"; };
-		6A0759A122F7C55C006F05AC /* Enum+WeatherType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+WeatherType.swift"; sourceTree = "<group>"; };
 		6A0759A722F7D6D3006F05AC /* DetailTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewCell.swift; sourceTree = "<group>"; };
 		6A0759A822F7D6D3006F05AC /* DetailTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTableViewCell.xib; sourceTree = "<group>"; };
 		6A0759AB22F806BC006F05AC /* Coordinate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinate.swift; sourceTree = "<group>"; };
@@ -85,8 +83,8 @@
 		6A1C624622F18CD100D9425D /* WeatherListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherListViewController.swift; sourceTree = "<group>"; };
 		6A1C624822F18E4E00D9425D /* WeatherListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherListTableViewCell.swift; sourceTree = "<group>"; };
 		6A1C624922F18E4E00D9425D /* WeatherListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherListTableViewCell.xib; sourceTree = "<group>"; };
-		6A1C624C22F18EE400D9425D /* CellReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellReusable.swift; sourceTree = "<group>"; };
-		6A1C624E22F190A600D9425D /* NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadable.swift; sourceTree = "<group>"; };
+		6A1C624C22F18EE400D9425D /* Protocol+CellReusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Protocol+CellReusable.swift"; sourceTree = "<group>"; };
+		6A1C624E22F190A600D9425D /* Protocol+NibLoadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Protocol+NibLoadable.swift"; sourceTree = "<group>"; };
 		6A1C625022F1981300D9425D /* WeatherListSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherListSettingTableViewCell.swift; sourceTree = "<group>"; };
 		6A1C625122F1981300D9425D /* WeatherListSettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherListSettingTableViewCell.xib; sourceTree = "<group>"; };
 		6A1C625622F19CBA00D9425D /* Enum+WeatherList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+WeatherList.swift"; sourceTree = "<group>"; };
@@ -221,8 +219,8 @@
 		6A1C625422F19C7B00D9425D /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				6A1C624C22F18EE400D9425D /* CellReusable.swift */,
-				6A1C624E22F190A600D9425D /* NibLoadable.swift */,
+				6A1C624C22F18EE400D9425D /* Protocol+CellReusable.swift */,
+				6A1C624E22F190A600D9425D /* Protocol+NibLoadable.swift */,
 				6A1C627422F56F2000D9425D /* Protocol+SelectWeather.swift */,
 			);
 			path = Protocol;
@@ -232,7 +230,6 @@
 			isa = PBXGroup;
 			children = (
 				6A1C625622F19CBA00D9425D /* Enum+WeatherList.swift */,
-				6A0759A122F7C55C006F05AC /* Enum+WeatherType.swift */,
 				6A0759AF22F809BE006F05AC /* Enum+FahrenheitOrCelsius.swift */,
 				6A0759B122F8CFF8006F05AC /* Enum+Week.swift */,
 			);
@@ -358,13 +355,12 @@
 				6A1C626422F1FB3000D9425D /* APIRequest.swift in Sources */,
 				6A1C626822F2D3C700D9425D /* SearchCitiesViewController.swift in Sources */,
 				6A1C627522F56F2000D9425D /* Protocol+SelectWeather.swift in Sources */,
-				6A1C624D22F18EE400D9425D /* CellReusable.swift in Sources */,
+				6A1C624D22F18EE400D9425D /* Protocol+CellReusable.swift in Sources */,
 				6A1C625222F1981300D9425D /* WeatherListSettingTableViewCell.swift in Sources */,
 				6A1C625D22F1B29500D9425D /* Weather.swift in Sources */,
 				6A0759B422F8D075006F05AC /* Extension+Date.swift in Sources */,
 				6A1C626222F1F97800D9425D /* APIError.swift in Sources */,
 				6A07599C22F758F2006F05AC /* 5DayWeather.swift in Sources */,
-				6A0759A222F7C55C006F05AC /* Enum+WeatherType.swift in Sources */,
 				6A07599922F6D018006F05AC /* TimesCollectionViewCell.swift in Sources */,
 				6A0759B022F809BE006F05AC /* Enum+FahrenheitOrCelsius.swift in Sources */,
 				6A0759AE22F808DD006F05AC /* UserInfo.swift in Sources */,
@@ -378,7 +374,7 @@
 				6A0759A922F7D6D3006F05AC /* DetailTableViewCell.swift in Sources */,
 				6A1C626022F1F85600D9425D /* APICenter.swift in Sources */,
 				6A07599122F6B8E8006F05AC /* SearchListTableViewCell.swift in Sources */,
-				6A1C624F22F190A600D9425D /* NibLoadable.swift in Sources */,
+				6A1C624F22F190A600D9425D /* Protocol+NibLoadable.swift in Sources */,
 				6A1C625722F19CBA00D9425D /* Enum+WeatherList.swift in Sources */,
 				6A1C627822F5EB8400D9425D /* NotificationKeys.swift in Sources */,
 				6A1C623122F1886200D9425D /* ViewController.swift in Sources */,

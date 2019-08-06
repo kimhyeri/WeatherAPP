@@ -35,18 +35,20 @@ class WeatherListTableViewCell: UITableViewCell {
         guard let timezone = weatherData?.timezone else {
             return
         }
-        timeLabel.text = Date().getTime(time: timezone)
+        timeLabel.text = Date().getCountryTime(byTimeZone: timezone)
     }
     
-    func config(weatherData: WeatherInfo, fc: FahrenheitOrCelsius) {
-        cityNameLabel.text = weatherData.name
-        self.weatherData = weatherData
-        timeLabel.text = Date().getTime(time: weatherData.timezone)
-        switch fc {
+    func config(weatherInfoData: WeatherInfo, fahrenheitOrCelsius: FahrenheitOrCelsius) {
+        cityNameLabel.text = weatherInfoData.name
+        weatherData = weatherInfoData
+        timeLabel.text = Date().getCountryTime(byTimeZone: weatherInfoData.timezone)
+        switch fahrenheitOrCelsius {
         case .Celsius:
-            temperatureLabel.text = weatherData.main.temp.makeCelsius() + fc.emoji
+            temperatureLabel.text = weatherInfoData.main.temp.makeCelsius() + 
+                fahrenheitOrCelsius.emoji
         case .Fahrenheit:
-            temperatureLabel.text = weatherData.main.temp.makeFahrenheit() + fc.emoji
+            temperatureLabel.text = weatherInfoData.main.temp.makeFahrenheit() +
+                fahrenheitOrCelsius.emoji
         }
     }
 }

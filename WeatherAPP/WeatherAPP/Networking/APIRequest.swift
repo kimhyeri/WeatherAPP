@@ -8,7 +8,8 @@
 
 import Foundation
 
-class APIRequest {
+// MARK: APIRequest
+struct APIRequest {
     let method: HTTPMethod
     var path: String?
     var queryItems: [String: Any]?

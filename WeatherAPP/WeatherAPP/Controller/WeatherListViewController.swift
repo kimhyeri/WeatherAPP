@@ -235,7 +235,9 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
                 let fahrenheitOrCelsius = fahrenheitOrCelsius else { 
                 return UITableViewCell() 
             }
-            cell.config(weatherData: (weather[indexPath.row]), fc: fahrenheitOrCelsius)
+            cell.config(weatherInfoData: weather[indexPath.row],
+                        fahrenheitOrCelsius: fahrenheitOrCelsius
+            )
             return cell
         case .Setting:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListSettingTableViewCell.reuseIdentifier) as? WeatherListSettingTableViewCell else { 

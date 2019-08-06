@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol SelectWeatherDelegate {
+protocol SelectWeatherDelegate: class {
     func selectCity(cityData: NSObject)
 }

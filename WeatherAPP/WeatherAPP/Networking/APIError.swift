@@ -8,6 +8,7 @@
 
 import Foundation
 
+// MARK: APIError
 enum APIError: Error {
     case invalidURL
     case requestFailed

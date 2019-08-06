@@ -8,7 +8,7 @@
 
 import Foundation
 
-// API KEY
+// MARK: API KEY
 let weatherAPIKey = "20aaa3701000f86f51903b62779c4986"
 
 // MARK: HTTPMethod
@@ -42,27 +42,22 @@ struct APICenter {
         }
         
         var makeURLComponent = URLComponents()
-        makeURLComponent.scheme = baseURL.scheme // https
-        makeURLComponent.host = baseURL.host // api.openweathermap.org
+        makeURLComponent.scheme = baseURL.scheme 
+        makeURLComponent.host = baseURL.host 
         
-        guard let path = request.path else {
-            completion(.failure(.invalidURL))
-            return
+        if let path = request.path {
+            makeURLComponent.path = path             
         }
-        makeURLComponent.path = path // /data/2.5/weather
         
         let queryItems = request.queryItems?.map({
             URLQueryItem(name: $0.key, value: "\($0.value)")
         })
-
         makeURLComponent.queryItems = queryItems
-
+        
         guard let requestURL = makeURLComponent.url else {
             completion(.failure(.invalidURL))
             return
         }
-            
-        print(requestURL)
         
         let task = session.dataTask(with: requestURL) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else {
@@ -70,7 +65,8 @@ struct APICenter {
                 return
             }
             completion(.success(APIResponse<Data?>(statusCode: httpResponse.statusCode, 
-                                                   body: data))
+                                                   body: data)
+                )
             )
         }
         task.resume()

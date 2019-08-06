@@ -1,5 +1,5 @@
 //
-//  CellReusable.swift
+//  Protocol+CellReusable.swift
 //  WeatherAPP
 //
 //  Created by hyeri kim on 31/07/2019.
