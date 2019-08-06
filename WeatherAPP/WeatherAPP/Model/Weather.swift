@@ -14,6 +14,7 @@ struct WeatherInfo: Codable {
     let weather: [Weather]
     let base: String
     let main: Main
+    let visibility: Int?
     let wind: Wind
     let clouds: Clouds
     let dt: Int
@@ -22,7 +23,6 @@ struct WeatherInfo: Codable {
     let id: Int
     let name: String
     let cod: Int
-    var visibility: Int?
 }
 
 // MARK: Clouds
@@ -52,12 +52,12 @@ struct Main: Codable {
 
 // MARK: Sys
 struct Sys: Codable {
+    let type: Int?
+    let id: Int?
     let message: Double
     let country: String
     let sunrise: Int
     let sunset: Int
-    var type: Int?
-    var id: Int?
 }
 
 // MARK: Weather

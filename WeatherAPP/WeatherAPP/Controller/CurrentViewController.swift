@@ -27,6 +27,7 @@ class CurrentViewController: UIViewController {
     }
     private var fiveDayWeatherData: FiveDayWeather? {
         didSet {
+            print(fiveDayWeatherData)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -50,14 +51,18 @@ class CurrentViewController: UIViewController {
 
         setupTableView()
         registerNib()
-        checkOtherCountryTime(code: currentWeatherData?.sys.country ?? "")
+        getWeekDay()
+        
     }
     
-    private func checkOtherCountryTime(code: String) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        dateFormatter.dateFormat = "HH:mm"
-        print(dateFormatter.string(from: Date()))
+    private func getWeekDay(){
+        let date = Date()
+        guard let dayCnt = date.dayNumberOfWeek() else {
+            return
+        }
+        let day = Week(rawValue: dayCnt)
+        print(date)
+        print(day?.StringValue)
     }
     
     private func fetchFahrenheitOrCelsius() {

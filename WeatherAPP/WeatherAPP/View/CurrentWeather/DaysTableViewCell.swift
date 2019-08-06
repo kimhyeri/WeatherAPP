@@ -14,10 +14,10 @@ class DaysTableViewCell: UITableViewCell {
     @IBOutlet weak var weatherIconImageView: UIImageView!
     @IBOutlet weak var tempMaxLabel: UILabel!
     @IBOutlet weak var tempMinLabel: UILabel!
-    
+        
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -26,7 +26,19 @@ class DaysTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    func getDayString(getData: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        guard let formatDate = dateFormatter.date(from: getData),
+            let dayCnt = formatDate.dayNumberOfWeek(), 
+            let day = Week(rawValue: dayCnt) else {
+            return " "
+        }
+        return day.StringValue
+    }
+    
     func config(weather data: List, fc: FahrenheitOrCelsius) {
+        dateLabel.text = nil
         switch fc {
         case .Celsius:
             tempMaxLabel.text = data.main.tempMax.makeCelsius() + fc.emoji
@@ -35,7 +47,8 @@ class DaysTableViewCell: UITableViewCell {
             tempMaxLabel.text = data.main.tempMax.makeFahrenheit() + fc.emoji
             tempMinLabel.text = data.main.tempMin.makeFahrenheit() + fc.emoji
         }
-        dateLabel.text = data.dtTxt
+        
+        dateLabel.text = getDayString(getData: data.dtTxt)
         guard let iconName = data.weather.first?.icon else {
             return
         }
