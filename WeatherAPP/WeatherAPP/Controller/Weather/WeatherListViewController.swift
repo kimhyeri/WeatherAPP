@@ -166,7 +166,7 @@ class WeatherListViewController: UIViewController {
                                  queryItems: parameters
         )
         dispatchGroup.enter()
-        APICenter().perform(urlString: BaseURL.weatherURL,
+        APICenter().performSync(urlString: BaseURL.weatherURL,
                             request: request
         ) { [weak self] (result) in
             guard let self = self else { 
