@@ -49,7 +49,6 @@ struct APICenter {
             completion(.failure(.invalidURL))
             return
         }
-        
         makeURLComponent.path = path // /data/2.5/weather
         
         let queryItems = request.queryItems?.map({

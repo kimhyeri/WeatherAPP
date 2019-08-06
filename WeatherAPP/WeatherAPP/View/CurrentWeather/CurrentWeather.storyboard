@@ -29,7 +29,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uwh-Nl-ruH">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="goa-ub-30v">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="goa-ub-30v">
                                 <rect key="frame" x="0.0" y="290" width="414" height="546"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -107,7 +107,6 @@
                                                 </subviews>
                                             </stackView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="8jB-eB-Pfx" firstAttribute="leading" secondItem="LEb-go-LsL" secondAttribute="leading" constant="8" id="L6z-iq-Qne"/>
                                             <constraint firstItem="3yr-rc-z5Z" firstAttribute="top" secondItem="LEb-go-LsL" secondAttribute="top" id="cTm-O2-1uZ"/>
@@ -195,6 +194,8 @@
                     <connections>
                         <outlet property="cityNameLabel" destination="tf4-NP-ajE" id="1ci-uz-Nkq"/>
                         <outlet property="dayLabel" destination="LSE-4l-b3e" id="lRR-bL-FjZ"/>
+                        <outlet property="fadeView" destination="LEb-go-LsL" id="K10-I5-A5G"/>
+                        <outlet property="fadeViewContraint" destination="l6a-E9-Hr3" id="Owj-EJ-acn"/>
                         <outlet property="maxTempLabel" destination="IN5-17-Hl7" id="QTw-mL-pYc"/>
                         <outlet property="minTempLabel" destination="Iqv-2z-zUX" id="jcm-7p-0BR"/>
                         <outlet property="pageControl" destination="2dq-nf-KUn" id="LWy-BO-Egz"/>

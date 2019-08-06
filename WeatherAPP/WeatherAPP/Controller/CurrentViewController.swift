@@ -10,6 +10,7 @@ import UIKit
 
 class CurrentViewController: UIViewController {
 
+    @IBOutlet weak var fadeView: UIView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var weatherStatusLabel: UILabel!
@@ -19,10 +20,13 @@ class CurrentViewController: UIViewController {
     @IBOutlet weak var maxTempLabel: UILabel!
     @IBOutlet weak var minTempLabel: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var fadeViewContraint: NSLayoutConstraint!
     
+    private var previousOffset: CGFloat = 0
+    private var myConstraint = 0
     var currentWeatherData: WeatherInfo?
-    var currentIndex = 0
-    var totalPage = 0
+    var currentIndex: Int = 0
+    var totalPage:Int = 0
     
     private var fiveDayWeatherData: FiveDayWeather? {
         didSet {
@@ -100,10 +104,11 @@ class CurrentViewController: UIViewController {
             "lon" : "\(lon)",
             "appid" : weatherAPIKey
         ]
-        
-        let day5WeatherByCoordinatePath = "/data/2.5/forecast"
-        
-        let request = APIRequest(method: .get, path: day5WeatherByCoordinatePath, queryItems: parameters)
+                
+        let request = APIRequest(method: .get,
+                                 path: BasePath.current,
+                                 queryItems: parameters
+        )
         
         APICenter().perform(urlString: BaseURL.weatherURL,
                             request: request
@@ -204,12 +209,5 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
             cell.config(weather: list[indexPath.row - 2], fc: fahrenheitOrCelsiusData)
             return cell
         }
-    }
-}
-
-// MARK: ScrollViewDelegate
-extension CurrentViewController {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
     }
 }

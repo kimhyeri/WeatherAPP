@@ -14,6 +14,14 @@ extension Date {
     }
     
     func getGMT(time: Int) -> String {
+        if time < 0 {
+            let timeZone = abs(time) / 3600
+            if timeZone < 10 {
+                return "GMT-0\(timeZone)"
+            } else {
+                return "GMT-\(timeZone)"
+            }
+        } 
         let timeZone: Int = time / 3600
         if timeZone < 10 {
             return "GMT+0\(timeZone)"

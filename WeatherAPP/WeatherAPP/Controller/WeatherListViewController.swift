@@ -38,6 +38,16 @@ class WeatherListViewController: UIViewController {
             } 
         }
     }
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self,
+                                 action: #selector(refreshData),
+                                 for: .valueChanged
+        )
+        refreshControl.tintColor = UIColor.black
+        
+        return refreshControl
+    }()
     
     override func viewWillAppear(_ animated: Bool) {
         getCoordinate()
@@ -77,6 +87,7 @@ class WeatherListViewController: UIViewController {
     private func setupViewController() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.addSubview(refreshControl)
         locManager.delegate = self
     }
     
@@ -125,6 +136,18 @@ class WeatherListViewController: UIViewController {
         fahrenheitOrCelsius = notification.object as? FahrenheitOrCelsius
     }
     
+    @objc private func refreshData() {
+        guard let coordinate = currentLocation?.coordinate else {
+            return
+        }
+        
+        weather.removeAll()
+        getWeatherByCoordinate(latitude: coordinate.latitude,
+                               longitude: coordinate.longitude
+        )
+        fetchCityList()
+    }
+    
     private func getCoordinate() {
         locManager.requestWhenInUseAuthorization()  
     }
@@ -135,10 +158,9 @@ class WeatherListViewController: UIViewController {
             "lon" : "\(lon)",
             "appid" : weatherAPIKey
         ]
-        let weatherByCoordinatePath = "/data/2.5/weather"
         
         let request = APIRequest(method: .get,
-                                 path: weatherByCoordinatePath,
+                                 path: BasePath.list,
                                  queryItems: parameters
         )
         dispatchGroup.enter()
@@ -158,6 +180,9 @@ class WeatherListViewController: UIViewController {
             case .failure:
                 print(APIError.networkFailed)
             }        
+            DispatchQueue.main.async {
+                self.refreshControl.endRefreshing()
+            }
             self.dispatchGroup.leave()
         }
     }

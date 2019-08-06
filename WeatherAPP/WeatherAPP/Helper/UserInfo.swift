@@ -11,7 +11,9 @@ import Foundation
 struct UserInfo {
     static func getCityList() -> [Coordinate]? {
         if let cityLists = UserDefaults.standard.value(forKey:"cities") as? Data {
-            let cityList = try? PropertyListDecoder().decode(Array<Coordinate>.self, from: cityLists)
+            let cityList = try? PropertyListDecoder().decode(Array<Coordinate>.self, 
+                                                             from: cityLists
+            )
             return cityList
         }
         return nil
