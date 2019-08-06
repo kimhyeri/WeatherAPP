@@ -123,12 +123,15 @@ class WeatherListViewController: UIViewController {
         guard let cityCoordinate = notification.object as? CLLocationCoordinate2D else {
             return
         }
-        getWeatherByCoordinate(latitude: cityCoordinate.latitude,
-                               longitude: cityCoordinate.longitude
-        )
-        myCities.append(Coordinate(lat: cityCoordinate.latitude.makeRound(), 
-                                   lon: cityCoordinate.longitude.makeRound())
-        )
+        if !myCities.contains(Coordinate(lat: cityCoordinate.latitude.makeRound(),
+                                        lon: cityCoordinate.longitude.makeRound())){
+            getWeatherByCoordinate(latitude: cityCoordinate.latitude,
+                                   longitude: cityCoordinate.longitude
+            )
+            myCities.append(Coordinate(lat: cityCoordinate.latitude.makeRound(), 
+                                       lon: cityCoordinate.longitude.makeRound())
+            )
+        }
     }
     
     @objc private func selectedFahrenheitOrCelsius(notification: NSNotification) {
