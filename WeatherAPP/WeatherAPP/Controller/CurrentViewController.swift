@@ -18,8 +18,11 @@ class CurrentViewController: UIViewController {
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var maxTempLabel: UILabel!
     @IBOutlet weak var minTempLabel: UILabel!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     var currentWeatherData: WeatherInfo?
+    var currentIndex = 0
+    var totalPage = 0
     
     private var fiveDayWeatherData: FiveDayWeather? {
         didSet {
@@ -37,8 +40,6 @@ class CurrentViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        fetchData()
-        fetchFahrenheitOrCelsius()
         updateUI()
     }
     
@@ -47,6 +48,8 @@ class CurrentViewController: UIViewController {
 
         setupTableView()
         registerNib()
+        fetchData()
+        fetchFahrenheitOrCelsius()
     }
     
     private func fetchFahrenheitOrCelsius() {
@@ -152,9 +155,12 @@ class CurrentViewController: UIViewController {
             maxTempLabel.text = weather.main.tempMax.makeFahrenheit()
             minTempLabel.text = weather.main.tempMin.makeFahrenheit()
         }
+        
         cityNameLabel.text = weather.name
         dayLabel.text = getDay()
         weatherStatusLabel.text = weather.weather.first?.description
+        pageControl.numberOfPages = totalPage
+        pageControl.currentPage = currentIndex
     }
     
     private func getDay() -> String {
@@ -203,6 +209,6 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
 // MARK: ScrollViewDelegate
 extension CurrentViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("scrolling")
+        
     }
 }

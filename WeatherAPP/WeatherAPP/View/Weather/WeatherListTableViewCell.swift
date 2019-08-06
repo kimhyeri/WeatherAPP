@@ -27,20 +27,13 @@ class WeatherListTableViewCell: UITableViewCell {
     
     func config(weatherData: WeatherInfo, fc: FahrenheitOrCelsius) {
         cityNameLabel.text = weatherData.name
-        timeLabel.text = timeConverter(country: weatherData.sys.country)
+        timeLabel.text = Date().getTime(time: weatherData.timezone)
         switch fc {
         case .Celsius:
             temperatureLabel.text = weatherData.main.temp.makeCelsius() + fc.emoji
         case .Fahrenheit:
             temperatureLabel.text = weatherData.main.temp.makeFahrenheit() + fc.emoji
         }
-    }
-    
-    func timeConverter(country: String) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeZone = TimeZone(abbreviation: country)
-        dateFormatter.dateFormat = "HH:mm"
-        return dateFormatter.string(from: Date())
     }
 }
 

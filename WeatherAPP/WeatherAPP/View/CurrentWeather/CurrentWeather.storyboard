@@ -147,7 +147,8 @@
                                             </button>
                                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="2dq-nf-KUn">
                                                 <rect key="frame" x="170.5" y="0.0" width="57" height="36"/>
-                                                <color key="currentPageIndicatorTintColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="pageIndicatorTintColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="currentPageIndicatorTintColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </pageControl>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YAa-ms-d3N">
                                                 <rect key="frame" x="340.5" y="0.0" width="57.5" height="36"/>
@@ -161,7 +162,7 @@
                                         </subviews>
                                     </stackView>
                                 </subviews>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="PfC-WS-4yI"/>
                                     <constraint firstAttribute="bottom" secondItem="WF3-dD-Oms" secondAttribute="bottom" constant="16" id="ZAi-bh-dct"/>
@@ -196,6 +197,7 @@
                         <outlet property="dayLabel" destination="LSE-4l-b3e" id="lRR-bL-FjZ"/>
                         <outlet property="maxTempLabel" destination="IN5-17-Hl7" id="QTw-mL-pYc"/>
                         <outlet property="minTempLabel" destination="Iqv-2z-zUX" id="jcm-7p-0BR"/>
+                        <outlet property="pageControl" destination="2dq-nf-KUn" id="LWy-BO-Egz"/>
                         <outlet property="tableView" destination="goa-ub-30v" id="vzI-s1-Sh5"/>
                         <outlet property="tempLabel" destination="Oju-Sa-Ajp" id="fJk-gN-LjI"/>
                         <outlet property="tempView" destination="LEb-go-LsL" id="pPj-qc-orz"/>
