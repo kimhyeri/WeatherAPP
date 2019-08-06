@@ -14,19 +14,33 @@ class WeatherListTableViewCell: UITableViewCell {
     @IBOutlet weak var cityNameLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     
+    var weatherData: WeatherInfo?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        Timer.scheduledTimer(timeInterval: 60,
+                             target: self, 
+                             selector: #selector(updateTime),
+                             userInfo: nil, repeats: true
+        )
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
+    }
+    
+    @objc private func updateTime() {
+        guard let timezone = weatherData?.timezone else {
+            return
+        }
+        timeLabel.text = Date().getTime(time: timezone)
     }
     
     func config(weatherData: WeatherInfo, fc: FahrenheitOrCelsius) {
         cityNameLabel.text = weatherData.name
+        self.weatherData = weatherData
         timeLabel.text = Date().getTime(time: weatherData.timezone)
         switch fc {
         case .Celsius:
