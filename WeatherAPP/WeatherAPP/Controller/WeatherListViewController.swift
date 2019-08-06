@@ -17,6 +17,7 @@ class WeatherListViewController: UIViewController {
     private let selectFahrenheitOrCelsius = Notification.Name(selectFahrenheitOrCelsiusNotification)
     private let locManager = CLLocationManager()
     private var currentLocation: CLLocation? 
+    private var checkStatus = false
     private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
         didSet {
             DispatchQueue.main.async {
@@ -59,9 +60,13 @@ class WeatherListViewController: UIViewController {
             return
         }
         myCities = cities
-        myCities.forEach({
-            getWeatherByCoordinate(latitude: $0.lat, longitude: $0.lon)
-        })
+        DispatchQueue.global().async {
+            self.myCities.forEach({
+                self.getWeatherByCoordinate(latitude: $0.lat,
+                                            longitude: $0.lon
+                )
+            })
+        }
     }
     
     private func setupViewController() {
@@ -106,8 +111,8 @@ class WeatherListViewController: UIViewController {
         getWeatherByCoordinate(latitude: cityCoordinate.latitude,
                                longitude: cityCoordinate.longitude
         )
-        myCities.append(Coordinate(lat: cityCoordinate.latitude, 
-                                   lon: cityCoordinate.longitude)
+        myCities.append(Coordinate(lat: cityCoordinate.latitude.makeRound(), 
+                                   lon: cityCoordinate.longitude.makeRound())
         )
     }
     
@@ -238,7 +243,7 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.row == 0 {
+        if indexPath.row == 0 || !checkStatus {
             return false
         } else {
             return true
@@ -248,9 +253,12 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let coordinate = weather[indexPath.row].coord
+            
+            myCities = myCities.filter { 
+                $0.lat.makeRound() != coordinate.lat && 
+                $0.lon.makeRound() != coordinate.lon 
+            }
             weather.remove(at: indexPath.row)
-            myCities = myCities.filter { $0.lat.makeRound() != coordinate.lat && 
-                $0.lon.makeRound() != coordinate.lon }
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
@@ -263,9 +271,10 @@ extension WeatherListViewController: CLLocationManagerDelegate {
             guard let myCurrentLocation = locManager.location else {
                 return
             }
+            checkStatus = true
             currentLocation = myCurrentLocation
-            getWeatherByCoordinate(latitude: myCurrentLocation.coordinate.latitude,
-                                   longitude: myCurrentLocation.coordinate.longitude
+            getWeatherByCoordinate(latitude: myCurrentLocation.coordinate.latitude.makeRound(),
+                                   longitude: myCurrentLocation.coordinate.longitude.makeRound()
             )
         } else {
             print("user denied authorization")
