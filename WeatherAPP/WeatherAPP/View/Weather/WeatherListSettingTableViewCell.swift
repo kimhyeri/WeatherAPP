@@ -36,8 +36,7 @@ class WeatherListSettingTableViewCell: UITableViewCell {
             fahrenheitOrCelsius = .Celsius
         }
         DispatchQueue.global().async {
-            let selectedFahrenheitOrCelsius = Notification.Name(rawValue: selectFahrenheitOrCelsiusNotification)
-            NotificationCenter.default.post(name: selectedFahrenheitOrCelsius,
+            NotificationCenter.default.post(name: .selectFahrenheitOrCelsius,
                                             object: self.fahrenheitOrCelsius
             )
         }

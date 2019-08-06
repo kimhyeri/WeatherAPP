@@ -13,8 +13,6 @@ class WeatherListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private let selectCity = Notification.Name(selectCityNotification)
-    private let selectFahrenheitOrCelsius = Notification.Name(selectFahrenheitOrCelsiusNotification)
     private let locManager = CLLocationManager()
     private let dispatchGroup = DispatchGroup()
     private var currentLocation: CLLocation?
@@ -110,12 +108,12 @@ class WeatherListViewController: UIViewController {
     private func createObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(selectedCity),
-                                               name: selectCity, 
+                                               name: .selectCity, 
                                                object: nil
         )
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(selectedFahrenheitOrCelsius),
-                                               name: selectFahrenheitOrCelsius,
+                                               name: .selectFahrenheitOrCelsius,
                                                object: nil
         )
     }

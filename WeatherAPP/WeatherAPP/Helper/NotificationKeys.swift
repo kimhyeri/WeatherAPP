@@ -8,5 +8,12 @@
 
 import Foundation
 
-let selectCityNotification = "select.city"
-let selectFahrenheitOrCelsiusNotification = "select.fahrenheitOrCelsius"
+struct NotificationKey {
+    static let selectCityNotification = "select.city"
+    static let selectFahrenheitOrCelsiusNotification = "select.fahrenheitOrCelsius"
+}
+
+extension Notification.Name {
+    static let selectCity = Notification.Name(NotificationKey.selectCityNotification)
+    static let selectFahrenheitOrCelsius = Notification.Name(NotificationKey.selectFahrenheitOrCelsiusNotification)
+}
