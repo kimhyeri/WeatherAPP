@@ -22,19 +22,19 @@ extension Week {
     var StringValue: String {
         switch self {
         case .Sun:
-            return "일요일"
+            return "Sunday"
         case .Mon:
-            return "월요일"
+            return "Monday"
         case .Tue:
-            return "화요일"
+            return "Tuesday"
         case .Wed:
-            return "수요일"
+            return "Wednesday"
         case .Thu:
-            return "목요일"
+            return "Thursday"
         case .Fri:
-            return "금요일"
+            return "Friday"
         case .Sta:
-            return "토요일"
+            return "Saturday"
             
         }
     }

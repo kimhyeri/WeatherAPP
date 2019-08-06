@@ -15,6 +15,9 @@ class CurrentViewController: UIViewController {
     @IBOutlet weak var weatherStatusLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var tempView: UIView!
+    @IBOutlet weak var dayLabel: UILabel!
+    @IBOutlet weak var maxTempLabel: UILabel!
+    @IBOutlet weak var minTempLabel: UILabel!
     
     var currentWeatherData: WeatherInfo? {
         didSet {
@@ -51,18 +54,6 @@ class CurrentViewController: UIViewController {
 
         setupTableView()
         registerNib()
-        getWeekDay()
-        
-    }
-    
-    private func getWeekDay(){
-        let date = Date()
-        guard let dayCnt = date.dayNumberOfWeek() else {
-            return
-        }
-        let day = Week(rawValue: dayCnt)
-        print(date)
-        print(day?.StringValue)
     }
     
     private func fetchFahrenheitOrCelsius() {
@@ -153,19 +144,32 @@ class CurrentViewController: UIViewController {
     }
     
     private func updateUI() {
-        guard let weather = currentWeatherData, 
-            let emoji = fahrenheitOrCelsius?.emoji else {
+        guard let weather = currentWeatherData,
+            let fahrenheitOrCelsius = fahrenheitOrCelsius else {
             return
         }
         
-        if fahrenheitOrCelsius == FahrenheitOrCelsius.Celsius {
-            tempLabel.text = weather.main.temp.makeCelsius() + emoji
-        } else {
-            tempLabel.text = weather.main.temp.makeFahrenheit() + emoji
+        switch fahrenheitOrCelsius {
+        case .Celsius:
+            tempLabel.text = weather.main.temp.makeCelsius() 
+            maxTempLabel.text = weather.main.tempMax.makeCelsius()
+            minTempLabel.text = weather.main.tempMin.makeCelsius()
+        case .Fahrenheit:
+            tempLabel.text = weather.main.temp.makeFahrenheit() 
+            maxTempLabel.text = weather.main.tempMax.makeFahrenheit()
+            minTempLabel.text = weather.main.tempMin.makeFahrenheit()
         }
-        
         cityNameLabel.text = weather.name
+        dayLabel.text = getDay()
         weatherStatusLabel.text = weather.weather.first?.description
+    }
+    
+    private func getDay() -> String {
+        guard let date = Date().dayNumberOfWeek(),
+            let day = Week(rawValue: date) else {
+            return ""
+        }
+        return day.StringValue
     }
 }
 

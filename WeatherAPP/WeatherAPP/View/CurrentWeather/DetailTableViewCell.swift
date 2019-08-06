@@ -27,11 +27,10 @@ class DetailTableViewCell: UITableViewCell {
     }
     
     func config(weather data: WeatherInfo) {
-        leftTitleLabel.text = "바람"
+        leftTitleLabel.text = "wind"
         leftDescriptionLabel.text = "\(data.wind.speed)"
-        rightTitleLabel.text = "습도"
+        rightTitleLabel.text = "humidity"
         rightDescriptionLabel.text = "\(data.main.humidity)"
-        
     }
 }
 
