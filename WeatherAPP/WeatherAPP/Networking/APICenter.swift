@@ -27,7 +27,7 @@ struct HTTPHeader {
     let value: String
 }
 
-// MARK: APICenter
+// MARK: APICenter - perform sync
 struct APICenter {
     typealias APIClientCompletion = (APIResult<Data?>) -> Void
     
@@ -59,6 +59,8 @@ struct APICenter {
             return
         }
         
+        let semaphore = DispatchSemaphore(value: 0)
+
         let task = session.dataTask(with: requestURL) { (data, response, error) in
             guard let httpResponse = response as? HTTPURLResponse else {
                 completion(.failure(.requestFailed))
@@ -68,7 +70,9 @@ struct APICenter {
                                                    body: data)
                 )
             )
+            semaphore.signal()
         }
         task.resume()
+        semaphore.wait()
     }
 }

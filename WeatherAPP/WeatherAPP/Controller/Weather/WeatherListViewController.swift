@@ -74,12 +74,12 @@ class WeatherListViewController: UIViewController {
             return
         }
         myCities = cities
-        DispatchQueue.concurrentPerform(iterations: cities.count) { (index) in
-            let lat = myCities[index].lat
-            let lon = myCities[index].lon
-            getWeatherByCoordinate(latitude: lat,
-                                   longitude: lon
-            )
+        DispatchQueue.global().sync {
+            myCities.forEach({
+                getWeatherByCoordinate(latitude: $0.lat,
+                                       longitude: $0.lon
+                )
+            })
         }
     }
     
