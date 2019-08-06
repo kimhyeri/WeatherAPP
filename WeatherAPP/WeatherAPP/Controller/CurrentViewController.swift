@@ -19,18 +19,10 @@ class CurrentViewController: UIViewController {
     @IBOutlet weak var maxTempLabel: UILabel!
     @IBOutlet weak var minTempLabel: UILabel!
     
-    var currentWeatherData: WeatherInfo? {
-        didSet {
-            print(currentWeatherData)
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-                self.updateUI()
-            }
-        }
-    }
+    var currentWeatherData: WeatherInfo?
+    
     private var fiveDayWeatherData: FiveDayWeather? {
         didSet {
-            print(fiveDayWeatherData)
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -45,6 +37,7 @@ class CurrentViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        updateUI()
         fetchData()
         fetchFahrenheitOrCelsius()
     }
@@ -178,7 +171,7 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
         guard let list = fiveDayWeatherData?.list else {
             return 1
         } 
-        return list.count
+        return list.count + 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -201,8 +194,15 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
                 let list = fiveDayWeatherData?.list, let fahrenheitOrCelsiusData = fahrenheitOrCelsius else {
                 return UITableViewCell()
             }
-            cell.config(weather: list[indexPath.row], fc: fahrenheitOrCelsiusData)
+            cell.config(weather: list[indexPath.row - 2], fc: fahrenheitOrCelsiusData)
             return cell
         }
+    }
+}
+
+// MARK: ScrollViewDelegate
+extension CurrentViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("scrolling")
     }
 }
