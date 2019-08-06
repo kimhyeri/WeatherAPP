@@ -233,18 +233,8 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
             return
         }
         vc.weatherList = weather
+        vc.startIndex = indexPath.row
         self.present(vc, animated: true, completion: nil)
-        
-        
-//        let weatherData = weather[indexPath.row]
-//        DispatchQueue.main.async {
-//            let st = UIStoryboard.init(name: "CurrentWeather", bundle: nil)
-//            guard let vc = st.instantiateViewController(withIdentifier: "CurrentViewController") as? CurrentViewController else {
-//                return
-//            }
-//            vc.currentWeatherData = weatherData
-//            self.present(vc, animated: true, completion: nil)
-//        }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

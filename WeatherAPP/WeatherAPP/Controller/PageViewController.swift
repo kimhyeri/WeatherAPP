@@ -10,6 +10,7 @@ import UIKit
 
 class PageViewController: UIPageViewController {
 
+    var startIndex = 0
     var weatherList: [WeatherInfo] = [WeatherInfo]() 
     private var currentViewControllers: [CurrentViewController] = [CurrentViewController]()
     
@@ -36,13 +37,12 @@ class PageViewController: UIPageViewController {
     }
     
     private func setupFirstPageView() {
-        if let firstViewController = currentViewControllers.first {
-            setViewControllers([firstViewController],
-                               direction: .forward,
-                               animated: true,
-                               completion: nil
-            )
-        }
+        let firstViewController = currentViewControllers[startIndex] 
+        setViewControllers([firstViewController],
+                           direction: .forward,
+                           animated: true,
+                           completion: nil
+        )
     }
     
     private func currentViewController() -> UIViewController {

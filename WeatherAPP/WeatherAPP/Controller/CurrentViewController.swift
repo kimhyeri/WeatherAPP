@@ -37,9 +37,9 @@ class CurrentViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        updateUI()
         fetchData()
         fetchFahrenheitOrCelsius()
+        updateUI()
     }
     
     override func viewDidLoad() {
