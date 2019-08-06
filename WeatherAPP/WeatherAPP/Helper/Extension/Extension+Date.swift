@@ -13,18 +13,28 @@ extension Date {
         return Calendar.current.dateComponents([.weekday], from: self).weekday 
     }
     
-    func getTime(time: Int) -> String {
+    func getGMT(time: Int) -> String {
         let timeZone: Int = time / 3600
-        var GMT: String = ""
         if timeZone < 10 {
-            GMT = "GMT+0\(timeZone)"
+            return "GMT+0\(timeZone)"
         } else {
-            GMT = "GMT+\(timeZone)"
+            return "GMT+\(timeZone)"
         }
+    }
+    
+    func getTime(time: Int) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm a"
-        formatter.timeZone = TimeZone(abbreviation: GMT)
+        formatter.timeZone = TimeZone(abbreviation: getGMT(time: time))
         let defaultTimeZoneStr = formatter.string(from: self)
         return defaultTimeZoneStr
+    }
+    
+    func dayNumberOfWeek(time: Int) -> Int? {
+        guard let timeZone = TimeZone(abbreviation: getGMT(time: time)) else {
+            return 0
+        }
+        let component =  Calendar.current.dateComponents(in: timeZone, from: self)
+        return  component.weekday
     }
 }

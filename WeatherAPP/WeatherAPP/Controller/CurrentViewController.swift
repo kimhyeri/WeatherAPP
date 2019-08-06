@@ -164,7 +164,8 @@ class CurrentViewController: UIViewController {
     }
     
     private func getDay() -> String {
-        guard let date = Date().dayNumberOfWeek(),
+        guard let timezone = currentWeatherData?.timezone,
+            let date = Date().dayNumberOfWeek(time: timezone),
             let day = Week(rawValue: date) else {
             return ""
         }

@@ -26,7 +26,6 @@
 		6A0759B222F8CFF8006F05AC /* Enum+Week.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759B122F8CFF8006F05AC /* Enum+Week.swift */; };
 		6A0759B422F8D075006F05AC /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759B322F8D075006F05AC /* Extension+Date.swift */; };
 		6A0759B622F95D89006F05AC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759B522F95D89006F05AC /* PageViewController.swift */; };
-		6A0759B822F9AD74006F05AC /* Enum+UserPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A0759B722F9AD74006F05AC /* Enum+UserPage.swift */; };
 		6A1C622F22F1886200D9425D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C622E22F1886200D9425D /* AppDelegate.swift */; };
 		6A1C623122F1886200D9425D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A1C623022F1886200D9425D /* ViewController.swift */; };
 		6A1C623422F1886200D9425D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A1C623222F1886200D9425D /* Main.storyboard */; };
@@ -75,7 +74,6 @@
 		6A0759B122F8CFF8006F05AC /* Enum+Week.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+Week.swift"; sourceTree = "<group>"; };
 		6A0759B322F8D075006F05AC /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		6A0759B522F95D89006F05AC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		6A0759B722F9AD74006F05AC /* Enum+UserPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Enum+UserPage.swift"; sourceTree = "<group>"; };
 		6A1C622B22F1886200D9425D /* WeatherAPP.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAPP.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A1C622E22F1886200D9425D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6A1C623022F1886200D9425D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -237,7 +235,6 @@
 				6A0759A122F7C55C006F05AC /* Enum+WeatherType.swift */,
 				6A0759AF22F809BE006F05AC /* Enum+FahrenheitOrCelsius.swift */,
 				6A0759B122F8CFF8006F05AC /* Enum+Week.swift */,
-				6A0759B722F9AD74006F05AC /* Enum+UserPage.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -376,7 +373,6 @@
 				6A07599522F6CFA8006F05AC /* CurrentWeatherTimesTableViewCell.swift in Sources */,
 				6A1C626622F2915400D9425D /* APIResponse.swift in Sources */,
 				6A0759AC22F806BC006F05AC /* Coordinate.swift in Sources */,
-				6A0759B822F9AD74006F05AC /* Enum+UserPage.swift in Sources */,
 				6A1C627322F4AF8300D9425D /* BaseURL.swift in Sources */,
 				6A1C625B22F1AE0F00D9425D /* CurrentViewController.swift in Sources */,
 				6A0759A922F7D6D3006F05AC /* DetailTableViewCell.swift in Sources */,

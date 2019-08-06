@@ -56,10 +56,10 @@
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailing" secondItem="yVQ-XT-xlL" secondAttribute="trailing" constant="16" id="DDV-x3-YmP"/>
-                    <constraint firstAttribute="bottom" secondItem="yVQ-XT-xlL" secondAttribute="bottom" constant="16" id="ZUt-ce-kBg"/>
-                    <constraint firstItem="yVQ-XT-xlL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="aQf-dO-ULH"/>
-                    <constraint firstItem="yVQ-XT-xlL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="rIe-9w-lAX"/>
+                    <constraint firstItem="yVQ-XT-xlL" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="Gv9-ce-xUa"/>
+                    <constraint firstAttribute="trailing" secondItem="yVQ-XT-xlL" secondAttribute="trailing" constant="16" id="TaI-57-he0"/>
+                    <constraint firstItem="yVQ-XT-xlL" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="Y4a-XR-bd7"/>
+                    <constraint firstAttribute="bottom" secondItem="yVQ-XT-xlL" secondAttribute="bottom" constant="16" id="ctf-OX-ebN"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

@@ -24,8 +24,4 @@ struct UserInfo {
         } 
         return FahrenheitOrCelsius.Celsius.rawValue
     }
-    
-    static func getUserPage() -> UserPage {
-        return .List
-    }
 }

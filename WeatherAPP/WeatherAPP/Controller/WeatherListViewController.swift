@@ -17,7 +17,7 @@ class WeatherListViewController: UIViewController {
     private let selectFahrenheitOrCelsius = Notification.Name(selectFahrenheitOrCelsiusNotification)
     private let locManager = CLLocationManager()
     private let dispatchGroup = DispatchGroup()
-    private var currentLocation: CLLocation? 
+    private var currentLocation: CLLocation?
     private var checkStatus = false
     private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
         didSet {
@@ -31,7 +31,13 @@ class WeatherListViewController: UIViewController {
             UserDefaults.standard.set(try? PropertyListEncoder().encode(myCities), forKey:"cities")
         }
     }
-    private var weather:[WeatherInfo] = [WeatherInfo]() 
+    private var weather:[WeatherInfo] = [WeatherInfo]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            } 
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         getCoordinate()
@@ -151,13 +157,16 @@ class WeatherListViewController: UIViewController {
                 }
             case .failure:
                 print(APIError.networkFailed)
-            }
+            }        
             self.dispatchGroup.leave()
         }
     }
     
     private func checkCurrentLocationOrNot(bodyData: WeatherInfo) {
         guard let coordinate = currentLocation?.coordinate else {
+            if !checkStatus {
+                weather.append(bodyData)
+            }
             return
         }
         if coordinate.latitude.makeRound() == bodyData.coord.lat,
@@ -168,29 +177,8 @@ class WeatherListViewController: UIViewController {
         }
     }
     
-    private func getWeatherByCityName(name: String) {    
-        let parameters: [String: Any] = [
-            "q" : name,
-            "appid" : weatherAPIKey
-        ]
-        
-        let request = APIRequest(method: .get, queryItems: parameters)
-        
-        APICenter().perform(urlString: BaseURL.weatherURL, 
-                            request: request
-        ) { [weak self] (result) in
-            guard let self = self else {
-                return
-            }
-            switch result {
-            case .success(let response):        
-                if let response = try? response.decode(to: WeatherInfo.self) {
-                    self.weather.append(response.body)
-                }
-            case .failure:
-                print(APIError.networkFailed)
-            }
-        }
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -243,7 +231,7 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.row == 0 || !checkStatus {
+        if indexPath.row == 0 && checkStatus {
             return false
         } else {
             return true
@@ -271,11 +259,11 @@ extension WeatherListViewController: CLLocationManagerDelegate {
             guard let myCurrentLocation = locManager.location else {
                 return
             }
-            checkStatus = true
             currentLocation = myCurrentLocation
             getWeatherByCoordinate(latitude: myCurrentLocation.coordinate.latitude.makeRound(),
                                    longitude: myCurrentLocation.coordinate.longitude.makeRound()
             )
+            checkStatus = true
         } else {
             print("user denied authorization")
         }
