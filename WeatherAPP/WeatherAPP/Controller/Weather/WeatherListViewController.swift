@@ -17,7 +17,13 @@ class WeatherListViewController: UIViewController {
     private let dispatchGroup: DispatchGroup = DispatchGroup()
     private var currentLocation: CLLocation?
     private var checkStatus: Bool = false
-    private var weather:[WeatherInfo] = [WeatherInfo]() 
+    private var weather:[WeatherInfo] = [WeatherInfo]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            } 
+        }
+    }
     private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
         didSet {
             DispatchQueue.main.async {
@@ -27,7 +33,7 @@ class WeatherListViewController: UIViewController {
     }
     private var myCities: [Coordinate] = [Coordinate]() {
         didSet {
-            UserDefaults.standard.set(try? PropertyListEncoder().encode(myCities),
+            UserDefaults.standard.set(try? PropertyListEncoder().encode(self.myCities),
                                       forKey:UserInfo.cities
             )
             DispatchQueue.main.async {
@@ -193,6 +199,9 @@ class WeatherListViewController: UIViewController {
                 weather.append(bodyData)
             }
             return
+        } 
+        if bodyData.name == weather.first?.name {
+            return
         }
         if coordinate.latitude.makeRound() == bodyData.coord.lat,
             coordinate.longitude.makeRound() == bodyData.coord.lon {
@@ -260,13 +269,19 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let coordinate = weather[indexPath.row].coord
-            myCities = myCities.filter { 
-                $0.lat.makeRound() != coordinate.lat && 
-                $0.lon.makeRound() != coordinate.lon 
+            if !checkStatus {
+                myCities.remove(at: indexPath.row)
+                weather.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            } else {
+                let coordinate = weather[indexPath.row].coord
+                myCities = myCities.filter { 
+                    $0.lat.makeRound() != coordinate.lat && 
+                        $0.lon.makeRound() != coordinate.lon 
+                }
+                weather.remove(at: indexPath.row)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
             }
-            weather.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
 }

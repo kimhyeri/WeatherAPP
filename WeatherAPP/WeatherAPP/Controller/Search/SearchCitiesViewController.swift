@@ -61,11 +61,9 @@ class SearchCitiesViewController: UIViewController {
             } 
             let coordinate = response?.mapItems.first?.placemark.coordinate
 
-            DispatchQueue.global().async {
-                NotificationCenter.default.post(name: .selectCity, 
-                                                object: coordinate
-                )
-            }
+            NotificationCenter.default.post(name: .selectCity, 
+                                            object: coordinate
+            )
             self.dismiss(animated: true, completion: nil)
         }
     }
