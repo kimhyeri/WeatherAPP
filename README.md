@@ -3,6 +3,21 @@
 
 날씨 OpenAPI를 이용해서 Apple 기본 날씨앱 또는 Yahoo 날씨앱과 유사한 기능셋을 구현하십시오.
 
+## SCREEN
+![텍스트목록](./image/2.jpeg)
+
+* * *
+
+![텍스트목록](./image/3.jpeg)
+![텍스트목록](./image/4.jpeg)
+![텍스트목록](./image/5.jpeg)
+![텍스트목록](./image/6.jpeg)
+![텍스트목록](./image/7.jpeg)
+![텍스트목록](./image/8.jpeg)
+![텍스트목록](./image/9.jpeg)
+
+* * *
+
 ## 필수 구현사항
 - Networking
 - Model & Parser
