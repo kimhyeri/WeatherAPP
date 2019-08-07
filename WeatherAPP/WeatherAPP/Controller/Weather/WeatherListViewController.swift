@@ -17,13 +17,7 @@ class WeatherListViewController: UIViewController {
     private let dispatchGroup: DispatchGroup = DispatchGroup()
     private var currentLocation: CLLocation?
     private var checkStatus: Bool = false
-    private var weather:[WeatherInfo] = [WeatherInfo]() {
-        didSet {
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        }
-    }
+    private var weather:[WeatherInfo] = [WeatherInfo]() 
     private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
         didSet {
             DispatchQueue.main.async {
@@ -36,6 +30,9 @@ class WeatherListViewController: UIViewController {
             UserDefaults.standard.set(try? PropertyListEncoder().encode(myCities),
                                       forKey:UserInfo.cities
             )
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
         }
     }
     private lazy var refreshControl: UIRefreshControl = {
@@ -59,10 +56,6 @@ class WeatherListViewController: UIViewController {
         createObserver()
         fetchCityList()
         fetchFahrenheitOrCelsius() 
-        
-        dispatchGroup.notify(queue: .main) { 
-            self.tableView.reloadData()
-        }
     }
     
     private func fetchFahrenheitOrCelsius() {
@@ -74,9 +67,9 @@ class WeatherListViewController: UIViewController {
             return
         }
         myCities = cities
-        DispatchQueue.global().sync {
-            myCities.forEach({
-                getWeatherByCoordinate(latitude: $0.lat,
+        DispatchQueue.global().async {
+            self.myCities.forEach({
+                self.getWeatherByCoordinate(latitude: $0.lat,
                                        longitude: $0.lon
                 )
             })
@@ -144,10 +137,12 @@ class WeatherListViewController: UIViewController {
         }
         
         weather.removeAll()
-        getWeatherByCoordinate(latitude: coordinate.latitude.makeRound(),
-                               longitude: coordinate.longitude.makeRound()
-        )
-        fetchCityList()
+        DispatchQueue.global().async {
+            self.getWeatherByCoordinate(latitude: coordinate.latitude.makeRound(),
+                                   longitude: coordinate.longitude.makeRound()
+            )
+            self.fetchCityList()
+        }
     }
     
     private func getCoordinate() {
@@ -176,16 +171,19 @@ class WeatherListViewController: UIViewController {
             case .success(let response):        
                 if let response = try? response.decode(to: WeatherInfo.self) {
                     self.checkCurrentLocationOrNot(bodyData: response.body)
+                    DispatchQueue.main.async {
+                        self.refreshControl.endRefreshing()
+                    }
                 } else {
                     print(APIError.decodingFailed)
                 }
             case .failure:
                 print(APIError.networkFailed)
             }        
-            DispatchQueue.main.async {
-                self.refreshControl.endRefreshing()
-            }
             self.dispatchGroup.leave()
+        }
+        dispatchGroup.notify(queue: .main) { 
+            self.tableView.reloadData()
         }
     }
     
@@ -247,7 +245,8 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let st = UIStoryboard.init(name: "CurrentWeather", bundle: nil)
-        guard let vc = st.instantiateViewController(withIdentifier: "PageViewController") as? PageViewController else {
+        guard let vc = st.instantiateViewController(withIdentifier: "PageViewController") as? PageViewController ,
+            indexPath.section == 0 else {
             return
         }
         vc.weatherList = weather
@@ -262,7 +261,6 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let coordinate = weather[indexPath.row].coord
-            
             myCities = myCities.filter { 
                 $0.lat.makeRound() != coordinate.lat && 
                 $0.lon.makeRound() != coordinate.lon 
