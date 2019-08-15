@@ -24,9 +24,7 @@ class SearchCitiesViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        DispatchQueue.main.async {
-            self.searchBar.becomeFirstResponder()
-        }
+        self.searchBar.becomeFirstResponder()
     }
     
     override func viewDidLoad() {
@@ -137,6 +135,7 @@ extension SearchCitiesViewController {
     }
 }
 
+// MARK: MKLocalSearchCompleterDelegate
 extension SearchCitiesViewController: MKLocalSearchCompleterDelegate {
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
