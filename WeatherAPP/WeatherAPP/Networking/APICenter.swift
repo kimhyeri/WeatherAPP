@@ -27,15 +27,15 @@ struct HTTPHeader {
     let value: String
 }
 
-// MARK: APICenter - perform sync
+// MARK: APICenter - perform sync, async
 struct APICenter {
     typealias APIClientCompletion = (APIResult<Data?>) -> Void
     
     private let session = URLSession.shared
     
     func perform(urlString: String,
-                     request: APIRequest,
-                     completion: @escaping APIClientCompletion) {
+                 request: APIRequest,
+                 completion: @escaping APIClientCompletion) {
         guard let baseURL = URL(string: urlString) else { 
             completion(.failure(.invalidURL))
             return
@@ -73,19 +73,19 @@ struct APICenter {
     }
     
     func performSync(urlString: String,
-                 request: APIRequest,
-                 completion: @escaping APIClientCompletion) {
+                     request: APIRequest,
+                     completion: @escaping APIClientCompletion) {
         guard let baseURL = URL(string: urlString) else { 
             completion(.failure(.invalidURL))
             return
         }
         
         var makeURLComponent = URLComponents()
-        makeURLComponent.scheme = baseURL.scheme 
-        makeURLComponent.host = baseURL.host 
+        makeURLComponent.scheme = baseURL.scheme //https
+        makeURLComponent.host = baseURL.host //api.openweathermap.org
         
         if let path = request.path {
-            makeURLComponent.path = path             
+            makeURLComponent.path = path 
         }
         
         let queryItems = request.queryItems?.map({

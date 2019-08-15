@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: APIError
-enum APIError: Error {
+enum APIError: LocalizedError {
     case invalidURL
     case requestFailed
     case networkFailed

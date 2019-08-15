@@ -19,17 +19,7 @@ struct APIRequest {
     init(method: HTTPMethod) {
         self.method = method
     }
-    
-    init(method: HTTPMethod, path: String) {
-        self.method = method
-        self.path = path
-    }
-    
-    init(method: HTTPMethod, queryItems: [String: Any])  {
-        self.method = method
-        self.queryItems = queryItems
-    }
-    
+
     init(method: HTTPMethod, path: String, queryItems: [String: Any]) {
         self.method = method
         self.path = path
@@ -39,6 +29,6 @@ struct APIRequest {
     init<Body: Encodable>(method: HTTPMethod, path: String, body: Body) throws {
         self.method = method
         self.path = path
-        self.body = try JSONEncoder().encode(body)
+        self.body = try? JSONEncoder().encode(body)
     }
 }

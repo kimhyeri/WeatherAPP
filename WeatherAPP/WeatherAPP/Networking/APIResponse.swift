@@ -20,15 +20,17 @@ struct APIResponse<Body> {
     let body: Body
 }
 
-//MARK: APIResponse decode
+//MARK: APIResponse Extension
 extension APIResponse where Body == Data? {
     func decode<T: Decodable>(to type: T.Type) throws -> APIResponse<T> {
         guard let data = body else { 
             throw APIError.decodingFailed
         }
      
-        let decodedJSON = try JSONDecoder().decode(T.self, from: data)
-
+        guard let decodedJSON = try? JSONDecoder().decode(T.self, from: data) else {
+            throw APIError.decodingFailed
+        }
+        
         return APIResponse<T>(statusCode: self.statusCode, body: decodedJSON)
     }
 }
