@@ -35,7 +35,6 @@ extension Week {
             return "Friday"
         case .Sta:
             return "Saturday"
-            
         }
     }
 }

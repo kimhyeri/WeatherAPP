@@ -8,7 +8,9 @@
 
 import Foundation
 
-enum WeatherList {
-    case City
+enum WeatherListCellType: Int {
+    case City = 0
     case Setting
 }
+
+extension WeatherListCellType: CaseIterable {}

@@ -14,7 +14,7 @@ struct UserInfo {
     
     static func getCityList() -> [Coordinate]? {
         if let cityLists = UserDefaults.standard.value(forKey: cities) as? Data {
-            let cityList = try? PropertyListDecoder().decode(Array<Coordinate>.self, 
+            let cityList = try? PropertyListDecoder().decode([Coordinate].self, 
                                                              from: cityLists
             )
             return cityList
@@ -22,11 +22,11 @@ struct UserInfo {
         return nil
     }        
     
-    static func getFahrenheitOrCelsius() -> String {
+    static func getFahrenheitOrCelsius() -> FahrenheitOrCelsius {
         if let fahrenheitOrCelsius = UserDefaults.standard.string(forKey: fahrenheitOrCelsius), 
             let fahrenheitOrCelsiusValue = FahrenheitOrCelsius(rawValue: fahrenheitOrCelsius) {
-            return fahrenheitOrCelsiusValue.rawValue
+            return fahrenheitOrCelsiusValue
         } 
-        return FahrenheitOrCelsius.Celsius.rawValue
+        return FahrenheitOrCelsius.Celsius
     }
 }
