@@ -70,12 +70,7 @@ class SearchCitiesViewController: UIViewController {
     
     private func highlightedText(_ text: String, inRanges ranges: [NSValue], size: CGFloat) -> NSAttributedString? {
         let attributeText = NSMutableAttributedString(string: text)
-        if let regular = UIFont(name: "AppleSDGothicNeo-Regular", size: size), 
-            let bold = UIFont(name: "AppleSDGothicNeo-Bold", size: size) {
-            attributeText.addAttribute(NSAttributedString.Key.font,
-                                        value: regular, 
-                                        range: NSMakeRange(0, text.count)
-            )
+        if let bold = UIFont(name: "AppleSDGothicNeo-Bold", size: size) {
             for value in ranges {
                 attributeText.addAttribute(NSAttributedString.Key.font, 
                                             value: bold,
@@ -99,7 +94,10 @@ extension SearchCitiesViewController: UITableViewDelegate, UITableViewDataSource
             return UITableViewCell()
         }
         let city = searchResults[indexPath.row]
-        cell.cityNameLabel.attributedText = highlightedText(city.title, inRanges: city.titleHighlightRanges, size: 17.0)
+        cell.cityNameLabel.attributedText = highlightedText(city.title,
+                                                            inRanges: city.titleHighlightRanges,
+                                                            size: 17.0
+        )
         return cell
     }
     
