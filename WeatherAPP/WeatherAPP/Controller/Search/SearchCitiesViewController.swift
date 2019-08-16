@@ -88,9 +88,7 @@ extension SearchCitiesViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchListTableViewCell.reuseIdentifier, for: indexPath) as? SearchListTableViewCell else {
-            return UITableViewCell()
-        }
+        let cell: SearchListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
         let city = searchResults[indexPath.row]
         cell.cityNameLabel.attributedText = highlightedText(city.title,
                                                             inRanges: city.titleHighlightRanges,

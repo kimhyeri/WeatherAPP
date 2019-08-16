@@ -186,8 +186,9 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cellType = CurrentCellType(rawValue: indexPath.row) else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DaysTableViewCell.reuseIdentifier, for: indexPath) as? DaysTableViewCell, 
-                let list = fiveDayWeatherData?.list, 
+            let cell: DaysTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            
+            guard let list = fiveDayWeatherData?.list, 
                 let fahrenheitOrCelsiusData = fahrenheitOrCelsius else {
                     return UITableViewCell()
             }
@@ -198,15 +199,17 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
         }
         switch cellType {
         case .TimesCell:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: CurrentWeatherTimesTableViewCell.reuseIdentifier, for: indexPath) as? CurrentWeatherTimesTableViewCell,
-                let weatherData = currentWeatherData?.weather else {
+            let cell: CurrentWeatherTimesTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+
+            guard let weatherData = currentWeatherData?.weather else {
                     return UITableViewCell()
             }
             cell.weatherList = weatherData
             return cell
         case .DetailCell:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTableViewCell.reuseIdentifier, for: indexPath) as? DetailTableViewCell,
-                let weatherData = currentWeatherData else {
+            let cell: DetailTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+
+            guard let weatherData = currentWeatherData else {
                     return UITableViewCell()
             }
             cell.weatherDetailData = weatherData
