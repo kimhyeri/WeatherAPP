@@ -4,10 +4,10 @@
 날씨 OpenAPI를 이용해서 Apple 기본 날씨앱 또는 Yahoo 날씨앱과 유사한 기능셋을 구현하십시오.
 
 ## SCREEN
-![텍스트목록](./image/2.jpeg)
+![텍스트목록](./image/1.jpeg)
 
 * * *
-
+![텍스트목록](./image/2.jpeg)
 ![텍스트목록](./image/3.jpeg)
 ![텍스트목록](./image/4.jpeg)
 ![텍스트목록](./image/5.jpeg)
@@ -15,6 +15,12 @@
 ![텍스트목록](./image/7.jpeg)
 ![텍스트목록](./image/8.jpeg)
 ![텍스트목록](./image/9.jpeg)
+![텍스트목록](./image/10.jpeg)
+![텍스트목록](./image/11.jpeg)
+![텍스트목록](./image/12.jpeg)
+![텍스트목록](./image/13.jpeg)
+![텍스트목록](./image/14.jpeg)
+![텍스트목록](./image/15.jpeg)
 
 * * *
 
