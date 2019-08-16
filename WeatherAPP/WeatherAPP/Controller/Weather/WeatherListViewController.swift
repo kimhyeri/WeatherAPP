@@ -13,18 +13,18 @@ class WeatherListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    private let locManager: CLLocationManager = CLLocationManager()
-    private let dispatchGroup: DispatchGroup = DispatchGroup()
+    private let locationManager: CLLocationManager = CLLocationManager()
     private var currentLocation: CLLocation?
-    private var checkStatus: Bool = false
-    private var weather:[WeatherInfo] = [WeatherInfo]() {
+    private var allowPermission: Bool = false
+    private var weather: [WeatherInfo] = [WeatherInfo]() {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             } 
         }
     }
-    private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
+
+    private var fahrenheitOrCelsius: FahrenheitOrCelsius? = UserInfo.getFahrenheitOrCelsius() {
         didSet {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
@@ -34,8 +34,8 @@ class WeatherListViewController: UIViewController {
     private var myCities: [Coordinate] = [Coordinate]() {
         didSet {
             UserDefaults.standard.set(try? PropertyListEncoder().encode(self.myCities),
-                                      forKey:UserInfo.cities
-            )
+                                      forKey: UserInfo.cities
+            ) 
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -61,11 +61,6 @@ class WeatherListViewController: UIViewController {
         registerNib()
         createObserver()
         fetchCityList()
-        fetchFahrenheitOrCelsius() 
-    }
-    
-    private func fetchFahrenheitOrCelsius() {
-        fahrenheitOrCelsius = FahrenheitOrCelsius(rawValue: UserInfo.getFahrenheitOrCelsius())
     }
     
     private func fetchCityList() {
@@ -76,7 +71,7 @@ class WeatherListViewController: UIViewController {
         DispatchQueue.global().async {
             self.myCities.forEach({
                 self.getWeatherByCoordinate(latitude: $0.lat,
-                                       longitude: $0.lon
+                                            longitude: $0.lon
                 )
             })
         }
@@ -84,9 +79,10 @@ class WeatherListViewController: UIViewController {
     
     private func setupViewController() {
         tableView.addSubview(refreshControl)
+        registerForPreviewing(with: self, sourceView: tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        locManager.delegate = self
+        locationManager.delegate = self
     }
     
     private func registerNib() {
@@ -143,7 +139,7 @@ class WeatherListViewController: UIViewController {
         }
         
         weather.removeAll()
-        DispatchQueue.global().async {
+        DispatchQueue.global().async { 
             self.getWeatherByCoordinate(latitude: coordinate.latitude.makeRound(),
                                    longitude: coordinate.longitude.makeRound()
             )
@@ -152,7 +148,7 @@ class WeatherListViewController: UIViewController {
     }
     
     private func getCoordinate() {
-        locManager.requestWhenInUseAuthorization()  
+        locationManager.requestWhenInUseAuthorization()  
     }
     
     private func getWeatherByCoordinate(latitude lat: Double, longitude lon: Double) {
@@ -166,7 +162,6 @@ class WeatherListViewController: UIViewController {
                                  path: BasePath.list,
                                  queryItems: parameters
         )
-        dispatchGroup.enter()
         APICenter().performSync(urlString: BaseURL.weatherURL,
                             request: request
         ) { [weak self] (result) in
@@ -186,16 +181,12 @@ class WeatherListViewController: UIViewController {
             case .failure:
                 print(APIError.networkFailed)
             }        
-            self.dispatchGroup.leave()
-        }
-        dispatchGroup.notify(queue: .main) { 
-            self.tableView.reloadData()
         }
     }
     
     private func checkCurrentLocationOrNot(bodyData: WeatherInfo) {
         guard let coordinate = currentLocation?.coordinate else {
-            if !checkStatus {
+            if !allowPermission {
                 weather.append(bodyData)
             }
             return
@@ -204,7 +195,7 @@ class WeatherListViewController: UIViewController {
             return
         }
         if coordinate.latitude.makeRound() == bodyData.coord.lat,
-            coordinate.longitude.makeRound() == bodyData.coord.lon {
+            coordinate.longitude.makeRound() == bodyData.coord.lon { 
             weather.insert(bodyData, at: 0)
         } else {
             weather.append(bodyData)
@@ -219,7 +210,7 @@ class WeatherListViewController: UIViewController {
 // MARK: TableView Deleagate and DataSource
 extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource {   
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return WeatherListCellType.allCases.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -227,18 +218,17 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cellType: WeatherList 
-        if indexPath.section == 1  {
-            cellType = .Setting
-        } else {
-            cellType = .City
+        guard let cellType = WeatherListCellType(rawValue: indexPath.section) else {
+            return UITableViewCell()
         }
-        
         switch cellType {
         case .City:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListTableViewCell.reuseIdentifier) as? WeatherListTableViewCell,
                 let fahrenheitOrCelsius = fahrenheitOrCelsius else { 
                 return UITableViewCell() 
+            }
+            guard weather.count > 0 else {
+                return UITableViewCell()
             }
             cell.config(weatherInfoData: weather[indexPath.row],
                         fahrenheitOrCelsius: fahrenheitOrCelsius
@@ -264,12 +254,12 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return indexPath.row == 0 && checkStatus ? false : true
+        return indexPath.row == 0 && allowPermission ? false : true
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            if !checkStatus {
+            if !allowPermission {
                 myCities.remove(at: indexPath.row)
                 weather.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .automatic)
@@ -290,16 +280,39 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
 extension WeatherListViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         if status == .authorizedAlways || status == .authorizedWhenInUse {
-            guard let myCurrentLocation = locManager.location else {
+            guard let myCurrentLocation = locationManager.location else {
                 return
             }
             currentLocation = myCurrentLocation
             getWeatherByCoordinate(latitude: myCurrentLocation.coordinate.latitude.makeRound(),
                                    longitude: myCurrentLocation.coordinate.longitude.makeRound()
             )
-            checkStatus = true
+            allowPermission = true
         } else {
             print("user denied authorization")
+            allowPermission = false
         }
+    }
+}
+
+// MARK: UIViewControllerPreviewingDelegate
+extension WeatherListViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRow(at: location),
+            let cell = tableView.cellForRow(at: indexPath) else { 
+                return nil 
+        }
+        guard let vc = UIStoryboard.init(name: "CurrentWeather", bundle: nil).instantiateViewController(withIdentifier: "PageViewController") as? PageViewController else {
+            return nil
+        }
+        previewingContext.sourceRect = cell.frame
+        vc.weatherList = weather
+        vc.startIndex = indexPath.row
+        
+        return vc
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        self.present(viewControllerToCommit, animated: true, completion: nil) 
     }
 }
