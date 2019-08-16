@@ -15,6 +15,17 @@ class DaysTableViewCell: UITableViewCell {
     @IBOutlet weak var tempMaxLabel: UILabel!
     @IBOutlet weak var tempMinLabel: UILabel!
         
+    var weatherDaysList: List? {
+        didSet{
+            guard let dayTime = weatherDaysList?.dtTxt,
+                let iconName = weatherDaysList?.weather.first?.icon else {
+                return
+            }
+            dateLabel.text = getDayString(getData: dayTime)
+            weatherIconImageView.image = UIImage(named: iconName)
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -37,21 +48,16 @@ class DaysTableViewCell: UITableViewCell {
     }
     
     func config(weather data: List, fahrenheitOrCelsius: FahrenheitOrCelsius) {
-        dateLabel.text = nil
+        weatherDaysList = data
+        let emoji = fahrenheitOrCelsius.emoji
         switch fahrenheitOrCelsius {
         case .Celsius:
-            tempMaxLabel.text = data.main.tempMax.makeCelsius() + fahrenheitOrCelsius.emoji
-            tempMinLabel.text = data.main.tempMin.makeCelsius() + fahrenheitOrCelsius.emoji
+            tempMaxLabel.text = data.main.tempMax.makeCelsius() + emoji
+            tempMinLabel.text = data.main.tempMin.makeCelsius() + emoji
         case .Fahrenheit:
-            tempMaxLabel.text = data.main.tempMax.makeFahrenheit() + fahrenheitOrCelsius.emoji
-            tempMinLabel.text = data.main.tempMin.makeFahrenheit() + fahrenheitOrCelsius.emoji
+            tempMaxLabel.text = data.main.tempMax.makeFahrenheit() + emoji
+            tempMinLabel.text = data.main.tempMin.makeFahrenheit() + emoji
         }
-        
-        dateLabel.text = getDayString(getData: data.dtTxt)
-        guard let iconName = data.weather.first?.icon else {
-            return
-        }
-        weatherIconImageView.image = UIImage(named: iconName)
     }
 }
 

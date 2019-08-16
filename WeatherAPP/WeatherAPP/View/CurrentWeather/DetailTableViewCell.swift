@@ -15,22 +15,28 @@ class DetailTableViewCell: UITableViewCell {
     @IBOutlet weak var rightTitleLabel: UILabel!
     @IBOutlet weak var rightDescriptionLabel: UILabel!
     
+    var weatherDetailData: WeatherInfo? {
+        didSet{
+            guard let speed = weatherDetailData?.wind.speed, 
+                let humidity = weatherDetailData?.main.humidity else {
+                return
+            }
+            leftDescriptionLabel.text = "\(speed)"
+            rightDescriptionLabel.text = "\(humidity)"
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
+        leftTitleLabel.text = "wind"
+        rightTitleLabel.text = "humidity"
+
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
-    }
-    
-    func config(weather data: WeatherInfo) {
-        leftTitleLabel.text = "wind"
-        leftDescriptionLabel.text = "\(data.wind.speed)"
-        rightTitleLabel.text = "humidity"
-        rightDescriptionLabel.text = "\(data.main.humidity)"
     }
 }
 

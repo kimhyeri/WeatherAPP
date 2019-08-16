@@ -111,7 +111,6 @@
                                             <constraint firstItem="8jB-eB-Pfx" firstAttribute="leading" secondItem="LEb-go-LsL" secondAttribute="leading" constant="8" id="L6z-iq-Qne"/>
                                             <constraint firstItem="3yr-rc-z5Z" firstAttribute="top" secondItem="LEb-go-LsL" secondAttribute="top" id="cTm-O2-1uZ"/>
                                             <constraint firstAttribute="bottom" secondItem="8jB-eB-Pfx" secondAttribute="bottom" constant="8" id="ckh-Io-eKw"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="l6a-E9-Hr3"/>
                                             <constraint firstAttribute="trailing" secondItem="8jB-eB-Pfx" secondAttribute="trailing" constant="8" id="l91-2K-EyJ"/>
                                             <constraint firstItem="8jB-eB-Pfx" firstAttribute="top" secondItem="3yr-rc-z5Z" secondAttribute="bottom" constant="16" id="sfC-6l-BLO"/>
                                             <constraint firstItem="3yr-rc-z5Z" firstAttribute="centerX" secondItem="LEb-go-LsL" secondAttribute="centerX" id="wsk-3R-1px"/>
@@ -120,7 +119,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="4CV-OU-1fH"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="4CV-OU-1fH"/>
                                     <constraint firstItem="N5P-EN-V6r" firstAttribute="top" secondItem="W0P-TZ-Gie" secondAttribute="top" constant="32" id="DWI-A5-Z85"/>
                                     <constraint firstItem="N5P-EN-V6r" firstAttribute="centerX" secondItem="W0P-TZ-Gie" secondAttribute="centerX" id="LIN-M8-CDn"/>
                                     <constraint firstItem="LEb-go-LsL" firstAttribute="leading" secondItem="W0P-TZ-Gie" secondAttribute="leading" id="TjK-HG-Xf8"/>
@@ -195,7 +194,6 @@
                         <outlet property="cityNameLabel" destination="tf4-NP-ajE" id="1ci-uz-Nkq"/>
                         <outlet property="dayLabel" destination="LSE-4l-b3e" id="lRR-bL-FjZ"/>
                         <outlet property="fadeView" destination="LEb-go-LsL" id="K10-I5-A5G"/>
-                        <outlet property="fadeViewContraint" destination="l6a-E9-Hr3" id="Owj-EJ-acn"/>
                         <outlet property="maxTempLabel" destination="IN5-17-Hl7" id="QTw-mL-pYc"/>
                         <outlet property="minTempLabel" destination="Iqv-2z-zUX" id="jcm-7p-0BR"/>
                         <outlet property="pageControl" destination="2dq-nf-KUn" id="LWy-BO-Egz"/>

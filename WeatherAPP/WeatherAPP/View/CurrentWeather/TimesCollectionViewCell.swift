@@ -15,7 +15,6 @@ class TimesCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     func config(weather data: Weather) {
