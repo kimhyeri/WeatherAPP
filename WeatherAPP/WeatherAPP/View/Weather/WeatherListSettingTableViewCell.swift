@@ -14,7 +14,9 @@ class WeatherListSettingTableViewCell: UITableViewCell {
     
     private var fahrenheitOrCelsius: FahrenheitOrCelsius? {
         didSet {
-            UserDefaults.standard.set(fahrenheitOrCelsius?.rawValue, forKey: "fahrenheitOrCelsius")
+            UserDefaults.standard.set(fahrenheitOrCelsius?.rawValue, 
+                                      forKey: UserInfo.fahrenheitOrCelsius
+            )
         }
     }
     
@@ -26,12 +28,10 @@ class WeatherListSettingTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
     private func fetchFahrenheitOrCelsius() {
-        let getFahrenheitOrCelsius = UserInfo.getFahrenheitOrCelsius()
-        fahrenheitOrCelsius = FahrenheitOrCelsius(rawValue: getFahrenheitOrCelsius)
+        fahrenheitOrCelsius = UserInfo.getFahrenheitOrCelsius()
     }
     
     @IBAction func celsiusFahrenheitButtonClicked(_ sender: UIButton) {

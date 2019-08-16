@@ -23,7 +23,6 @@ class WeatherListViewController: UIViewController {
             } 
         }
     }
-
     private var fahrenheitOrCelsius: FahrenheitOrCelsius? = UserInfo.getFahrenheitOrCelsius() {
         didSet {
             DispatchQueue.main.async {
@@ -223,8 +222,8 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
         }
         switch cellType {
         case .City:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListTableViewCell.reuseIdentifier) as? WeatherListTableViewCell,
-                let fahrenheitOrCelsius = fahrenheitOrCelsius else { 
+            let cell: WeatherListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            guard let fahrenheitOrCelsius = fahrenheitOrCelsius else { 
                 return UITableViewCell() 
             }
             guard weather.count > 0 else {
@@ -235,9 +234,7 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
             )
             return cell
         case .Setting:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherListSettingTableViewCell.reuseIdentifier) as? WeatherListSettingTableViewCell else { 
-                return UITableViewCell() 
-            }
+            let cell: WeatherListSettingTableViewCell = tableView.dequeueReusableCell(for: indexPath)
             return cell
         }
     }

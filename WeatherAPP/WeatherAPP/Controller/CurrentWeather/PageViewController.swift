@@ -29,13 +29,13 @@ class PageViewController: UIPageViewController {
     private func createCurrentWeatherViewController() {
         var count = 0
         for i in weatherList {
-            guard let page = currentViewController() as? CurrentViewController else {
+            guard let eachPage = currentViewController() as? CurrentViewController else {
                 return
             }
-            page.currentWeatherData = i
-            page.currentIndex = count
-            page.totalPage = weatherList.count
-            currentViewControllers.append(page)
+            eachPage.currentWeatherData = i
+            eachPage.currentIndex = count
+            eachPage.totalPage = weatherList.count
+            currentViewControllers.append(eachPage)
             count += 1
         }
     }
@@ -50,13 +50,14 @@ class PageViewController: UIPageViewController {
     }
     
     private func currentViewController() -> UIViewController {
-        return UIStoryboard(name: "CurrentWeather", bundle: nil).instantiateViewController(withIdentifier: "CurrentViewController")
+        let st = UIStoryboard(name: "CurrentWeather", bundle: nil)
+        return st.instantiateViewController(withIdentifier: "CurrentViewController")
     }
 }
 
 // MARK: UIPageViewControllerDataSource
 extension PageViewController: UIPageViewControllerDataSource {
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? { 
         guard let current = viewController as? CurrentViewController,
             let viewControllerIndex = currentViewControllers.firstIndex(of: current) else { 
                 return nil
@@ -71,7 +72,7 @@ extension PageViewController: UIPageViewControllerDataSource {
         return currentViewControllers[previousIndex]
     }
     
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? { 
         guard let current = viewController as? CurrentViewController,
             let viewControllerIndex = currentViewControllers.firstIndex(of: current) else { 
                 return nil

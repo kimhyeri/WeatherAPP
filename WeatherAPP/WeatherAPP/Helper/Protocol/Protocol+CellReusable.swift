@@ -10,38 +10,8 @@ import UIKit
 
 protocol CellReusable: class {}
 
-extension CellReusable where Self: UITableViewCell {
-    static var reuseIdentifier: String {
-        return "Cell"
-    }
-}
-
 extension CellReusable where Self: UICollectionViewCell {
     static var reuseIdentifier: String {
         return "Cell"
-    }
-}
-
-extension CellReusable where Self: WeatherListSettingTableViewCell {
-    static var reuseIdentifier: String {
-        return "SettingCell"
-    }
-}
-
-extension CellReusable where Self: CurrentWeatherTimesTableViewCell {
-    static var timesReuseIdentifier: String {
-        return "TimesCell"
-    }
-}
-
-extension CellReusable where Self: DaysTableViewCell {
-    static var daysReuseIdentifier: String {
-        return "DaysCell"
-    }
-}
-
-extension CellReusable where Self: DetailTableViewCell {
-    static var detailReuseIdentifier: String {
-        return "DetailCell"
     }
 }

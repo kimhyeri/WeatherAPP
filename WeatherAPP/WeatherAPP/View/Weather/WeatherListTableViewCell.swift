@@ -40,9 +40,9 @@ class WeatherListTableViewCell: UITableViewCell {
     }
     
     func config(weatherInfoData: WeatherInfo, fahrenheitOrCelsius: FahrenheitOrCelsius) {
-        cityNameLabel.text = weatherInfoData.name
         weatherData = weatherInfoData
-        timeLabel.text = Date().getCountryTime(byTimeZone: weatherInfoData.timezone)
+        updateTime()
+        cityNameLabel.text = weatherInfoData.name
         switch fahrenheitOrCelsius {
         case .Celsius:
             temperatureLabel.text = weatherInfoData.main.temp.makeCelsius() + 
