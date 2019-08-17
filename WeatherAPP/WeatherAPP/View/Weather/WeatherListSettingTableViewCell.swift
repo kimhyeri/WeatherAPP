@@ -41,11 +41,12 @@ class WeatherListSettingTableViewCell: UITableViewCell {
         }
         switch fahrenheitOrCelsius {
         case .Celsius:
+            delegate?.selectFahrenheitOrCelsius(name: .Fahrenheit)
             self.fahrenheitOrCelsius = .Fahrenheit
         case .Fahrenheit:
+            delegate?.selectFahrenheitOrCelsius(name: .Celsius)
             self.fahrenheitOrCelsius = .Celsius
         }
-        delegate?.selectFahrenheitOrCelsius(name: fahrenheitOrCelsius)
     }
     
     @IBAction func findCityButtonClicked(_ sender: UIButton) {
