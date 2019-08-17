@@ -53,6 +53,7 @@
 		6AAD82112305927A009FEB4B /* Extension+Notification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAD82102305927A009FEB4B /* Extension+Notification.Name.swift */; };
 		6AAD821323067BAA009FEB4B /* Protocol+ReusableTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAD821223067BAA009FEB4B /* Protocol+ReusableTableViewCell.swift */; };
 		6AAD821523067C79009FEB4B /* Extension+UITableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAD821423067C79009FEB4B /* Extension+UITableViewCell.swift */; };
+		6AAD82172307F0DE009FEB4B /* Protocol+SelectedFahrenheitOrCelsius.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAD82162307F0DE009FEB4B /* Protocol+SelectedFahrenheitOrCelsius.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -104,6 +105,7 @@
 		6AAD82102305927A009FEB4B /* Extension+Notification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Notification.Name.swift"; sourceTree = "<group>"; };
 		6AAD821223067BAA009FEB4B /* Protocol+ReusableTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Protocol+ReusableTableViewCell.swift"; sourceTree = "<group>"; };
 		6AAD821423067C79009FEB4B /* Extension+UITableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UITableViewCell.swift"; sourceTree = "<group>"; };
+		6AAD82162307F0DE009FEB4B /* Protocol+SelectedFahrenheitOrCelsius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Protocol+SelectedFahrenheitOrCelsius.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,7 @@
 				6A1C624C22F18EE400D9425D /* Protocol+CellReusable.swift */,
 				6A1C624E22F190A600D9425D /* Protocol+NibLoadable.swift */,
 				6AAD821223067BAA009FEB4B /* Protocol+ReusableTableViewCell.swift */,
+				6AAD82162307F0DE009FEB4B /* Protocol+SelectedFahrenheitOrCelsius.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				6A1C626422F1FB3000D9425D /* APIRequest.swift in Sources */,
 				6A1C626822F2D3C700D9425D /* SearchCitiesViewController.swift in Sources */,
 				6A1C624D22F18EE400D9425D /* Protocol+CellReusable.swift in Sources */,
+				6AAD82172307F0DE009FEB4B /* Protocol+SelectedFahrenheitOrCelsius.swift in Sources */,
 				6A1C625222F1981300D9425D /* WeatherListSettingTableViewCell.swift in Sources */,
 				6A1C625D22F1B29500D9425D /* Weather.swift in Sources */,
 				6A0759B422F8D075006F05AC /* Extension+Date.swift in Sources */,

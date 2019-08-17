@@ -10,5 +10,4 @@ import Foundation
 
 extension Notification.Name {
     static let selectCity = Notification.Name(NotificationKey.selectCityNotification)
-    static let selectFahrenheitOrCelsius = Notification.Name(NotificationKey.selectFahrenheitOrCelsiusNotification)
 }

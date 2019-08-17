@@ -19,6 +19,7 @@ class WeatherListSettingTableViewCell: UITableViewCell {
             )
         }
     }
+    var delegate: SelectedFahrenheitOrCelsius?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,9 +45,7 @@ class WeatherListSettingTableViewCell: UITableViewCell {
         case .Fahrenheit:
             self.fahrenheitOrCelsius = .Celsius
         }
-        NotificationCenter.default.post(name: .selectFahrenheitOrCelsius,
-                                        object: self.fahrenheitOrCelsius
-        )
+        delegate?.selectFahrenheitOrCelsius(name: fahrenheitOrCelsius)
     }
     
     @IBAction func findCityButtonClicked(_ sender: UIButton) {

@@ -6,7 +6,7 @@
 //  Copyright © 2019 hyeri kim. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 enum WeatherListCellType: Int {
     case City = 0

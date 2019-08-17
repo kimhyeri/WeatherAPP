@@ -10,5 +10,4 @@ import Foundation
 
 struct NotificationKey {
     static let selectCityNotification = "select.city"
-    static let selectFahrenheitOrCelsiusNotification = "select.fahrenheitOrCelsius"
 }

@@ -106,11 +106,6 @@ class WeatherListViewController: UIViewController {
                                                name: .selectCity, 
                                                object: nil
         )
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(selectedFahrenheitOrCelsius),
-                                               name: .selectFahrenheitOrCelsius,
-                                               object: nil
-        )
     }
     
     @objc private func selectedCity(notification: NSNotification) {
@@ -235,6 +230,7 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
             return cell
         case .Setting:
             let cell: WeatherListSettingTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            cell.delegate = self
             return cell
         }
     }
@@ -311,5 +307,12 @@ extension WeatherListViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         self.present(viewControllerToCommit, animated: true, completion: nil) 
+    }
+}
+
+// MARK: SelectedFahrenheitOrCelsius
+extension WeatherListViewController: SelectedFahrenheitOrCelsius {
+    func selectFahrenheitOrCelsius(name: FahrenheitOrCelsius) {
+        fahrenheitOrCelsius = name
     }
 }
