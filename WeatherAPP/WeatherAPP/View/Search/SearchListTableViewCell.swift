@@ -27,6 +27,3 @@ class SearchListTableViewCell: UITableViewCell {
         self.cityNameLabel.text = title
     }
 }
-
-extension SearchListTableViewCell: CellReusable {}
-extension SearchListTableViewCell: NibLoadable {}

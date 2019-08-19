@@ -53,6 +53,3 @@ class WeatherListTableViewCell: UITableViewCell {
         }
     }
 }
-
-extension WeatherListTableViewCell: CellReusable {}
-extension WeatherListTableViewCell: NibLoadable {}

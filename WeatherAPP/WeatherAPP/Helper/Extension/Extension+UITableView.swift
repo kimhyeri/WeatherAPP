@@ -1,5 +1,5 @@
 //
-//  Extension+UITableViewCell.swift
+//  Extension+UITableView.swift
 //  WeatherAPP
 //
 //  Created by hyeri kim on 16/08/2019.
@@ -7,9 +7,6 @@
 //
 
 import UIKit
-
-// MARK: Extension+UITableViewCell
-extension UITableViewCell: ReusableTableViewCell {}
 
 // MARK: Extension+UITableView
 extension UITableView {
@@ -21,10 +18,14 @@ extension UITableView {
         return cell
     }
     
-    func register<T: UITableViewCell>(_: T.Type) where T: NibLoadable {
+    func register<T: UITableViewCell>(_: T.Type) {
         let bundle = Bundle(for: T.self)
         let nib = UINib(nibName: T.nibName, bundle: bundle)
         
         register(nib, forCellReuseIdentifier: T.reuseIdentifier)
     }
 }
+
+// MARK: Extension+UITableViewCell
+extension UITableViewCell: ReusableCell {}
+extension UITableViewCell: NibLoadable {}

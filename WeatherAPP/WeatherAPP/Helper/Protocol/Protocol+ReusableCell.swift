@@ -8,11 +8,11 @@
 
 import UIKit
 
-protocol ReusableTableViewCell {
+protocol ReusableCell {
     static var reuseIdentifier: String { get }
 }
 
-extension ReusableTableViewCell {
+extension ReusableCell {
     static var reuseIdentifier: String { 
         return String(describing: self)
     }

@@ -39,6 +39,3 @@ class DetailTableViewCell: UITableViewCell {
 
     }
 }
-
-extension DetailTableViewCell: CellReusable {}
-extension DetailTableViewCell: NibLoadable {}

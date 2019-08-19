@@ -60,6 +60,3 @@ class DaysTableViewCell: UITableViewCell {
         }
     }
 }
-
-extension DaysTableViewCell: CellReusable {}
-extension DaysTableViewCell: NibLoadable {}

@@ -33,17 +33,11 @@ class CurrentWeatherTimesTableViewCell: UITableViewCell {
     }
     
     private func registerNib() {
-        let timesNib = UINib(nibName: TimesCollectionViewCell.nibName, 
-                             bundle: nil
-        )
-        collectionView.register(timesNib, 
-                                forCellWithReuseIdentifier: TimesCollectionViewCell.reuseIdentifier
-        )
+        collectionView.register(TimesCollectionViewCell.self)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
 }
 
@@ -61,6 +55,3 @@ extension CurrentWeatherTimesTableViewCell: UICollectionViewDelegate, UICollecti
         return cell
     }
 }
-
-extension CurrentWeatherTimesTableViewCell: CellReusable {}
-extension CurrentWeatherTimesTableViewCell: NibLoadable {}

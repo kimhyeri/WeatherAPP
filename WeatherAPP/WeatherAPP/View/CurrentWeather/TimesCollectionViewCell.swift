@@ -22,6 +22,3 @@ class TimesCollectionViewCell: UICollectionViewCell {
         iconImageView.image = UIImage(named: data.icon)
     }
 }
-
-extension TimesCollectionViewCell: CellReusable {}
-extension TimesCollectionViewCell: NibLoadable {}
