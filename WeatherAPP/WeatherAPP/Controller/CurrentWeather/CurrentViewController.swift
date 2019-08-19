@@ -168,9 +168,23 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cellType = CurrentCellType(rawValue: indexPath.row) else {
+        let cellType = CurrentCellType(rawValue: indexPath.row) ?? .DaysCell
+        if cellType.cellType == CurrentWeatherTimesTableViewCell.self {
+            let cell: CurrentWeatherTimesTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            guard let weatherData = currentWeatherData?.weather else {
+                return UITableViewCell()
+            }
+            cell.weatherList = weatherData
+            return cell
+        } else if cellType.cellType == DetailTableViewCell.self {
+            let cell: DetailTableViewCell = tableView.dequeueReusableCell(for: indexPath)
+            guard let weatherData = currentWeatherData else {
+                return UITableViewCell()
+            }
+            cell.weatherDetailData = weatherData
+            return cell
+        } else {
             let cell: DaysTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            
             guard let list = fiveDayWeatherData?.list, 
                 let fahrenheitOrCelsiusData = fahrenheitOrCelsius else {
                     return UITableViewCell()
@@ -179,24 +193,6 @@ extension CurrentViewController: UITableViewDelegate, UITableViewDataSource {
                         fahrenheitOrCelsius: fahrenheitOrCelsiusData
             )
             return cell
-        }
-        switch cellType {
-        case .TimesCell:
-            let cell: CurrentWeatherTimesTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-
-            guard let weatherData = currentWeatherData?.weather else {
-                    return UITableViewCell()
-            }
-            cell.weatherList = weatherData
-            return cell
-        case .DetailCell:
-            let cell: DetailTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-
-            guard let weatherData = currentWeatherData else {
-                    return UITableViewCell()
-            }
-            cell.weatherDetailData = weatherData
-            return cell             
         }
     }
 }
