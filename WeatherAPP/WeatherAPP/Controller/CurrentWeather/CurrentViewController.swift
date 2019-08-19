@@ -71,26 +71,9 @@ class CurrentViewController: UIViewController {
     }
     
     private func registerNib() {
-        let timesNib = UINib(nibName: CurrentWeatherTimesTableViewCell.nibName, 
-                             bundle: nil
-        )
-        tableView.register(timesNib, 
-                           forCellReuseIdentifier: CurrentWeatherTimesTableViewCell.reuseIdentifier
-        )
-        
-        let daysNib = UINib(nibName: DaysTableViewCell.nibName,
-                           bundle: nil
-        )
-        tableView.register(daysNib,
-                           forCellReuseIdentifier: DaysTableViewCell.reuseIdentifier
-        )
-        
-        let detailNib = UINib(nibName: DetailTableViewCell.nibName,
-                            bundle: nil
-        )
-        tableView.register(detailNib,
-                           forCellReuseIdentifier: DetailTableViewCell.reuseIdentifier
-        )
+        tableView.register(CurrentWeatherTimesTableViewCell.self)
+        tableView.register(DaysTableViewCell.self)
+        tableView.register(DetailTableViewCell.self)
     }
     
     private func get5DayWeatherByCoordinate(latitude lat: Double, longitude lon: Double) {

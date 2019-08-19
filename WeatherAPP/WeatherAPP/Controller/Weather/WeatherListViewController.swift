@@ -85,19 +85,8 @@ class WeatherListViewController: UIViewController {
     }
     
     private func registerNib() {
-        let weatherListCellNib = UINib(nibName: WeatherListTableViewCell.nibName, 
-                                       bundle: nil
-        )
-        tableView.register(weatherListCellNib,
-                           forCellReuseIdentifier: WeatherListTableViewCell.reuseIdentifier
-        )
-        
-        let weatherListSettingCellNib = UINib(nibName: WeatherListSettingTableViewCell.nibName, 
-                                              bundle: nil
-        )
-        tableView.register(weatherListSettingCellNib,
-                           forCellReuseIdentifier: WeatherListSettingTableViewCell.reuseIdentifier
-        )
+        tableView.register(WeatherListTableViewCell.self)
+        tableView.register(WeatherListSettingTableViewCell.self)
     }
     
     private func createObserver() {
@@ -218,11 +207,9 @@ extension WeatherListViewController: UITableViewDelegate, UITableViewDataSource 
         switch cellType {
         case .City:
             let cell: WeatherListTableViewCell = tableView.dequeueReusableCell(for: indexPath)
-            guard let fahrenheitOrCelsius = fahrenheitOrCelsius else { 
+            guard weather.count > 0,
+                let fahrenheitOrCelsius = fahrenheitOrCelsius else { 
                 return UITableViewCell() 
-            }
-            guard weather.count > 0 else {
-                return UITableViewCell()
             }
             cell.config(weatherInfoData: weather[indexPath.row],
                         fahrenheitOrCelsius: fahrenheitOrCelsius

@@ -42,12 +42,7 @@ class SearchCitiesViewController: UIViewController {
     }
 
     private func registerNib() {
-        let searchListNib = UINib(nibName: SearchListTableViewCell.nibName,
-                                  bundle: nil
-        )
-        tableView.register(searchListNib,
-                           forCellReuseIdentifier: SearchListTableViewCell.reuseIdentifier
-        )
+        tableView.register(SearchListTableViewCell.self)
     }
 
     private func updateSearchResults(selected: MKLocalSearchCompletion) {        
