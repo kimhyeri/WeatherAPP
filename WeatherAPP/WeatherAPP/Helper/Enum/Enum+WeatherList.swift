@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum WeatherListCellType: Int {
+enum WeatherListCellType: Int {    
     case City = 0
     case Setting
 }

@@ -19,7 +19,7 @@ class WeatherListSettingTableViewCell: UITableViewCell {
             )
         }
     }
-    var delegate: SelectedFahrenheitOrCelsius?
+    var delegate: fahrenheitOrCelsiusDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -8,6 +8,6 @@
 
 import Foundation
 
-protocol SelectedFahrenheitOrCelsius {
+protocol fahrenheitOrCelsiusDelegate {
     func selectFahrenheitOrCelsius(name: FahrenheitOrCelsius)
 }

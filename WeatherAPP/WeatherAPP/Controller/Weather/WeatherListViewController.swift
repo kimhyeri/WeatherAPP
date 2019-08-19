@@ -298,7 +298,7 @@ extension WeatherListViewController: UIViewControllerPreviewingDelegate {
 }
 
 // MARK: SelectedFahrenheitOrCelsius
-extension WeatherListViewController: SelectedFahrenheitOrCelsius {
+extension WeatherListViewController: fahrenheitOrCelsiusDelegate {
     func selectFahrenheitOrCelsius(name: FahrenheitOrCelsius) {
         fahrenheitOrCelsius = name
     }
