@@ -24,7 +24,7 @@ struct APIResponse<Body> {
 extension APIResponse where Body == Data? {
     func decode<T: Decodable>(to type: T.Type) throws -> APIResponse<T> {
         guard let data = body else { 
-            throw APIError.decodingFailed
+            throw APIError.dataFailed
         }
      
         guard let decodedJSON = try? JSONDecoder().decode(T.self, from: data) else {

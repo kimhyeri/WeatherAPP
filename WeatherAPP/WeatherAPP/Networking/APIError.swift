@@ -14,6 +14,7 @@ enum APIError: LocalizedError {
     case requestFailed
     case networkFailed
     case decodingFailed
+    case dataFailed
     
     public var localizedDescription: String {
         switch self {
@@ -23,8 +24,10 @@ enum APIError: LocalizedError {
             return "요청 실패입니다."
         case .networkFailed:
             return "통신에 실패했습니다."
-        case.decodingFailed:
+        case .decodingFailed:
             return "디코딩에 실패했습니다."
+        case .dataFailed:
+            return "잘못된 데이터입니다."
         }
     }
 }

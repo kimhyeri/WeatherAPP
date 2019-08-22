@@ -81,8 +81,8 @@ struct APICenter {
         }
         
         var makeURLComponent = URLComponents()
-        makeURLComponent.scheme = baseURL.scheme //https
-        makeURLComponent.host = baseURL.host //api.openweathermap.org
+        makeURLComponent.scheme = baseURL.scheme 
+        makeURLComponent.host = baseURL.host 
         
         if let path = request.path {
             makeURLComponent.path = path 
