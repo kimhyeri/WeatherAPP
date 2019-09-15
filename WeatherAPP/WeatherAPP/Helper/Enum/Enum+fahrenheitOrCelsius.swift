@@ -9,11 +9,15 @@
 import Foundation
 
 enum FahrenheitOrCelsius: String {
-    case Fahrenheit = "Fahrenheit"
-    case Celsius = "Celsius"
+    case Fahrenheit
+    case Celsius 
 }
 
 extension FahrenheitOrCelsius {
+    var stringValue: String {
+        return "\(self)"
+    }
+    
     var emoji: String {
         switch self {
         case .Celsius:
