@@ -9,7 +9,7 @@
 import Foundation
 
 // MARK: API KEY
-let weatherAPIKey = "20aaa3701000f86f51903b62779c4986"
+let weatherAPIKey = "/weather API key/"
 
 // MARK: HTTPMethod
 // GET, PUT, POST, DELETE
