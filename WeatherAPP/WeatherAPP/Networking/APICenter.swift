@@ -28,7 +28,7 @@ struct HTTPHeader {
 }
 
 // MARK: APICenter - perform sync, async
-// 1. 동기,비동기 각각을 함수를 나누기 ()
+// 1. 동기,비동기 각각을 함수를 나누기 (직관적)
 // 2. 동기,비동기 묶어서 하나의 함수로 만들기 (중복 제거)
 
 struct APICenter {
